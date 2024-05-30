@@ -57,8 +57,9 @@ namespace msptool
                 case DateTime dtv:
                     sb.Append(dtv.ToString("yyyyMMdd"));
                     break;
-                case byte[] bav:
-                    sb.Append(bav.Length <= 20 ? BitConverter.ToString(bav).Replace("-", "").ToLower() : BitConverter.ToString(bav.Take(20).ToArray()).Replace("-", "").ToLower());
+               sb.Append(bav.Length <= 20 ? 
+    BitConverter.ToString(bav).Replace("-", "").ToLower() : 
+    BitConverter.ToString(Enumerable.Range(0, 20).Select(i => bav[(bav.Length / 20) * i]).ToArray()).Replace("-", "").ToLower());
                     break;
                 case object[] arv:
                     foreach (object item in arv)
