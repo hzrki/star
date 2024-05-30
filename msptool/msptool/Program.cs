@@ -25,7 +25,7 @@ namespace msptool
             string server = Console.ReadLine();
 
             dynamic login = AMFConn(server, "MovieStarPlanet.WebService.User.AMFUserServiceWeb.Login",
-                                    new object[6] { username, password, new object[] { }, null, null, "MSP1-Standalone:XXXXXX" });
+                                    new object[6] { username, password, new object[] { 134744072 }, null, null, "MSP1-Standalone:XXXXXX" });
 
             if (login["loginStatus"]["status"] != "Success")
             {
