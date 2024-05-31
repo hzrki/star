@@ -101,7 +101,9 @@ namespace msptool
                     Console.WriteLine($"Recycled {cloth_name}");
                 }
             }
-            Console.WriteLine("Finished recycling.");
+            Console.WriteLine("Finished recycling [Click any key to return to Home]");
+            Console.ReadKey();
+            Console.Clear();
         }
     }
 }
