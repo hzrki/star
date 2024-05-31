@@ -40,10 +40,7 @@ namespace msptool
                 dynamic cloth = AMFConn(server, "MovieStarPlanet.WebService.ActorClothes.AMFActorClothes.GetActorClothesRelMinimals",
                                         new object[2]
                                         {
-                                            new TicketHeader
-                                            {
-                                                Ticket = actor(ticket)
-                                            },
+                                            new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                                             actorid
                                         });
 
@@ -61,13 +58,10 @@ namespace msptool
                     {
                         dynamic recycler = AMFConn(server, "MovieStarPlanet.WebService.Profile.AMFProfileService.RecycleItem",
                                                  new object[4]
-                                                 {
-                                                     new TicketHeader
-                                                     {
-                                                         Ticket = actor(ticket)
-                                                     },
+                                                 { 
+                                                     new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                                                      actorid,
-                                                    actorClothesRelId,
+                                                     actorClothesRelId,
                                                      0
                                                  });
                         Console.WriteLine($"Recycled {cloth_name}");

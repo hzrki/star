@@ -16,6 +16,7 @@ namespace msptool
         public static object AMFConn(string server, string method, object[] parms)
         {
             AMFMessage loc = new AMFMessage(3);
+            loc.AddHeader(new AMFHeader("sessionID", false, "NWZhNTNjNTgxYWQ1NDRlZjIzZjAyMjgyNmM0OGU0NWI3MTVkNzI3ODE4YTUwMg=="));
             loc.AddHeader(new AMFHeader("needClassName", false, false));
             loc.AddHeader(new AMFHeader("id", false, createTicket(parms)));
             loc.AddBody(new AMFBody(method, "/1", parms));

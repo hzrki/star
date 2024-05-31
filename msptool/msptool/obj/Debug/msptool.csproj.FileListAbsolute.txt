@@ -9,3 +9,14 @@ C:\Users\user\Pictures\msptool\msptool\bin\Debug\Newtonsoft.Json.xml
 C:\Users\user\Pictures\msptool\msptool\obj\Debug\msptool.csproj.Up2Date
 C:\Users\user\Pictures\msptool\msptool\obj\Debug\msptool.exe
 C:\Users\user\Pictures\msptool\msptool\obj\Debug\msptool.pdb
+C:\Users\user\RiderProjects\star\msptool\msptool\bin\Debug\msptool.exe.config
+C:\Users\user\RiderProjects\star\msptool\msptool\bin\Debug\msptool.exe
+C:\Users\user\RiderProjects\star\msptool\msptool\bin\Debug\msptool.pdb
+C:\Users\user\RiderProjects\star\msptool\msptool\bin\Debug\FluorineFx.Client.dll
+C:\Users\user\RiderProjects\star\msptool\msptool\bin\Debug\Newtonsoft.Json.dll
+C:\Users\user\RiderProjects\star\msptool\msptool\bin\Debug\Newtonsoft.Json.xml
+C:\Users\user\RiderProjects\star\msptool\msptool\obj\Debug\msptool.csproj.AssemblyReference.cache
+C:\Users\user\RiderProjects\star\msptool\msptool\obj\Debug\msptool.csproj.CoreCompileInputs.cache
+C:\Users\user\RiderProjects\star\msptool\msptool\obj\Debug\msptool.csproj.CopyComplete
+C:\Users\user\RiderProjects\star\msptool\msptool\obj\Debug\msptool.exe
+C:\Users\user\RiderProjects\star\msptool\msptool\obj\Debug\msptool.pdb
