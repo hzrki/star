@@ -270,18 +270,16 @@ namespace msptool
             Console.WriteLine("Enter Clothes Color: ");
             string clothColor = Console.ReadLine();
 
-
             dynamic wishlist = AMFConn(server,
                 "MovieStarPlanet.WebService.Gifts.AMFGiftsService+Version2.AddItemToWishlist",
-                new object[4]
+                new object[3]
                 {
                     new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                    actorId,
-                    new
+                    new object[] 
                     {
                         clothId   
                     },
-                    new
+                    new object[] 
                     {
                         clothColor
                     }
