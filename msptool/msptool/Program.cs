@@ -1,5 +1,6 @@
 ﻿﻿using System;
-using static msptool.AMF;
+ using FluorineFx;
+ using static msptool.AMF;
 using static msptool.Checksum;
 
 namespace msptool
@@ -45,6 +46,8 @@ namespace msptool
                         Console.WriteLine("1 | recycle None-Rare Clothes");
                         Console.WriteLine("2 | buy Animations");
                         Console.WriteLine("3 | buy Clothes");
+                        Console.WriteLine("4 | wear RareSkin");
+                        Console.WriteLine("5 | buy eyes");
                         Console.WriteLine("6 | Logout");
 
                         Console.Write("pick an option: ");
@@ -60,6 +63,12 @@ namespace msptool
                                 break;
                             case "3":
                                 buyClothes(server, actorId, ticket);
+                                break;
+                            case "4":
+                                wearRareSkin(server, actorId, ticket);
+                                break;
+                            case "5":
+                                buyEyes(server, actorId, ticket);
                                 break;
                             case "6":
                                 Console.WriteLine("Logging out...");
@@ -132,11 +141,11 @@ namespace msptool
                     actorId,
                     animationId
                 });
-            
+
             if (animation["Description"] != "null")
             {
                 Console.WriteLine("Failed | "
-                                  + (animation["Description"] ?? "Unknown") + 
+                                  + (animation["Description"] ?? "Unknown") +
                                   " | [Click any key to return to Home]");
                 Console.ReadKey();
                 Console.Clear();
@@ -159,14 +168,12 @@ namespace msptool
             Console.WriteLine("Enter Color: ");
             string clothcolor = Console.ReadLine();
 
-            
-
             dynamic cloth = AMFConn(server, "MovieStarPlanet.WebService.AMFSpendingService.BuyClothes",
                 new object[4]
                 {
                     new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                     actorId,
-                    new 
+                    new
                     {
                         Color = clothcolor,
                         y = 0,
@@ -178,7 +185,7 @@ namespace msptool
                     },
                     0
                 });
-            
+
             if (cloth["Description"] != "null")
             {
                 Console.WriteLine("Failed | "
@@ -195,6 +202,60 @@ namespace msptool
                 Console.ReadKey();
                 Console.Clear();
             }
+        }
+
+        static void wearRareSkin(string server, int actorId, string ticket)
+        {
+            Console.Clear();
+            Console.WriteLine("Enter rareSkin Color: ");
+            string skincolor = Console.ReadLine();
+
+
+            dynamic skin = AMFConn(server,
+                "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
+                new object[3]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    new
+                    {
+                        InventoryId = 0,
+                        Type = 5,
+                        ItemId = -1,
+                        Colors = skincolor,
+                        IsWearing = true
+
+                    }
+                });
+
+        }
+
+        static void buyEyes(string server, int actorId, string ticket)
+        {
+            Console.Clear();
+            Console.WriteLine("Enter eyeId: ");
+            int eyeId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter eye Color: ");
+            string eyeColor = Console.ReadLine();
+
+
+            dynamic eyes = AMFConn(server,
+                "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
+                new object[3]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    new
+                    {
+                        InventoryId = 0,
+                        IsOwned = false,
+                        ItemId = eyeId,
+                        Colors = eyeColor,
+                        Type = 1,
+                        IsWearing = true
+
+                    }
+                });
         }
     }
 }
