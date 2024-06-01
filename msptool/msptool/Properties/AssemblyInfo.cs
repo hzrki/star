@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("msptool")]
-[assembly: AssemblyCopyright("Copyright ©  2024")]
+[assembly: AssemblyCopyright("Copyright © star 2024 | discord.gg/msp1")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
