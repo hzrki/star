@@ -48,7 +48,8 @@ namespace msptool
                         Console.WriteLine("3 | buy Clothes");
                         Console.WriteLine("4 | wear RareSkin");
                         Console.WriteLine("5 | buy eyes");
-                        Console.WriteLine("6 | Logout");
+                        Console.WriteLine("6 | add to wishlist");
+                        Console.WriteLine("8 | Logout");
 
                         Console.Write("pick an option: ");
                         string options = Console.ReadLine();
@@ -71,6 +72,9 @@ namespace msptool
                                 buyEyes(server, actorId, ticket);
                                 break;
                             case "6":
+                                addToWishlist(server, actorId, ticket);
+                                break;
+                            case "8":
                                 Console.WriteLine("Logging out...");
                                 Console.Clear();
                                 loggedIn = false;
@@ -166,7 +170,7 @@ namespace msptool
             Console.WriteLine("Enter ClothesId: ");
             int clothId = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter Color: ");
-            string clothcolor = Console.ReadLine();
+            string clothColor = Console.ReadLine();
 
             dynamic cloth = AMFConn(server, "MovieStarPlanet.WebService.AMFSpendingService.BuyClothes",
                 new object[4]
@@ -175,7 +179,7 @@ namespace msptool
                     actorId,
                     new
                     {
-                        Color = clothcolor,
+                        Color = clothColor,
                         y = 0,
                         ActorClothesRelId = 0,
                         ActorId = actorId,
@@ -254,6 +258,32 @@ namespace msptool
                         Type = 1,
                         IsWearing = true
 
+                    }
+                });
+        }
+
+        static void addToWishlist(string server, int actorId, string ticket)
+        {
+            Console.Clear();
+            Console.WriteLine("Enter clothesId: ");
+            int clothId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter Clothes Color: ");
+            string clothColor = Console.ReadLine();
+
+
+            dynamic wishlist = AMFConn(server,
+                "MovieStarPlanet.WebService.Gifts.AMFGiftsService+Version2.AddItemToWishlist",
+                new object[4]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    new
+                    {
+                        clothId   
+                    },
+                    new
+                    {
+                        clothColor
                     }
                 });
         }
