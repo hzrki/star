@@ -75,28 +75,11 @@ namespace msptool
                     break;
                 default:
                     if (obj != null)
-                    {
                         foreach (var prop in obj.GetType().GetProperties().OrderBy(prop => prop.Name))
-                        {
                             sb.Append(foi(prop.GetValue(obj, null)));
-                        }
-                    }
                     else
-                       sb.Append("");
+                        sb.Append("");
                     break;
-                default:
-    if (obj != null)
-    {
-        var properties = obj.GetType().GetProperties()
-                            .OrderBy(prop => prop.Name);
-        foreach (var prop in properties)
-        {
-            sb.Append(foi(prop.GetValue(obj, null)));
-        }
-    }
-    else
-       sb.Append("");
-    break;
             }
 
             return sb.ToString();
