@@ -38,6 +38,8 @@ namespace msptool
                     int actorId = login["loginStatus"]["actor"]["ActorId"];
                     string name = login["loginStatus"]["actor"]["Name"];
                     string ticket = login["loginStatus"]["ticket"];
+                    string accessToken = login["loginStatus"]["nebulaLoginStatus"]["accessToken"];
+                    string profileId = login["loginStatus"]["nebulaLoginStatus"]["profileId"];
                     Console.WriteLine("Login successful!");
                     Console.Clear();
 
