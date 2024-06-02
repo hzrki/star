@@ -36,6 +36,7 @@ namespace msptool
                 {
                     loggedIn = true;
                     int actorId = login["loginStatus"]["actor"]["ActorId"];
+                    string name = login["loginStatus"]["actor"]["Name"];
                     string ticket = login["loginStatus"]["ticket"];
                     Console.WriteLine("Login successful!");
                     Console.Clear();
@@ -51,7 +52,8 @@ namespace msptool
                         Console.WriteLine("6 | add to wishlist");
                         Console.WriteLine("7 | buy Nose");
                         Console.WriteLine("8 | buy Lips");
-                        Console.WriteLine("9 | Logout");
+                        Console.WriteLine("9 | custom Status");
+                        Console.WriteLine("10 | Logout");
 
                         Console.Write("pick an option: ");
                         string options = Console.ReadLine();
@@ -83,6 +85,9 @@ namespace msptool
                                 buyLips(server, actorId, ticket);
                                 break;
                             case "9":
+                                customStatus(server, name, actorId, ticket);
+                                break;
+                            case "10":
                                 Console.WriteLine("Logging out...");
                                 Console.Clear();
                                 loggedIn = false;
@@ -394,6 +399,45 @@ namespace msptool
             }
         }
 
+
+        static void customStatus(string server, string name, int actorId, string ticket)
+        {
+            Console.Clear();
+            Console.WriteLine("Enter Status: ");
+            string statustxt = (Console.ReadLine());
+            Console.WriteLine("Enter Color: ");
+            string statusColor = Console.ReadLine();
+
+            dynamic status = AMFConn(server,
+                "MovieStarPlanet.WebService.ActorService.AMFActorServiceForWeb.SetMoodWithModerationCall",
+                new object[6]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    new object[]
+                    {
+                        new
+                        {
+                            WallPostLinks = "",
+                            FigureAnimation = "stand",
+                            FaceAnimation = "neutral",
+                            TextLine = statustxt,
+                            SpeechLine = false,
+                            IsBrag = false,
+                            TextLineWhitelisted = "",
+                            Likes = 0,
+                            TextLineBlacklisted = "",
+                            TextLineLastFiltered = "",
+                            ActorId = actorId,
+                            WallPostId = 0
+                        },
+                    },
+                    name,
+                    statusColor,
+                    false
+                });
+
+        }
 
         static void addToWishlist(string server, int actorId, string ticket)
         {
