@@ -1,4 +1,6 @@
-﻿﻿using System;
+﻿using System;
+ using System.Net.Http;
+ using System.Threading.Tasks;
  using FluorineFx;
  using static msptool.AMF;
 using static msptool.Checksum;
@@ -7,8 +9,19 @@ namespace msptool
 {
     internal class Program
     {
+        private static readonly string currentVersion = "1.1";
+
+        private static readonly string checkVersion =
+            "https://raw.githubusercontent.com/l3c1d/star/main/msptool/version.txt";
+
         static void Main(string[] args)
         {
+            if (!isCurrentVersion())
+            {
+                Console.WriteLine("VERSION CHECK | Update your application to the newest version!");
+                return;
+            }
+
             bool loggedIn = false;
 
             while (!loggedIn)
@@ -239,7 +252,8 @@ namespace msptool
                 {
                     new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                     actorId,
-                    new object []{
+                    new object[]
+                    {
                         new
                         {
                             IsOwned = false,
@@ -268,7 +282,7 @@ namespace msptool
                 Console.Clear();
             }
         }
-        
+
         static void buyLips(string server, int actorId, string ticket)
         {
             Console.Clear();
@@ -284,7 +298,8 @@ namespace msptool
                 {
                     new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                     actorId,
-                    new object []{
+                    new object[]
+                    {
                         new
                         {
                             IsOwned = false,
@@ -329,7 +344,8 @@ namespace msptool
                 {
                     new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                     actorId,
-                    new object [] {
+                    new object[]
+                    {
                         new
                         {
                             InventoryId = 0,
@@ -358,7 +374,7 @@ namespace msptool
                 Console.Clear();
             }
         }
-        
+
         static void wearRareSkin(string server, int actorId, string ticket)
         {
             Console.Clear();
@@ -372,7 +388,8 @@ namespace msptool
                 {
                     new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                     actorId,
-                    new object []{
+                    new object[]
+                    {
                         new
                         {
                             InventoryId = 0,
@@ -454,15 +471,32 @@ namespace msptool
                 new object[3]
                 {
                     new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                    new object[] 
+                    new object[]
                     {
-                        clothId   
+                        clothId
                     },
-                    new object[] 
+                    new object[]
                     {
                         clothColor
                     }
                 });
+        }
+
+        static bool isCurrentVersion()
+        {
+            using (HttpClient versionchecker = new HttpClient())
+            {
+                try
+                {
+                    string latestVersion = versionchecker.GetStringAsync(checkVersion).Result;
+                    return currentVersion.Trim() == latestVersion.Trim();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("ERROR");
+                    return true; 
+                }
+            }
         }
     }
 }
