@@ -49,7 +49,9 @@ namespace msptool
                         Console.WriteLine("4 | wear RareSkin");
                         Console.WriteLine("5 | buy eyes");
                         Console.WriteLine("6 | add to wishlist");
-                        Console.WriteLine("8 | Logout");
+                        Console.WriteLine("7 | buy Nose");
+                        Console.WriteLine("8 | buy Lips");
+                        Console.WriteLine("9 | Logout");
 
                         Console.Write("pick an option: ");
                         string options = Console.ReadLine();
@@ -74,7 +76,13 @@ namespace msptool
                             case "6":
                                 addToWishlist(server, actorId, ticket);
                                 break;
+                            case "7":
+                                buyNose(server, actorId, ticket);
+                                break;
                             case "8":
+                                buyLips(server, actorId, ticket);
+                                break;
+                            case "9":
                                 Console.WriteLine("Logging out...");
                                 Console.Clear();
                                 loggedIn = false;
@@ -211,14 +219,14 @@ namespace msptool
             }
         }
 
-        static void wearRareSkin(string server, int actorId, string ticket)
+        static void buyNose(string server, int actorId, string ticket)
         {
             Console.Clear();
-            Console.WriteLine("Enter rareSkin Color: ");
-            string skincolor = Console.ReadLine();
+            Console.WriteLine("Enter Nose Id: ");
+            int noseId = int.Parse(Console.ReadLine());
 
 
-            dynamic skin = AMFConn(server,
+            dynamic nose = AMFConn(server,
                 "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
                 new object[3]
                 {
@@ -227,16 +235,17 @@ namespace msptool
                     new object []{
                         new
                         {
+                            IsOwned = false,
+                            Type = 3,
+                            IsWearing = true,
                             InventoryId = 0,
-                            Type = 5,
-                            ItemId = -1,
-                            Colors = skincolor,
-                            IsWearing = true
+                            ItemId = noseId,
+                            Colors = "",
 
                         }
                     }
                 });
-            if (skin[0]["InventoryId"] == 0)
+            if (nose[0]["InventoryId"] == 0)
             {
                 Console.WriteLine("Failed | Unknown" +
                                   " | [Click any key to return to Home]");
@@ -246,7 +255,52 @@ namespace msptool
             else
             {
                 Console.WriteLine("Success | " +
-                                  " Skin bought! " +
+                                  " Nose bought! " +
+                                  "| [Click any key to return to Home]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
+        
+        static void buyLips(string server, int actorId, string ticket)
+        {
+            Console.Clear();
+            Console.WriteLine("Enter Lips Id: ");
+            int lipsId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter Lips Colors: ");
+            string lipsColor = Console.ReadLine();
+
+
+            dynamic lips = AMFConn(server,
+                "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
+                new object[3]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    new object []{
+                        new
+                        {
+                            IsOwned = false,
+                            Type = 3,
+                            IsWearing = true,
+                            InventoryId = 0,
+                            ItemId = lipsId,
+                            Colors = lipsColor,
+
+                        }
+                    }
+                });
+            if (lips[0]["InventoryId"] == 0)
+            {
+                Console.WriteLine("Failed | Unknown" +
+                                  " | [Click any key to return to Home]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                Console.WriteLine("Success | " +
+                                  " Lips bought! " +
                                   "| [Click any key to return to Home]");
                 Console.ReadKey();
                 Console.Clear();
@@ -297,6 +351,49 @@ namespace msptool
                 Console.Clear();
             }
         }
+        
+        static void wearRareSkin(string server, int actorId, string ticket)
+        {
+            Console.Clear();
+            Console.WriteLine("Enter rareSkin Color: ");
+            string skincolor = Console.ReadLine();
+
+
+            dynamic skin = AMFConn(server,
+                "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
+                new object[3]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    new object []{
+                        new
+                        {
+                            InventoryId = 0,
+                            Type = 5,
+                            ItemId = -1,
+                            Colors = skincolor,
+                            IsWearing = true
+
+                        }
+                    }
+                });
+            if (skin[0]["InventoryId"] == 0)
+            {
+                Console.WriteLine("Failed | Unknown" +
+                                  " | [Click any key to return to Home]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                Console.WriteLine("Success | " +
+                                  " Skin bought! " +
+                                  "| [Click any key to return to Home]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
+
 
         static void addToWishlist(string server, int actorId, string ticket)
         {
