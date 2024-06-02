@@ -177,20 +177,23 @@ namespace msptool
                 {
                     new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                     actorId,
-                    new
+                    new object[]
                     {
-                        Color = clothColor,
-                        y = 0,
-                        ActorClothesRelId = 0,
-                        ActorId = actorId,
-                        ClothesId = clothId,
-                        IsWearing = 1,
-                        x = 0
+                        new
+                        {
+                            Color = clothColor,
+                            y = 0,
+                            ActorClothesRelId = 0,
+                            ActorId = actorId,
+                            ClothesId = clothId,
+                            IsWearing = 1,
+                            x = 0
+                        },
                     },
                     0
                 });
 
-            if (cloth["Description"] != "null")
+            if (cloth["Code"] != 0)
             {
                 Console.WriteLine("Failed | "
                                   + (cloth["Description"] ?? "Unknown") +
@@ -221,17 +224,33 @@ namespace msptool
                 {
                     new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                     actorId,
-                    new
-                    {
-                        InventoryId = 0,
-                        Type = 5,
-                        ItemId = -1,
-                        Colors = skincolor,
-                        IsWearing = true
+                    new object []{
+                        new
+                        {
+                            InventoryId = 0,
+                            Type = 5,
+                            ItemId = -1,
+                            Colors = skincolor,
+                            IsWearing = true
 
+                        }
                     }
                 });
-
+            if (skin[0]["InventoryId"] == 0)
+            {
+                Console.WriteLine("Failed | Unknown" +
+                                  " | [Click any key to return to Home]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                Console.WriteLine("Success | " +
+                                  " Skin bought! " +
+                                  "| [Click any key to return to Home]");
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
 
         static void buyEyes(string server, int actorId, string ticket)
@@ -249,17 +268,34 @@ namespace msptool
                 {
                     new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                     actorId,
-                    new
-                    {
-                        InventoryId = 0,
-                        IsOwned = false,
-                        ItemId = eyeId,
-                        Colors = eyeColor,
-                        Type = 1,
-                        IsWearing = true
+                    new object [] {
+                        new
+                        {
+                            InventoryId = 0,
+                            IsOwned = false,
+                            ItemId = eyeId,
+                            Colors = eyeColor,
+                            Type = 1,
+                            IsWearing = true
 
+                        }
                     }
                 });
+            if (eyes[0]["InventoryId"] == 0)
+            {
+                Console.WriteLine("Failed | Unknown" +
+                                  " | [Click any key to return to Home]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                Console.WriteLine("Success | " +
+                                  " Eye bought! " +
+                                  "| [Click any key to return to Home]");
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
 
         static void addToWishlist(string server, int actorId, string ticket)

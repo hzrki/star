@@ -68,13 +68,21 @@ namespace msptool
                     break;
                 case ArrayCollection arrcv:
                     foreach (object item in arrcv.ToArray())
-                        sb.Append(foi(item));
+                        sb.Append(foi(item));            
                     break;
                 case ASObject as0val:
                     sb.Append(as0val.ToString());
                     break;
                 default:
-                    sb.Append(foi(obj));
+                    if (obj != null)
+                    {
+                        foreach (var prop in obj.GetType().GetProperties().OrderBy(prop => prop.Name))
+                        {
+                            sb.Append(foi(prop.GetValue(obj, null)));
+                        }
+                    }
+                    else
+                       sb.Append("");
                     break;
             }
 
