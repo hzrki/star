@@ -236,7 +236,7 @@ namespace msptool
                         new
                         {
                             IsOwned = false,
-                            Type = 3,
+                            Type = 4,
                             IsWearing = true,
                             InventoryId = 0,
                             ItemId = noseId,
