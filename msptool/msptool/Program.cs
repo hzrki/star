@@ -18,7 +18,10 @@ namespace msptool
         {
             if (!isCurrentVersion())
             {
-                Console.WriteLine("VERSION CHECK | Update your application to the newest version!");
+                Console.WriteLine("VERSION CHECK |" +
+                                  " Update your application to the newest version! " +
+                                  "| [Click any key to exit]");
+                Console.ReadKey();
                 return;
             }
 
@@ -484,11 +487,11 @@ namespace msptool
 
         static bool isCurrentVersion()
         {
-            using (HttpClient versionchecker = new HttpClient())
+            using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    string latestVersion = versionchecker.GetStringAsync(checkVersion).Result;
+                    string latestVersion = client.GetStringAsync(checkVersion).Result;
                     return currentVersion.Trim() == latestVersion.Trim();
                 }
                 catch (Exception ex)
