@@ -46,8 +46,6 @@
     <a href="https://github.com/l3c1d/star/tree/main/msptool"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="">View Demo</a>
-    ·
     <a href="https://github.com/l3c1d/star/issues/new?labels=bug">Report Bug</a>
     ·
     <a href="https://github.com/l3c1d/star/issues/new?labels=enhancement">Request Feature</a>
