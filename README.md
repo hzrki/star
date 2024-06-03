@@ -6,10 +6,23 @@
 <!-- PROJECT SHIELDS -->
 
 [![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][[]
+[![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
+
+[contributors-shield]: https://img.shields.io/github/contributors/l3c1d/star.svg
+[forks-shield]: https://img.shields.io/github/forks/l3c1d/star.svg
+[stars-shield]: https://img.shields.io/github/stars/l3c1d/star.svg
+[issues-shield]: https://img.shields.io/github/issues/l3c1d/star.svg
+[license-shield]: https://img.shields.io/github/license/l3c1d/star.svg
+
+[contributors-url]: https://github.com/l3c1d/star/graphs/contributors
+[forks-url]: https://github.com/l3c1d/star/network/members
+[stars-url]: https://github.com/l3c1d/star/stargazers
+[issues-url]: https://github.com/l3c1d/star/issues
+[license-url]: https://github.com/l3c1d/star/blob/main/LICENSE
+
 
 
 
