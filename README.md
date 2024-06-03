@@ -1,9 +1,5 @@
 <a name="readme-top"></a>
 
-## Disclaimer
-
-We are not affiliated with MovieStarPlanet ApS.
-
 
 
 
@@ -55,7 +51,6 @@ We are not affiliated with MovieStarPlanet ApS.
     <a href="https://github.com/l3c1d/star/issues/new?labels=enhancement">Request Feature</a>
   </p>
 </div>
-
 
 
 <!-- TABLE OF CONTENTS -->
@@ -190,12 +185,14 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Disclaimer
 
+We are not affiliated with MovieStarPlanet ApS. This project is not for profit and is released under the MIT License.
 
-<!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
