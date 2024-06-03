@@ -21,7 +21,7 @@
 [forks-url]: https://github.com/l3c1d/star/network/members
 [stars-url]: https://github.com/l3c1d/star/stargazers
 [issues-url]: https://github.com/l3c1d/star/issues
-[license-url]: https://github.com/l3c1d/star/blob/main/LICENSE
+[license-url]: https://github.com/l3c1d/star/blob/main/LICENSE.txt
 
 
 
