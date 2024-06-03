@@ -87,9 +87,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-MovieStarPlanet Tools This repository contains a collection of tools for interacting with MovieStarPlanet (MSP), a popular online social game. The tools are implemented in C# and allow users to automate various tasks within the game. Below is an overview of the available tools and their functionalities.
-
-Features The tools included in this repository provide the following functionalities:
+This repository contains a collection of tools for interacting with MovieStarPlanet (MSP), a popular online social game. The tools are implemented in C# and allow users to automate various tasks within the game. Below is an overview of the available tools and their functionalities.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
