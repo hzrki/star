@@ -1,5 +1,9 @@
 <a name="readme-top"></a>
 
+## Disclaimer
+
+We are not affiliated with MovieStarPlanet ApS.
+
 
 
 
