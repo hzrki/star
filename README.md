@@ -189,6 +189,7 @@ Don't forget to give the project a star! Thanks again!
 
 We are not affiliated with MovieStarPlanet ApS. This project is not for profit and is released under the MIT License.
 
+
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
