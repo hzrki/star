@@ -91,7 +91,6 @@ MovieStarPlanet Tools This repository contains a collection of tools for interac
 
 Features The tools included in this repository provide the following functionalities:
 
-Recycle Non-Rare Clothes: Automatically recycle non-rare clothes from the player's inventory. Buy Animation: Purchase animations for the player's avatar. Buy Clothes: Automate the purchase of clothes for the player's avatar. Wear Rare Skin: Apply a rare skin to the player's avatar. Buy Eyes: Purchase new eyes for the player's avatar. Add to Wishlist: Add items to the player's wishlist. Buy Nose: Purchase a new nose for the player's avatar. Buy Lips: Purchase new lips for the player's avatar. Custom Status: Set a custom status for the player's avatar. Log Out: Log out from the current session.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -215,15 +214,6 @@ Project Link: [https://github.com/l3c1d/star](https://github.com/l3c1d/star)
 
 
 
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
