@@ -120,8 +120,6 @@ Just check the Requirements and install em and ur good to go, aint hard.
 
 ### Installation
 
-
-
 1. Clone the Git Repository or Download the Repo manually
 2. Clone the repo
    ```sh
@@ -160,7 +158,7 @@ To use the tools, simply run the application and select the desired option from 
 - [x] Published First Version of Tool
 - [x] Worked on stability and added new Features 
 - [ ] UI Redesign
-- [ ] Multi-Plattform Support
+- [x] Multi-Plattform Support
  - [ ] Add new Languages
     - [ ] German
     - [ ] Turkish
