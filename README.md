@@ -82,12 +82,11 @@ Recycle Non-Rare Clothes: Automatically recycle non-rare clothes from the player
 ### Built With
 
 
-* [![Csharp][csharp.com]][star-csharpurl]
+* [![Csharp][star-csharpurl]][https://csharp.com]
 
 ### Built For
-* [![Windows][windows.com]][star-windowsurl]
-* [![Linux][Linux.com]][star-linuxurl]
-* [![JQuery][JQuery.com]][JQuery-url]
+* [![Windows][star.windowsurl]][[https://windows.com]
+* [![Linux][star-linuxurl]][https://linux.com]
 
 
 
