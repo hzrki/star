@@ -38,7 +38,7 @@
     <img src="IMG_3520.jpeg" alt="Logo" width="170" height="80">
   </a>
 
-  <h3 align="center">MovieStarPlanetTools</h3>
+  <h3 align="center">MovieStarPlanet Tools</h3>
 
   <p align="center">
     An awesome Tool to simplify your MSP Experience
