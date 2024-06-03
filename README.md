@@ -101,6 +101,7 @@ Recycle Non-Rare Clothes: Automatically recycle non-rare clothes from the player
 
 
 * ![Csharp][star-csharpurl]
+*  ![SwiftUI][star-swift]
 
 ### Built For
 * ![Windows][star-windowsurl]
@@ -243,7 +244,7 @@ Project Link: [https://github.com/l3c1d/star](https://github.com/l3c1d/star)
 [star-linux]: https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black
 [star-linuxurl]: https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black
 
-
+[stars-swift]:https://i.imgur.com/9NFfY9z.png
 [stars-url]: https://github.com/l3c1d/star/stargazers
 [issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
 [issues-url]: https://github.com/l3c1d/star/issues
