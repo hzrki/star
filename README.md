@@ -48,9 +48,9 @@
     <br />
     <a href="">View Demo</a>
     ·
-    <a href="https://github.com/l3c1d/star/tree/main/msptool/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://github.com/l3c1d/star/issues/new?labels=bug">Report Bug</a>
     ·
-    <a href="https://github.com/l3c1d/star/tree/main/msptool/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/l3c1d/star/issues/new?labels=enhancement">Request Feature</a>
   </p>
 </div>
 
