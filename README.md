@@ -101,7 +101,7 @@ Recycle Non-Rare Clothes: Automatically recycle non-rare clothes from the player
 
 
 * ![Csharp][star-csharpurl]
-* <img src="https://i.imgur.com/9NFfY9z.png" alt="Logo" width="90" height="40">
+* <img src="https://i.imgur.com/9NFfY9z.png" alt="Logo" width="100" height="30">
 
 ### Built For
 * ![Windows][star-windowsurl]
