@@ -1,7 +1,7 @@
 ﻿using System;
- using System.Net.Http;
- using System.Threading.Tasks;
- using FluorineFx;
+using System.Net.Http;
+using System.Threading.Tasks;
+using FluorineFx;
  using static msptool.AMF;
 using static msptool.Checksum;
 
@@ -9,7 +9,7 @@ namespace msptool
 {
     internal class Program
     {
-        private static readonly string currentVersion = "1.2";
+        private static readonly string currentVersion = "1.3";
 
         private static readonly string checkVersion =
             "https://raw.githubusercontent.com/l3c1d/star/main/msptool/version.txt";
@@ -18,24 +18,44 @@ namespace msptool
         {
             if (!isCurrentVersion())
             {
-                Console.WriteLine("VERSION CHECK |" +
-                                  " Update your application to the newest version! " +
-                                  "| [Click any key to exit]");
-                Console.ReadKey();
-                return;
+                while (true)
+                {
+                    Console.Write("\x1b[94mSTAR\x1b[39m ・ Update\n\n");
+                    Console.WriteLine("[\x1b[95m!\u001b[39m] \u001b[93mAn update was found !\n");
+                    Console.WriteLine("\u001b[94m1\u001b[39m > Install new update");
+                    Console.WriteLine("\u001b[94m2\u001b[39m > Update manually\n");
+                    Console.Write("[\u001b[95mUPDATE\u001b[39m] Pick an option: ");
+                    string options = Console.ReadLine();
+                    switch (options)
+                    {
+                        case "1":
+                            Console.Write("Soon");
+                            return;
+                        case "2":
+                            Console.WriteLine("\n\x1b[95mUPDATE\u001b[39m > \x1b[93mGo on https://github.com/l3c1d/star [Click any key to close]");
+                            Console.ReadKey();
+                            return;
+                        default:
+                            Console.WriteLine("\n\u001b[91mERROR\u001b[39m > \u001b[93mChoose a option which exists !");
+                            System.Threading.Thread.Sleep(2000);
+                            Console.Clear();
+                            break;
+                    }
+                }
             }
 
             bool loggedIn = false;
 
             while (!loggedIn)
             {
-                Console.Write("Enter username: ");
+                Console.Write("\x1b[94mSTAR\x1b[39m ・ Login\n\n");
+                Console.Write("[\u001b[94m+\u001b[39m] Enter username: ");
                 string username = Console.ReadLine();
 
-                Console.Write("Enter password: ");
+                Console.Write("[\u001b[94m+\u001b[39m] Enter password: ");
                 string password = Console.ReadLine();
 
-                Console.Write("Enter server: ");
+                Console.Write("[\u001b[94m+\u001b[39m] Enter server: ");
                 string server = Console.ReadLine();
 
                 dynamic login = AMFConn(server, "MovieStarPlanet.WebService.User.AMFUserServiceWeb.Login",
@@ -44,7 +64,7 @@ namespace msptool
 
                 if (login["loginStatus"]["status"] != "Success")
                 {
-                    Console.WriteLine("Login failed [Click any key to return to login]");
+                    Console.WriteLine("\n\x1b[91mFAILED\u001b[39m > \x1b[93mLogin failed [Click any key to return to login]");
                     Console.ReadKey();
                     Console.Clear();
                 }
@@ -61,17 +81,19 @@ namespace msptool
 
                     while (true)
                     {
-                        Console.WriteLine("\n<Home>");
-                        Console.WriteLine("1 | recycle None-Rare Clothes");
-                        Console.WriteLine("2 | buy Animations");
-                        Console.WriteLine("3 | buy Clothes");
-                        Console.WriteLine("4 | wear RareSkin");
-                        Console.WriteLine("5 | buy eyes");
-                        Console.WriteLine("6 | add to wishlist");
-                        Console.WriteLine("7 | buy Nose");
-                        Console.WriteLine("8 | buy Lips");
-                        Console.WriteLine("9 | custom Status");
-                        Console.WriteLine("10 | Logout");
+                        Console.WriteLine("\u001b[94mSTAR\u001b[39m ・ Home\n");
+                        Console.WriteLine("\u001b[94m1\u001b[39m > Recycle None-Rare Clothes");
+                        Console.WriteLine("\u001b[94m2\u001b[39m > Buy Animations");
+                        Console.WriteLine("\u001b[94m3\u001b[39m > Buy Clothes");
+                        Console.WriteLine("\u001b[94m4\u001b[39m > Buy Eyes");
+                        Console.WriteLine("\u001b[94m5\u001b[39m > Buy Nose");
+                        Console.WriteLine("\u001b[94m6\u001b[39m > Buy Lips");
+                        Console.WriteLine("\u001b[94m7\u001b[39m > Wear RareSkin");
+                        Console.WriteLine("\u001b[94m8\u001b[39m > add to wishlist");
+                        Console.WriteLine("\u001b[94m9\u001b[39m > Custom Status");
+                        Console.WriteLine("\u001b[94m10\u001b[39m > Icon changer");
+                        Console.WriteLine("\u001b[94m11\u001b[39m > Room changer");
+                        Console.WriteLine("\u001b[94m12\u001b[39m > - Logout\n");
 
                         Console.Write("pick an option: ");
                         string options = Console.ReadLine();
@@ -88,30 +110,38 @@ namespace msptool
                                 buyClothes(server, actorId, ticket);
                                 break;
                             case "4":
-                                wearRareSkin(server, actorId, ticket);
-                                break;
-                            case "5":
                                 buyEyes(server, actorId, ticket);
                                 break;
-                            case "6":
-                                addToWishlist(server, actorId, ticket);
-                                break;
-                            case "7":
+                            case "5":
                                 buyNose(server, actorId, ticket);
                                 break;
-                            case "8":
+                            case "6":
                                 buyLips(server, actorId, ticket);
+                                break;
+                            case "7":
+                                wearRareSkin(server, actorId, ticket);
+                                break;
+                            case "8":
+                                addToWishlist(server, actorId, ticket);
                                 break;
                             case "9":
                                 customStatus(server, name, actorId, ticket);
                                 break;
                             case "10":
-                                Console.WriteLine("Logging out...");
+                                iconChanger(server, actorId, ticket);
+                                break;
+                            case "11":
+                                roomChanger(server, actorId, ticket);
+                                break;
+                            case "12":
+                                Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
                                 loggedIn = false;
                                 break;
                             default:
-                                Console.WriteLine("choose a option which exists!");
+                                Console.WriteLine("\n\u001b[91mERROR\u001b[39m > \u001b[93mChoose a option which exists !");
+                                System.Threading.Thread.Sleep(2000);
+                                Console.Clear();
                                 break;
                         }
 
@@ -124,6 +154,8 @@ namespace msptool
 
         static void recycleNoneRareClothes(string server, int actorId, string ticket)
         {
+            Console.Clear();
+            Console.WriteLine("\u001b[94mSTAR\u001b[39m ・ Home ・ Recycle None-Rare Clothes\n");
             dynamic cloth = AMFConn(server,
                 "MovieStarPlanet.WebService.ActorClothes.AMFActorClothes.GetActorClothesRelMinimals",
                 new object[2]
@@ -154,11 +186,11 @@ namespace msptool
                             actorClothesRelId,
                             0
                         });
-                    Console.WriteLine($"Recycled {cloth_name}");
+                    Console.WriteLine($"[\u001b[94m!\u001b[39m] Recycled {cloth_name}");
                 }
             }
 
-            Console.WriteLine("Finished recycling [Click any key to return to Home]");
+            Console.WriteLine("\n\x1b[92mSUCCESS\u001b[39m > \u001b[93m\u001b[4mFinished recycling\u001b[24m [Click any key to return to Home]");
             Console.ReadKey();
             Console.Clear();
         }
@@ -166,7 +198,8 @@ namespace msptool
         static void buyAnimation(string server, int actorId, string ticket)
         {
             Console.Clear();
-            Console.WriteLine("Enter AnimationId: ");
+            Console.WriteLine("\u001b[94mSTAR\u001b[39m ・ Home ・ Buy Animations\n\n");
+            Console.Write("[\u001b[94m+\u001b[39m] Enter AnimationId: ");
             int animationId = int.Parse(Console.ReadLine());
 
             dynamic animation = AMFConn(server, "MovieStarPlanet.WebService.Spending.AMFSpendingService.BuyAnimation",
@@ -179,17 +212,15 @@ namespace msptool
 
             if (animation["Description"] != "null")
             {
-                Console.WriteLine("Failed | "
+                Console.WriteLine("\n\u001b[91mFAILED\u001b[39m > \u001b[93m\u001b[4"
                                   + (animation["Description"] ?? "Unknown") +
-                                  " | [Click any key to return to Home]");
+                                  "\u001b[24m [Click any key to return to Home]");
                 Console.ReadKey();
                 Console.Clear();
             }
             else
             {
-                Console.WriteLine("Success | " +
-                                  " Animation bought! " +
-                                  "| [Click any key to return to Home]");
+                Console.WriteLine("\n\u001b[92mSUCCESS\u001b[39m > \u001b[93m\u001b[4mAnimation bought!\u001b[24m [Click any key to return to Home]");
                 Console.ReadKey();
                 Console.Clear();
             }
@@ -198,9 +229,10 @@ namespace msptool
         static void buyClothes(string server, int actorId, string ticket)
         {
             Console.Clear();
-            Console.WriteLine("Enter ClothesId: ");
+            Console.WriteLine("\u001b[94mSTAR\u001b[39m ・ Home ・ Buy Clothes\n\n");
+            Console.Write("[\u001b[94m+\u001b[39m] Enter ClothesId: ");
             int clothId = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter Color: ");
+            Console.Write("[\u001b[94m+\u001b[39m] Enter Color: ");
             string clothColor = Console.ReadLine();
 
             dynamic cloth = AMFConn(server, "MovieStarPlanet.WebService.AMFSpendingService.BuyClothes",
@@ -226,17 +258,15 @@ namespace msptool
 
             if (cloth["Code"] != 0)
             {
-                Console.WriteLine("Failed | "
+                Console.WriteLine("\n\u001b[91mFAILED\u001b[39m > \u001b[93m\x1b[4m"
                                   + (cloth["Description"] ?? "Unknown") +
-                                  " | [Click any key to return to Home]");
+                                  "\u001b[24m [Click any key to return to Home]");
                 Console.ReadKey();
                 Console.Clear();
             }
             else
             {
-                Console.WriteLine("Success | " +
-                                  " Clothing bought! " +
-                                  "| [Click any key to return to Home]");
+                Console.WriteLine("\n\u001b[92mSUCCESS\u001b[39m > \u001b[93m\u001b[4mClothing bought!\u001b[24m [Click any key to return to Home]");
                 Console.ReadKey();
                 Console.Clear();
             }
@@ -245,7 +275,8 @@ namespace msptool
         static void buyNose(string server, int actorId, string ticket)
         {
             Console.Clear();
-            Console.WriteLine("Enter Nose Id: ");
+            Console.WriteLine("\u001b[94mSTAR\u001b[39m ・ Home ・ Buy Nose\n\n");
+            Console.Write("[\u001b[94m+\u001b[39m] Enter Nose Id: ");
             int noseId = int.Parse(Console.ReadLine());
 
 
@@ -271,16 +302,13 @@ namespace msptool
                 });
             if (nose[0]["InventoryId"] == 0)
             {
-                Console.WriteLine("Failed | Unknown" +
-                                  " | [Click any key to return to Home]");
+                Console.WriteLine("\n\u001b[91mFAILED\u001b[39m > \u001b[93m\u001b[4mUnknown\u001b[24m [Click any key to return to Home]");
                 Console.ReadKey();
                 Console.Clear();
             }
             else
             {
-                Console.WriteLine("Success | " +
-                                  " Nose bought! " +
-                                  "| [Click any key to return to Home]");
+                Console.WriteLine("\n\u001b[92mSUCCESS\u001b[39m > \u001b[93m\u001b[4mNose bought!\u001b[24m [Click any key to return to Home]");
                 Console.ReadKey();
                 Console.Clear();
             }
@@ -289,9 +317,10 @@ namespace msptool
         static void buyLips(string server, int actorId, string ticket)
         {
             Console.Clear();
-            Console.WriteLine("Enter Lips Id: ");
+            Console.WriteLine("\u001b[94mSTAR\u001b[39m ・ Home ・ Buy Lips\n\n");
+            Console.Write("[\u001b[94m+\u001b[39m] Enter Lips Id: ");
             int lipsId = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter Lips Colors: ");
+            Console.Write("[\u001b[94m+\u001b[39m] Enter Lips Colors: ");
             string lipsColor = Console.ReadLine();
 
 
@@ -317,16 +346,13 @@ namespace msptool
                 });
             if (lips[0]["InventoryId"] == 0)
             {
-                Console.WriteLine("Failed | Unknown" +
-                                  " | [Click any key to return to Home]");
+                Console.WriteLine("\n\u001b[91mFAILED\u001b[39m > \u001b[93mUnknown [Click any key to return to Home]");
                 Console.ReadKey();
                 Console.Clear();
             }
             else
             {
-                Console.WriteLine("Success | " +
-                                  " Lips bought! " +
-                                  "| [Click any key to return to Home]");
+                Console.WriteLine("\n\u001b[92mSUCCESS\u001b[39m > \u001b[93m\u001b[4mLips bought!\u001b[24m [Click any key to return to Home]");
                 Console.ReadKey();
                 Console.Clear();
             }
@@ -335,9 +361,10 @@ namespace msptool
         static void buyEyes(string server, int actorId, string ticket)
         {
             Console.Clear();
-            Console.WriteLine("Enter eyeId: ");
+            Console.WriteLine("\u001b[94mSTAR\u001b[39m ・ Home ・ Buy Eyes\n\n");
+            Console.Write("[\u001b[94m+\u001b[39m] Enter eyeId: ");
             int eyeId = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter eye Color: ");
+            Console.Write("[\u001b[94m+\u001b[39m] Enter eye Color: ");
             string eyeColor = Console.ReadLine();
 
 
@@ -363,16 +390,13 @@ namespace msptool
                 });
             if (eyes[0]["InventoryId"] == 0)
             {
-                Console.WriteLine("Failed | Unknown" +
-                                  " | [Click any key to return to Home]");
+                Console.WriteLine("\n\u001b[91mFAILED\u001b[39m > \u001b[93m\u001b[4mUnknown\u001b[24m [Click any key to return to Home]");
                 Console.ReadKey();
                 Console.Clear();
             }
             else
             {
-                Console.WriteLine("Success | " +
-                                  " Eye bought! " +
-                                  "| [Click any key to return to Home]");
+                Console.WriteLine("\n\u001b[92mSUCCESS\u001b[39m > \u001b[93m\u001b[4mEye bought!\u001b[24m [Click any key to return to Home]");
                 Console.ReadKey();
                 Console.Clear();
             }
@@ -381,7 +405,8 @@ namespace msptool
         static void wearRareSkin(string server, int actorId, string ticket)
         {
             Console.Clear();
-            Console.WriteLine("Enter rareSkin Color: ");
+            Console.Write("\u001b[94mSTAR\u001b[39m ・ Home ・ RareSkin\n\n");
+            Console.Write("[\u001b[94m+\u001b[39m] Enter rareSkin Color: ");
             string skincolor = Console.ReadLine();
 
 
@@ -406,16 +431,13 @@ namespace msptool
                 });
             if (skin[0]["InventoryId"] == 0)
             {
-                Console.WriteLine("Failed | Unknown" +
-                                  " | [Click any key to return to Home]");
+                Console.WriteLine("\n\u001b[91mFAILED\u001b[39m > \u001b[93\u001b[4mmUnknown\u001b[24m [Click any key to return to Home]");
                 Console.ReadKey();
                 Console.Clear();
             }
             else
             {
-                Console.WriteLine("Success | " +
-                                  " Skin bought! " +
-                                  "| [Click any key to return to Home]");
+                Console.WriteLine("\n\u001b[92mSUCCESS\u001b[39m > \u001b[93m\u001b[4mSkin bought!\u001b[24m [Click any key to return to Home]");
                 Console.ReadKey();
                 Console.Clear();
             }
@@ -425,9 +447,10 @@ namespace msptool
         static void customStatus(string server, string name, int actorId, string ticket)
         {
             Console.Clear();
-            Console.WriteLine("Enter Status: ");
+            Console.WriteLine("\u001b[94mSTAR\u001b[39m ・ Home ・ Status\n\n");
+            Console.Write("[\u001b[94m+\u001b[39m] Enter Status: ");
             string statustxt = (Console.ReadLine());
-            Console.WriteLine("Enter Color: ");
+            Console.Write("[\u001b[94m+\u001b[39m] Enter Color: ");
             string statusColor = Console.ReadLine();
 
             dynamic status = AMFConn(server,
@@ -464,9 +487,10 @@ namespace msptool
         static void addToWishlist(string server, int actorId, string ticket)
         {
             Console.Clear();
-            Console.WriteLine("Enter clothesId: ");
+            Console.WriteLine("\u001b[94mSTAR\u001b[39m ・ Home ・ WishList\n\n");
+            Console.Write("[\u001b[94m+\u001b[39m] Enter clothesId: ");
             int clothId = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter Clothes Color: ");
+            Console.Write("[\u001b[94m+\u001b[39m] Enter Clothes Color: ");
             string clothColor = Console.ReadLine();
 
             dynamic wishlist = AMFConn(server,
@@ -485,6 +509,106 @@ namespace msptool
                 });
         }
 
+        static void iconChanger(string server, int actorId, string ticket)
+        {
+            Console.Clear();
+            Console.WriteLine("\u001b[94mSTAR\u001b[39m ・ Home ・ IconChanger\n\n");
+            Console.Write("[\u001b[91m?!\u001b[39m] Use it at your own risk, we are not responsible for your misdeeds.\n");
+            Console.Write("[\u001b[94m+\u001b[39m] Enter image url: ");
+            string clothId = Console.ReadLine();
+            System.Net.WebClient webClient = new System.Net.WebClient();
+            byte[] array = webClient.DownloadData(clothId);
+
+            dynamic moviestar = AMFConn(server,
+                "MovieStarPlanet.WebService.Snapshots.AMFGenericSnapshotService.CreateSnapshot",
+                new object[5]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    "moviestar",
+                    array,
+                    "jpg"
+                });
+
+            dynamic fullSizeMoviestar = AMFConn(server,
+                "MovieStarPlanet.WebService.Snapshots.AMFGenericSnapshotService.CreateSnapshot",
+                new object[5]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    "fullSizeMoviestar",
+                    array,
+                    "jpg"
+                });
+            if (moviestar && fullSizeMoviestar)
+            {
+                Console.WriteLine("\n\u001b[92mSUCCESS\u001b[39m > \u001b[93m\u001b[4mIcon changed\u001b[24m [Click any key to return to Home]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                Console.WriteLine("\n\u001b[91mFAILED\u001b[39m > \u001b[93\u001b[4mmUnknown\u001b[24m [Click any key to return to Home]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
+
+        static void roomChanger(string server, int actorId, string ticket)
+        {
+            Console.Clear();
+            Console.WriteLine("\u001b[94mSTAR\u001b[39m ・ Home ・ RoomChanger\n\n");
+            Console.Write("[\u001b[91m?!\u001b[39m] Use it at your own risk, we are not responsible for your misdeeds.\n");
+            Console.Write("[\u001b[94m+\u001b[39m] Enter image url: ");
+            string clothId = Console.ReadLine();
+            System.Net.WebClient webClient = new System.Net.WebClient();
+            byte[] array = webClient.DownloadData(clothId);
+
+            dynamic room = AMFConn(server,
+                "MovieStarPlanet.WebService.Snapshots.AMFGenericSnapshotService.CreateSnapshot",
+                new object[5]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    "room",
+                    array,
+                    "jpg"
+                });
+
+            dynamic roomProfile = AMFConn(server,
+                "MovieStarPlanet.WebService.Snapshots.AMFGenericSnapshotService.CreateSnapshot",
+                new object[5]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    "roomProfile",
+                    array,
+                    "jpg"
+                });
+            dynamic roomMedium = AMFConn(server,
+                "MovieStarPlanet.WebService.Snapshots.AMFGenericSnapshotService.CreateSnapshot",
+                new object[5]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    "roomMedium",
+                    array,
+                    "jpg"
+                });
+            if (room && roomProfile && roomMedium)
+            {
+                Console.WriteLine("\n\u001b[92mSUCCESS\u001b[39m > \u001b[93m\u001b[4mRoom changed\u001b[24m [Click any key to return to Home]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                Console.WriteLine("\n\u001b[91mFAILED\u001b[39m > \u001b[93\u001b[4mmUnknown\u001b[24m [Click any key to return to Home]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
+
         static bool isCurrentVersion()
         {
             using (HttpClient client = new HttpClient())
@@ -497,7 +621,7 @@ namespace msptool
                 catch (Exception ex)
                 {
                     Console.WriteLine("ERROR");
-                    return true; 
+                    return true;
                 }
             }
         }
