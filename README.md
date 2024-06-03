@@ -101,6 +101,7 @@ This repository contains a collection of tools for interacting with MovieStarPla
 
 ### Built For
 * ![Windows][star-windowsurl]
+* ![MacOS][star-macosurl]
 * ![Linux][star-linuxurl]
 
 
@@ -227,6 +228,9 @@ Project Link: [https://github.com/l3c1d/star](https://github.com/l3c1d/star)
 
 [star-windows]: https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
 [star-windowsurl]: https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
+
+[star-macos]: https://img.shields.io/badge/macos-compatible-brightgreen?style=flat-square
+[star-macisurl]: https://img.shields.io/badge/macos-compatible-brightgreen?style=flat-square
 
 [star-linux]: https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black
 [star-linuxurl]: https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black
