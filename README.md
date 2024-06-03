@@ -6,7 +6,7 @@
 <!-- PROJECT SHIELDS -->
 
 [![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][[https://github.com/l3c1d/star/forks]
+[![Forks][forks-shield]][[]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
