@@ -111,7 +111,7 @@ Just check the Requirements and install em and ur good to go, aint hard.
 1. Clone the Git Repository or Download the Repo manually
 2. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/l3c1d/star.git
    ```
 3. Install Requirements
    
