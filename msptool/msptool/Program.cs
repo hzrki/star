@@ -23,9 +23,9 @@ namespace msptool
                 string latestVersion = client.GetStringAsync(checkVersion).Result;
                 AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Update").LeftJustified());
                 Console.Write("\n");
-                AnsiConsole.Markup($"[#71d5fb]Go on and download last release[/] ・ [link=https://github.com/l3c1d/star/releases/tag/v{latestVersion}]github.com/l3c1d/star/releases/tag/v{latestVersion}[/]");
+                AnsiConsole.Markup(
+                    $"[#71d5fb]Go on and download last release[/] ・ [link=https://github.com/l3c1d/star/releases/tag/v{latestVersion}]github.com/l3c1d/star/releases/tag/v{latestVersion}[/]");
                 Console.ReadKey();
-                return;
                 while (true)
                 {
                     Console.Write("\x1b[94mSTAR\x1b[39m ・ Update\n\n");
