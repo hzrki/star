@@ -801,6 +801,8 @@ namespace msptool
                         awardVal,
                         actorId
                     });
+                Console.WriteLine("Spinning Wheels...");
+                Console.Clear();
             }
         }
 
