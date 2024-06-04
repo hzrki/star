@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Net.Http;
@@ -140,7 +140,7 @@ namespace msptool
                         AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home").LeftJustified().RoundedBorder());
                         Console.Write("\n");
                         AnsiConsole.Markup("[#71d5fb]1[/]  > Recycle None-Rare Clothes\n");
-                        AnsiConsole.Markup("[#71d5fb]2[/]  > Buy Bonster\n");
+                        AnsiConsole.Markup("[#71d5fb]2[/]  > Buy Boonie\n");
                         AnsiConsole.Markup("[#71d5fb]3[/]  > Buy Animations\n");
                         AnsiConsole.Markup("[#71d5fb]4[/]  > Buy Clothes\n");
                         AnsiConsole.Markup("[#71d5fb]5[/]  > Buy Eyes\n");
@@ -162,7 +162,7 @@ namespace msptool
                                 recycleNoneRareClothes(server, actorId, ticket);
                                 break;
                             case "2":
-                                buyBonster(server, actorId, ticket);
+                                buyBoonie(server, actorId, ticket);
                                 break;
                             case "3":
                                 buyAnimation(server, actorId, ticket);
@@ -257,42 +257,83 @@ namespace msptool
             Console.Clear();
         }
 
-        static void buyBonster(string server, int actorId, string ticket)
+        static void buyBoonie(string server, int actorId, string ticket)
         {
             Console.Clear();
-            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Buy Bonsters").LeftJustified().RoundedBorder());
-            Console.Write("\n");
-            int bonsterId = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] Enter BonsterId: ")
-                                          .PromptStyle("#71d5fb"));
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Buy Boonie").LeftJustified().RoundedBorder());
+            
+            var bonnieOptions = new (string Name, int Value)[]
+            {
+                ("Light Side Boonie", 1),
+                ("Dark Side Boonie", 2),
+                ("VIP Boonie", 3),
+                ("FOX", 4),
+                ("DOG", 5),
+                ("PLANT", 6),
+                ("DRAGON", 7),
+                ("Metat Eater", 8),
+                ("Xmas Boonie", 9),
+                ("Valentine Boonie", 10),
+                ("Diamond Boonie", 11),
+                ("Easter Bunny", 12),
+                ("Diamond Squirrel", 13),
+                ("Poodle", 14),
+                ("Summer Boonie", 15),
+                ("Gamer Bunny", 16),
+                ("Brad Pet", 17),
+                ("Magazine Pet", 18),
+                ("Puppy", 19),
+                ("Halloween Boonie", 20),
+                ("Space Boonie", 21),
+                ("Xmax Boonie 2012", 22),
+                ("New Years Boonie 2012", 23),
+                ("Elements 2013 Boonie", 24),
+                ("Valentines 2013 Boonie", 25),
+                ("Australia 2013 Boonie", 26),
+                ("EgmontMagazine1Boonie", 27),
+                ("Easter 2013 Boonie", 29),
+                ("Tutti Frutti 2013 Boonie", 30),
+                ("Birthday 2013 Boonie", 31),
+                ("Mexican 2013 Boonie", 32),
+                ("Fastfood 2013 Boonie", 33),
+                ("Rio 2013 Boonie", 34),
+                ("Night Sky 2013 Boonie", 35),
+                ("Wonderland Boonie", 37),
+                ("Robots 2013", 38),
+                ("Halloween 2013", 39),
+                ("Winter Wonderland 2013", 40),
+                ("Christmas 2013", 41),
+                ("New Year 2013", 42),
+                ("Egmont Mag 10", 43),
+                ("Egmont Mag 2014", 46)
+            };
 
-            dynamic bonster = AMFConn(server, "MovieStarPlanet.WebService.Bonster.AMFBonsterShopService.BuyBonster",
+            var selectedBoonie = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("[[[#71d5fb]+[/]]] Select a boonie: ")
+                    .PageSize(10)
+                    .AddChoices(bonnieOptions.Select(choice => choice.Name))
+            );
+
+            var selectedChoice = bonnieOptions.First(choice => choice.Name == selectedBoonie);
+
+
+            dynamic boonie = AMFConn(server, "MovieStarPlanet.WebService.Pets.AMFPetService.BuyClickItem",
                 new object[3]
                 {
                     new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                     actorId,
-                    bonsterId
+                    selectedChoice.Value
                 });
-            if (bonster == null) {
+            if (boonie["SkinSWF"] != "femaleskin" && boonie["SkinSWF"] != "maleskin") {
                 AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
                 Console.Clear();
                 return;
-            }
-            if (bonster.ToString().Contains("(500) Internal Server Error")) {
-                AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
-                Console.ReadKey();
-                Console.Clear();
-                return;
-            }
-            if (bonster["ActorBonsterRelId"] != 0)
-            {
-                AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
-                Console.ReadKey();
-                Console.Clear();
             }
             else
             {
-                AnsiConsole.Markup("\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Bonster bought![/] [[Click any key to return to Home]][/]");
+                AnsiConsole.Markup("\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Boonie bought![/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
                 Console.Clear();
             }
@@ -555,7 +596,7 @@ namespace msptool
             Console.Write("\n");
             string statustxt = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter Status: ")
                                           .PromptStyle("#71d5fb"));
-            var choices = new (string Name, int Value)[]
+            var colorOptions = new (string Name, int Value)[]
             {
                 ("Black", 0),
                 ("Red", 13369344),
@@ -572,10 +613,10 @@ namespace msptool
                     new SelectionPrompt<string>()
                         .Title("[[[#71d5fb]+[/]]] Select a color: ")
                         .PageSize(10)
-                        .AddChoices(choices.Select(choice => choice.Name))
+                        .AddChoices(colorOptions.Select(choice => choice.Name))
                 );
 
-            var selectedChoice = choices.First(choice => choice.Name == selectedColor);
+            var selectedChoice = colorOptions.First(choice => choice.Name == selectedColor);
 
             dynamic status = AMFConn(server,
                 "MovieStarPlanet.WebService.ActorService.AMFActorServiceForWeb.SetMoodWithModerationCall",
