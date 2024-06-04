@@ -3,6 +3,7 @@
   <Import Project="..\packages\Costura.Fody.5.8.0-alpha0098\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.5.8.0-alpha0098\build\Costura.Fody.props')" />
   <PropertyGroup>
     <MsBuildMajorVersion Condition="'$(MsBuildMajorVersion)' == ''">15</MsBuildMajorVersion>
+    <ApplicationIcon>icon.jpg</ApplicationIcon>
   </PropertyGroup>
   <Target Name="CheckMsBuildVersion">
     <PropertyGroup>
@@ -170,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="icon.jpg" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
