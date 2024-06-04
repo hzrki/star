@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -147,7 +148,10 @@ namespace msptool
                         AnsiConsole.Markup("[#71d5fb]10[/] > Custom Status\n");
                         AnsiConsole.Markup("[#71d5fb]11[/] > Icon changer\n");
                         AnsiConsole.Markup("[#71d5fb]12[/] > Room changer\n");
-                        AnsiConsole.Markup("[#71d5fb]13[/] > Logout\n\n");
+                        AnsiConsole.Markup("[#71d5fb]13[/] > Add Sponsors\n");
+                        AnsiConsole.Markup("[#71d5fb]14[/] > Block Zac, Pixi, nova\n");
+                        AnsiConsole.Markup("[#71d5fb]15[/] > wheelspins\n");
+                        AnsiConsole.Markup("[#71d5fb]16[/] > Logout\n\n");
                         AnsiConsole.Write(new Rule("[slowblink][#71d5fb]lucid & 6c0[/][/] ・ [link=https://discord.gg/msp1]discord.gg/msp1[/]").RightJustified().RoundedBorder());
                         var options = AnsiConsole.Prompt(new TextPrompt<string>("\n[[[#71d5fb]+[/]]] Pick an option: ")
                                           .PromptStyle("#71d5fb"));
@@ -191,6 +195,12 @@ namespace msptool
                                 roomChanger(server, actorId, ticket);
                                 break;
                             case "13":
+                                addSponsors(server, ticket);
+                                break;
+                            case "14":
+                                blockDefaults(server, actorId, ticket);
+                                break;
+                            case "15":
                                 Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
                                 loggedIn = false;
@@ -658,6 +668,53 @@ namespace msptool
                 AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
                 Console.Clear();
+            }
+        }
+
+        static void addSponsors(string server, string ticket)
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Status").LeftJustified().RoundedBorder());
+            Console.Write("\n");
+
+            List<int> anchorCharacterList = new List<int>
+                { 273, 276, 277, 341, 418, 419, 420, 421, 83417, 83423, 83424 };
+
+            foreach (int anchorId in anchorCharacterList)
+            {
+                dynamic anchor = AMFConn(server,
+                    "MovieStarPlanet.WebService.AnchorCharacter.AMFAnchorCharacterService.RequestFriendship",
+                    new object[2]
+                    {
+                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                        anchorId
+                    });
+                Console.WriteLine($"Added: {anchorId}");
+
+            }
+        }
+        
+        static void blockDefaults(string server, int actorId, string ticket)
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Status").LeftJustified().RoundedBorder());
+            Console.Write("\n");
+
+            List<int> mspDefaults = new List<int>
+                { 3, 4, 414 };
+
+            foreach (int defaultId in mspDefaults)
+            {
+                dynamic mspdefaults = AMFConn(server,
+                    "MovieStarPlanet.WebService.ActorService.AMFActorServiceForWeb.BlockActor",
+                    new object[3]
+                    {
+                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                        actorId,
+                        defaultId
+                    });
+                Console.WriteLine($"Blocked: {defaultId}");
+
             }
         }
 
