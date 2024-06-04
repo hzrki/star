@@ -30,7 +30,7 @@ namespace msptool
                 AnsiConsole.Markup($"[#71d5fb]Go on and download last release[/] ・ [link=https://github.com/l3c1d/star/releases/tag/v{latestVersion}]github.com/l3c1d/star/releases/tag/v{latestVersion}[/]");
                 Console.ReadKey();
                 return;
-                /*while (true)
+                while (true)
                 {
                     Console.Write("\x1b[94mSTAR\x1b[39m ・ Update\n\n");
                     Console.WriteLine("[\x1b[95m!\u001b[39m] \u001b[93mAn update was found !\n");
@@ -53,7 +53,7 @@ namespace msptool
                             Console.Clear();
                             break;
                     }
-                }*/
+                }
             }
 
             bool loggedIn = false;
