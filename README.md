@@ -38,7 +38,7 @@
     <img src="IMG_3520.jpeg" alt="Logo" width="170" height="80">
   </a>
 
-  <h3 align="center">MovieStarPlanetTools</h3>
+  <h3 align="center">MovieStarPlanet Tools</h3>
 
   <p align="center">
     An awesome Tool to simplify your MSP Experience
@@ -46,14 +46,11 @@
     <a href="https://github.com/l3c1d/star/tree/main/msptool"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="">View Demo</a>
-    ·
     <a href="https://github.com/l3c1d/star/issues/new?labels=bug">Report Bug</a>
     ·
     <a href="https://github.com/l3c1d/star/issues/new?labels=enhancement">Request Feature</a>
   </p>
 </div>
-
 
 
 <!-- TABLE OF CONTENTS -->
@@ -101,6 +98,7 @@ This repository contains a collection of tools for interacting with MovieStarPla
 
 ### Built For
 * ![Windows][star-windowsurl]
+* ![MacOS][star-macosurl]
 * ![Linux][star-linuxurl]
 
 
@@ -120,8 +118,6 @@ Just check the Requirements and install em and ur good to go, aint hard.
   ```
 
 ### Installation
-
-
 
 1. Clone the Git Repository or Download the Repo manually
 2. Clone the repo
@@ -161,7 +157,7 @@ To use the tools, simply run the application and select the desired option from 
 - [x] Published First Version of Tool
 - [x] Worked on stability and added new Features 
 - [ ] UI Redesign
-- [ ] Multi-Plattform Support
+- [x] Multi-Plattform Support
  - [ ] Add new Languages
     - [ ] German
     - [ ] Turkish
@@ -189,12 +185,16 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Disclaimer
+
+We are not affiliated with MovieStarPlanet ApS. This project is not for profit and is released under the MIT License.
 
 
-<!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -227,6 +227,9 @@ Project Link: [https://github.com/l3c1d/star](https://github.com/l3c1d/star)
 
 [star-windows]: https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
 [star-windowsurl]: https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
+
+[star-macos]: https://img.shields.io/badge/MacOS--9cf?logo=Apple&style=social
+[star-macosurl]: https://img.shields.io/badge/MacOS--9cf?logo=Apple&style=social
 
 [star-linux]: https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black
 [star-linuxurl]: https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black
