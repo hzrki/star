@@ -157,7 +157,7 @@ namespace msptool
                         AnsiConsole.Markup("[#71d5fb]13[/] > Add Sponsors\n");
                         AnsiConsole.Markup("[#71d5fb]14[/] > Block Zac, Pixi, nova\n");
                         AnsiConsole.Markup("[#71d5fb]15[/] > Recycle Diamond Items\n");
-                        AnsiConsole.Markup("[#71d5fb]16[/] > wheelspins\n");
+                        AnsiConsole.Markup("[#71d5fb]16[/] > Wheel Spins\n");
                         AnsiConsole.Markup("[#71d5fb]17[/] > Logout\n\n");
                         AnsiConsole.Write(
                             new Rule(
