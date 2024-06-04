@@ -94,13 +94,10 @@ This repository contains a collection of tools for interacting with MovieStarPla
 
 
 * ![Csharp][star-csharpurl]
-* <img src="https://i.imgur.com/9NFfY9z.png" alt="Logo" width="100" height="30">
 
 ### Built For
 * ![Windows][star-windowsurl]
 * ![MacOS][star-macosurl]
-* ![Linux][star-linuxurl]
-
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -126,7 +123,7 @@ Just check the Requirements and install em and ur good to go, aint hard.
    ```
 3. Install Requirements
    
-4. Build in x64 or SwiftUI Mac Development
+4. Build in x64 or VS Mac
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -164,7 +161,7 @@ To use the tools, simply run the application and select the desired option from 
 
 - [x] Published First Version of Tool
 - [x] Worked on stability and added new Features 
-- [ ] UI Redesign
+- [x] UI Redesign
 - [x] Multi-Plattform Support
  - [ ] Add new Languages
     - [ ] German
