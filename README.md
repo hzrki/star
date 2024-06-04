@@ -136,16 +136,24 @@ Just check the Requirements and install em and ur good to go, aint hard.
 
 To use the tools, simply run the application and select the desired option from the menu. The options are:
 
-* Recycle Non-Rare Clothes
-* Buy Animation
-* Buy Clothes
-* Wear Rare Skin
-* Buy Eyes
-* Add to Wishlist
-* Buy Nose
-* Buy Lips
-* Custom Status
-* Log Out
+> Recycle None-Rare Clothes
+> Buy Boonie
+> Buy Animations
+> Buy Clothes
+> Buy Eyes
+> Buy Nose
+> Buy Lips
+> Wear RareSkin
+> Add to wishlist
+> Custom Status
+> Icon changer
+> Room changer
+> Add Sponsors
+> Block Zac, Pixi, nova
+> Recycle Diamond Items
+> Wheel Spins
+> Logout
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
