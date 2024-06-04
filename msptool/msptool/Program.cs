@@ -1,4 +1,4 @@
-﻿using System;
+z﻿using System;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Net.Http;
@@ -71,22 +71,22 @@ namespace msptool
 
                 var choices = new (string Name, string Value)[]
                 {
-                    ("Germany", "de"),
-                    ("United Kingdom", "gb"),
-                    ("Australia", "au"),
-                    ("Canada", "ca"),
-                    ("Denmark", "dk"),
-                    ("USA", "us"),
-                    ("Spain", "es"),
-                    ("Finland", "fi"),
-                    ("France", "fr"),
-                    ("Ireland", "ie"),
-                    ("Norway", "no"),
-                    ("New Zealand", "nz"),
-                    ("Netherlands", "nl"),
-                    ("Poland", "pl"),
-                    ("Sweden", "se"),
-                    ("Turkey", "tr")
+                    ("United Kingdom", "GB"),
+                    ("United States", "US"),
+                    ("Türkiye", "TR"),
+                    ("Sweden", "SE"),
+                    ("France", "FR"),
+                    ("Deutschland", "DE"),
+                    ("Netherlands", "NL"),
+                    ("Finland", "FI"),
+                    ("Norway", "NO"),
+                    ("Denmark", "DK"),
+                    ("Canada", "CA"),
+                    ("Australia", "AU"),
+                    ("Poland", "PL"),
+                    ("New Zealand", "NZ"),
+                    ("Ireland", "IE"),
+                    ("Spain", "ES")
                 };
 
                 var selectedCountry = AnsiConsole.Prompt(
