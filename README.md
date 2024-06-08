@@ -98,10 +98,6 @@ This repository contains a collection of tools for interacting with MovieStarPla
 * ![MacOS][star-macosurl]
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -127,9 +123,6 @@ Just check the Requirements and install em and ur good to go, aint hard.
      
 4. Build in Visual Studio / Jetbrains Rider or Visual Studio Mac
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 ## Usage
 
@@ -152,8 +145,6 @@ To use the tools, simply run the application and select the desired option from 
 * Recycle Diamond Items
 * Wheel Spins
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 ## Disclaimer
 
@@ -166,20 +157,12 @@ We are not affiliated with MovieStarPlanet ApS. This project is not for profit a
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- CONTACT -->
 ## Contact
 
 Contact For any inquiries or support, please contact lightsofhopee@outlook.com
 
 Project Link: [https://github.com/l3c1d/star](https://github.com/l3c1d/star)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
