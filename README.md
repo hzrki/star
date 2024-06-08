@@ -123,6 +123,7 @@ Just check the Requirements and install em and ur good to go, aint hard.
    * FluorineFx.Client
    * Newtonsoft.Json
    * Spectre.Console
+   * Optional : Costura.fody
      
 4. Build in Visual Studio / Jetbrains Rider or Visual Studio Mac
 
