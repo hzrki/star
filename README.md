@@ -121,7 +121,7 @@ Just check the Requirements and install em and ur good to go, aint hard.
    ```
 3. Install Requirements
    
-4. Build in x64 or VS Mac
+4. Build in Visual Studio / Jetbrains Rider or Visual Studio Mac
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
