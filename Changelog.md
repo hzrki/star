@@ -1,17 +1,13 @@
 # Changelog
 
-## v1.4
+## v1.5
 
 ### Added or Changed
-- Added `Buy Bonnie`
-- Added `Add Sponsors`
-- Added `Block Zac, Pixi, nova`
-- Added `Recycle Diamond Items`
-- Added `Wheel Spins`
-
-- Fix `Wishlist` & `CustomStatus`
-- Big Visual Rework
+- Upgraded `.NET Framework to 4.8.1`
+- Added `N/A`
+- Added `N/A`
+- Added `N/A`
 
 ### Removed
 
-- incompatibility
+- N/A
