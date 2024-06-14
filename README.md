@@ -140,6 +140,8 @@ To use the tools, simply run the application and select the desired option from 
 * Recycle Diamond Items
 * Wheel Spins
 
+* Extra >> msplisa.exe for windows users for 10 years celebration on release downloads along with updated src
+
 
 ## Disclaimer
 
