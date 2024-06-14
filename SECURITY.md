@@ -5,9 +5,8 @@
 MSPTool
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.6 | :white_check_mark: |
 | 1.5 | :white_check_mark: |
-| 1.4 | :white_check_mark: |
+| 1.4 | :x: |
 | 1.3 | :x: |
 
 
