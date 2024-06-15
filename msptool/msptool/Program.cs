@@ -4,6 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using Spectre.Console;
+using System.Text;
+using System.Net;
+using System.Collections.Specialized;
 using static msptool.AMF;
 using static msptool.Checksum;
 
@@ -53,12 +56,127 @@ namespace msptool
                     }
                 }
             }
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Choose").LeftJustified());
+            Console.Write("\n");
 
+            var selectedLogin = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                        .Title("[[[#71d5fb]+[/]]] Select on what MSP you want connect")
+                        .PageSize(3)
+                        .AddChoices(new[] { "MovieStarPlanet 1", "MovieStarPlanet 2" })
+                );
+
+            if (selectedLogin == "MovieStarPlanet 1")
+                MSP1_Login();
+            else
+                MSP2_Login();
+
+        }
+
+        static async void MSP2_Login()
+        {
+            Console.Clear();
+                AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Login MSP2").LeftJustified());
+                Console.Write("\n");
+                var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
+                    .PromptStyle("#71d5fb"));
+
+                var password = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter password: ")
+                    .PromptStyle("#71d5fb")
+                    .Secret());
+
+                var choices = new (string Name, string Value)[]
+                {
+                    ("United Kingdom", "GB"),
+                    ("United States", "US"),
+                    ("Türkiye", "TR"),
+                    ("Sweden", "SE"),
+                    ("France", "FR"),
+                    ("Deutschland", "DE"),
+                    ("Netherlands", "NL"),
+                    ("Finland", "FI"),
+                    ("Norway", "NO"),
+                    ("Denmark", "DK"),
+                    ("Canada", "CA"),
+                    ("Australia", "AU"),
+                    ("Poland", "PL"),
+                    ("New Zealand", "NZ"),
+                    ("Ireland", "IE"),
+                    ("Spain", "ES")
+                };
+
+                var selectedCountry = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                        .Title("[[[#71d5fb]+[/]]] Select an server: ")
+                        .PageSize(15)
+                        .MoreChoicesText("[grey](Move up and down to reveal more servers)[/]")
+                        .AddChoices(choices.Select(choice => choice.Name))
+                );
+
+                var server = choices.First(choice => choice.Name == selectedCountry).Value;
+                var region = GetRegion(server);
+                var values = new Dictionary<string, string>
+                  {
+                      { "client_id", "unity.client" },
+                      { "client_secret", "secret" }
+                  };
+
+
+                using (var client = new WebClient())
+                {
+
+                    var val = new NameValueCollection();
+                    val["client_id"] = "unity.client";
+                    val["client_secret"] = "secret";
+                    val["grant_type"] = "password";
+                    val["scope"] = "openid nebula offline_access";
+                    val["username"] = $"{server}|{username}";
+                    val["password"] = password;
+                    val["acr_values"] = "gameId:j68d";
+                    try
+                    {
+                        var response = client.UploadValues($"https://{region}-secure.mspapis.com/loginidentity/connect/token", val);
+
+                        var responseString = Encoding.Default.GetString(response);
+                        Console.Out.WriteLine(responseString);
+                        Console.ReadKey();
+                    }
+                    catch (WebException ex)
+                    {
+                        if (ex.Response != null)
+                        {
+                            var errorResponse = (HttpWebResponse)ex.Response;
+                            using (var reader = new System.IO.StreamReader(errorResponse.GetResponseStream()))
+                            {
+                                string errorText = reader.ReadToEnd();
+                                Console.WriteLine("Error Response:");
+                                Console.WriteLine(errorText);
+                                Console.ReadKey();
+                            }
+                        }
+                    }
+                }
+        }
+
+        static string GetRegion(string server) {
+            string[][] servers = {
+                new string[] {"US", "CA", "AU", "NZ"},
+                new string[] {"GB", "DE", "FR", "TR", "SE", "DK", "FI", "PL", "IE", "ES", "NL", "NO"}
+            };
+            if (servers[0].Contains(server))
+                return "us";
+            else if (servers[1].Contains(server))
+                return "eu";
+            return "us";
+        }
+
+        static void MSP1_Login()
+        {
+            Console.Clear();
             bool loggedIn = false;
-
             while (!loggedIn)
             {
-                AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Login").LeftJustified());
+                AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Login MSP1").LeftJustified());
                 Console.Write("\n");
                 var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
                     .PromptStyle("#71d5fb"));
