@@ -122,7 +122,7 @@ Just check the Requirements and install em and ur good to go, aint hard.
 ## Usage
 
 To use the tools, simply run the application and select the desired option from the menu. The options are:
-
+* MovieStarPlanet 1 *
 * Recycle None-Rare Clothes
 * Buy Boonie
 * Buy Animations
@@ -139,6 +139,11 @@ To use the tools, simply run the application and select the desired option from 
 * Block Zac, Pixi, nova
 * Recycle Diamond Items
 * Wheel Spins
+
+* MovieStarPlanet 2 *
+* Mood Changer
+* Gender Changer
+* Delete Room
 
 * Extra >> msplisa.exe for windows users for 10 years celebration on release downloads along with updated src
 
