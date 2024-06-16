@@ -86,7 +86,7 @@ namespace msptool
             bool loggedIn = false;
             while (!loggedIn)
             {
-                AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Login MSP1").LeftJustified());
+                AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Login MSP").LeftJustified());
                 Console.Write("\n");
                 var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
                     .PromptStyle("#71d5fb"));
