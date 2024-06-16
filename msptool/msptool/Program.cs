@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using Spectre.Console;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Net.Http.Headers;
+using Newtonsoft.Json.Linq;
 using static msptool.AMF;
 using static msptool.Checksum;
 using WebClient = System.Net.WebClient;
@@ -119,42 +122,68 @@ namespace msptool
 
             var server = choices.First(choice => choice.Name == selectedCountry).Value;
             var region = new[] { "US", "CA", "AU", "NZ" }.Contains(server) ? "us" : "eu";
+            AnsiConsole.Status()
+                .SpinnerStyle(Spectre.Console.Style.Parse("#71d5fb"))
+                .Start("Login...", ctx =>
+                {
+                    ctx.Refresh();
+                    ctx.Spinner(Spinner.Known.Moon);
 
-            var tep = $"https://{region}-secure.mspapis.com/loginidentity/connect/token";
-            
-            using (var msptclient = new WebClient())
-            {
+                    var tep = $"https://{region}-secure.mspapis.com/loginidentity/connect/token";
 
-                var val = new NameValueCollection();
-                val["client_id"] = "unity.client";
-                val["client_secret"] = "secret";
-                val["grant_type"] = "password";
-                val["scope"] = "openid nebula offline_access";
-                val["username"] = $"{server}|{username}";
-                val["password"] = password;
-                val["acr_values"] = "gameId:j68d";
-                
-                var resp = msptclient.UploadValues(tep,val);
+                    using (var msptclient = new WebClient())
+                    {
 
-                var resp1 = Encoding.Default.GetString(resp);
-                dynamic resp2 = JsonConvert.DeserializeObject(resp1);
-        
-                var accessToken = resp2["access_token"].ToString();
-                var refreshToken = resp2["refresh_token"].ToString();
-                
-                var th = new JwtSecurityTokenHandler();
-                var jtoken = th.ReadJwtToken(accessToken);
-                var loginId = jtoken.Payload["loginId"];
-                
-                Console.Write(accessToken);
-                Console.Write(refreshToken);
-                Console.Write(loginId);
+                        var val = new NameValueCollection();
+                        val["client_id"] = "unity.client";
+                        val["client_secret"] = "secret";
+                        val["grant_type"] = "password";
+                        val["scope"] = "openid nebula offline_access";
+                        val["username"] = $"{server}|{username}";
+                        val["password"] = password;
+                        val["acr_values"] = "gameId:j68d";
 
+                        var resp = msptclient.UploadValues(tep, val);
 
+                        var resp1 = Encoding.Default.GetString(resp);
+                        dynamic resp2 = JsonConvert.DeserializeObject(resp1);
 
-                Console.ReadKey();
-            }
+                        var accessToken_first = resp2["access_token"].ToString();
+                        var refreshToken = resp2["refresh_token"].ToString();
+
+                        var th = new JwtSecurityTokenHandler();
+                        var jtoken = th.ReadJwtToken(accessToken_first);
+                        var loginId = jtoken.Payload["loginId"];
+
+                        string pid =
+                            $"https://{region}.mspapis.com/profileidentity/v1/logins/{loginId}/profiles?&pageSize=100&page=1&filter=region:{server}";
+                        msptclient.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + accessToken_first);
+                        string resp3 = msptclient.DownloadString(pid);
+
+                        string profileId = JArray.Parse(resp3)[0]["id"].ToString();
+
+                        var val2 = new NameValueCollection();
+                        val2["grant_type"] = "refresh_token";
+                        val2["refresh_token"] = refreshToken;
+                        val2["arc_values"] = $"gameId:j68d profileId:{profileId}";
+
+                        msptclient.Headers.Remove(HttpRequestHeader.Authorization);
+                        msptclient.Headers.Add(HttpRequestHeader.Authorization,
+                            "Basic " + "dW5pdHkuY2xpZW50OnNlY3JldA==");
+                        var resp4 = msptclient.UploadValues(tep, val2);
+
+                        var resp5 = Encoding.Default.GetString(resp4);
+                        dynamic resp6 = JsonConvert.DeserializeObject(resp5);
+
+                        var accessToken = resp6["access_token"].ToString();
+                        
+                        Console.Write(accessToken);
+
+                        Console.ReadKey();
+                    }
+                });
         }
+
 
 
         static void MSP1_Login()
@@ -1072,6 +1101,7 @@ namespace msptool
                     return true;
                 }
             }
-        }
+            
+    }
     }
 }
