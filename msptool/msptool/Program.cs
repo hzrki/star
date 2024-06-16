@@ -186,7 +186,14 @@ namespace msptool
                         AnsiConsole.Markup("[#71d5fb]14[/] > Block Zac, Pixi, nova\n");
                         AnsiConsole.Markup("[#71d5fb]15[/] > Recycle Diamond Items\n");
                         AnsiConsole.Markup("[#71d5fb]16[/] > Wheel Spins\n");
-                        AnsiConsole.Markup("[#71d5fb]17[/] > Logout\n\n");
+                        AnsiConsole.Markup("[#71d5fb]17[/] > Lisa Hack\n");
+                        AnsiConsole.Markup("[#71d5fb]18[/] > Automated Autographer\n");
+                        AnsiConsole.Markup("[#71d5fb]19[/] > Automated Pixeller\n");
+                        AnsiConsole.Markup("[#71d5fb]20[/] > Item Glitcher\n");
+                        AnsiConsole.Markup("[#71d5fb]21[/] > Scrape Usernames\n");
+                        AnsiConsole.Markup("[#71d5fb]22[/] > Bot Generator\n");
+                        AnsiConsole.Markup("[#71d5fb]23[/] > Login with scraped usernames\n");
+                        AnsiConsole.Markup("[#71d5fb]24[/] > Logout\n\n");
                         AnsiConsole.Write(
                             new Rule(
                                     "[slowblink][#71d5fb]lucid & 6c0[/][/] ・ [link=https://discord.gg/starmsp]discord.gg/starmsp[/]")
@@ -245,6 +252,27 @@ namespace msptool
                                 wheelspins(server, actorId, ticket);
                                 break;
                             case "17":
+                                lisaHack(server, ticket);
+                                break;
+                            case "18":
+                                automatedAutographer(server, ticket);
+                                break;
+                            case "19":
+                                automatedPixeller(server, ticket);
+                                break;
+                            case "20":
+                                itemGlitcher(server, ticket);
+                                break;
+                            case "21":
+                                scrapeUsernames(server, ticket);
+                                break;
+                            case "22":
+                                botGenerator(server, ticket);
+                                break;
+                            case "23":
+                                loginInactives(server, ticket);
+                                break;
+                            case "24":
                                 Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
                                 loggedIn = false;
@@ -1008,7 +1036,51 @@ namespace msptool
             }
         }
 
-        static async Task MSP2_Login()
+        static void lisaHack(string server, string ticket)
+        {
+            Console.Write("soon");
+            Console.ReadKey();
+            Console.Clear();
+        }
+        
+        static void automatedAutographer(string server, string ticket)
+        {
+            Console.Write("soon");
+            Console.ReadKey();
+            Console.Clear();
+        }
+        static void automatedPixeller(string server, string ticket)
+        {
+            Console.Write("soon");
+            Console.ReadKey();
+            Console.Clear();
+        }
+        static void itemGlitcher(string server, string ticket)
+        {
+            Console.Write("soon");
+            Console.ReadKey();
+            Console.Clear();
+        }
+        static void scrapeUsernames(string server, string ticket)
+        {
+            Console.Write("soon");
+            Console.ReadKey();
+            Console.Clear();
+        }
+        static void botGenerator(string server, string ticket)
+        {
+            Console.Write("soon");
+            Console.ReadKey();
+            Console.Clear();
+        }
+        static void loginInactives(string server, string ticket)
+        {
+            Console.Write("soon");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+    static async Task MSP2_Login()
         {
             Console.Clear();
             bool loggedIn2 = false;
