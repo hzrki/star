@@ -80,112 +80,6 @@ namespace msptool
 
         }
 
-        static async Task MSP2_Login()
-        {
-            Console.Clear();
-            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Login MSP2").LeftJustified());
-            Console.Write("\n");
-            var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
-                .PromptStyle("#71d5fb"));
-
-            var password = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter password: ")
-                .PromptStyle("#71d5fb")
-                .Secret());
-
-            var choices = new (string Name, string Value)[]
-            {
-                ("United Kingdom", "GB"),
-                ("United States", "US"),
-                ("Türkiye", "TR"),
-                ("Sweden", "SE"),
-                ("France", "FR"),
-                ("Deutschland", "DE"),
-                ("Netherlands", "NL"),
-                ("Finland", "FI"),
-                ("Norway", "NO"),
-                ("Denmark", "DK"),
-                ("Canada", "CA"),
-                ("Australia", "AU"),
-                ("Poland", "PL"),
-                ("New Zealand", "NZ"),
-                ("Ireland", "IE"),
-                ("Spain", "ES")
-            };
-
-            var selectedCountry = AnsiConsole.Prompt(
-                new SelectionPrompt<string>()
-                    .Title("[[[#71d5fb]+[/]]] Select an server: ")
-                    .PageSize(15)
-                    .MoreChoicesText("[grey](Move up and down to reveal more servers)[/]")
-                    .AddChoices(choices.Select(choice => choice.Name))
-            );
-
-            var server = choices.First(choice => choice.Name == selectedCountry).Value;
-            var region = new[] { "US", "CA", "AU", "NZ" }.Contains(server) ? "us" : "eu";
-            AnsiConsole.Status()
-                .SpinnerStyle(Spectre.Console.Style.Parse("#71d5fb"))
-                .Start("Login...", ctx =>
-                {
-                    ctx.Refresh();
-                    ctx.Spinner(Spinner.Known.Moon);
-
-                    var tep = $"https://{region}-secure.mspapis.com/loginidentity/connect/token";
-
-                    using (var msptclient = new WebClient())
-                    {
-
-                        var val = new NameValueCollection();
-                        val["client_id"] = "unity.client";
-                        val["client_secret"] = "secret";
-                        val["grant_type"] = "password";
-                        val["scope"] = "openid nebula offline_access";
-                        val["username"] = $"{server}|{username}";
-                        val["password"] = password;
-                        val["acr_values"] = "gameId:j68d";
-
-                        var resp = msptclient.UploadValues(tep, val);
-
-                        var resp1 = Encoding.Default.GetString(resp);
-                        dynamic resp2 = JsonConvert.DeserializeObject(resp1);
-
-                        var accessToken_first = resp2["access_token"].ToString();
-                        var refreshToken = resp2["refresh_token"].ToString();
-
-                        var th = new JwtSecurityTokenHandler();
-                        var jtoken = th.ReadJwtToken(accessToken_first);
-                        var loginId = jtoken.Payload["loginId"];
-
-                        string pid =
-                            $"https://{region}.mspapis.com/profileidentity/v1/logins/{loginId}/profiles?&pageSize=100&page=1&filter=region:{server}";
-                        msptclient.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + accessToken_first);
-                        string resp3 = msptclient.DownloadString(pid);
-
-                        string profileId = JArray.Parse(resp3)[0]["id"].ToString();
-
-                        var val2 = new NameValueCollection();
-                        val2["grant_type"] = "refresh_token";
-                        val2["refresh_token"] = refreshToken;
-                        val2["arc_values"] = $"gameId:j68d profileId:{profileId}";
-
-                        msptclient.Headers.Remove(HttpRequestHeader.Authorization);
-                        msptclient.Headers.Add(HttpRequestHeader.Authorization,
-                            "Basic " + "dW5pdHkuY2xpZW50OnNlY3JldA==");
-                        var resp4 = msptclient.UploadValues(tep, val2);
-
-                        var resp5 = Encoding.Default.GetString(resp4);
-                        dynamic resp6 = JsonConvert.DeserializeObject(resp5);
-
-                        var accessToken = resp6["access_token"].ToString();
-                        
-                        Console.Write(accessToken);
-
-                        Console.ReadKey();
-                    }
-                });
-        }
-
-
-
         static void MSP1_Login()
         {
             Console.Clear();
@@ -368,6 +262,110 @@ namespace msptool
                     }
                 }
             }
+        }
+        
+        static async Task MSP2_Login()
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Login MSP2").LeftJustified());
+            Console.Write("\n");
+            var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
+                .PromptStyle("#71d5fb"));
+
+            var password = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter password: ")
+                .PromptStyle("#71d5fb")
+                .Secret());
+
+            var choices = new (string Name, string Value)[]
+            {
+                ("United Kingdom", "GB"),
+                ("United States", "US"),
+                ("Türkiye", "TR"),
+                ("Sweden", "SE"),
+                ("France", "FR"),
+                ("Deutschland", "DE"),
+                ("Netherlands", "NL"),
+                ("Finland", "FI"),
+                ("Norway", "NO"),
+                ("Denmark", "DK"),
+                ("Canada", "CA"),
+                ("Australia", "AU"),
+                ("Poland", "PL"),
+                ("New Zealand", "NZ"),
+                ("Ireland", "IE"),
+                ("Spain", "ES")
+            };
+
+            var selectedCountry = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("[[[#71d5fb]+[/]]] Select an server: ")
+                    .PageSize(15)
+                    .MoreChoicesText("[grey](Move up and down to reveal more servers)[/]")
+                    .AddChoices(choices.Select(choice => choice.Name))
+            );
+
+            var server = choices.First(choice => choice.Name == selectedCountry).Value;
+            var region = new[] { "US", "CA", "AU", "NZ" }.Contains(server) ? "us" : "eu";
+            AnsiConsole.Status()
+                .SpinnerStyle(Spectre.Console.Style.Parse("#71d5fb"))
+                .Start("Login...", ctx =>
+                {
+                    ctx.Refresh();
+                    ctx.Spinner(Spinner.Known.Moon);
+
+                    var tep = $"https://{region}-secure.mspapis.com/loginidentity/connect/token";
+
+                    using (var msptclient = new WebClient())
+                    {
+
+                        var val = new NameValueCollection();
+                        val["client_id"] = "unity.client";
+                        val["client_secret"] = "secret";
+                        val["grant_type"] = "password";
+                        val["scope"] = "openid nebula offline_access";
+                        val["username"] = $"{server}|{username}";
+                        val["password"] = password;
+                        val["acr_values"] = "gameId:j68d";
+
+                        var resp = msptclient.UploadValues(tep, val);
+
+                        var resp1 = Encoding.Default.GetString(resp);
+                        dynamic resp2 = JsonConvert.DeserializeObject(resp1);
+
+                        var accessToken_first = resp2["access_token"].ToString();
+                        var refreshToken = resp2["refresh_token"].ToString();
+
+                        var th = new JwtSecurityTokenHandler();
+                        var jtoken = th.ReadJwtToken(accessToken_first);
+                        var loginId = jtoken.Payload["loginId"];
+
+                        string pid =
+                            $"https://{region}.mspapis.com/profileidentity/v1/logins/{loginId}/profiles?&pageSize=100&page=1&filter=region:{server}";
+                        msptclient.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + accessToken_first);
+                        string resp3 = msptclient.DownloadString(pid);
+
+                        string profileId = JArray.Parse(resp3)[0]["id"].ToString();
+
+                        var val2 = new NameValueCollection();
+                        val2["grant_type"] = "refresh_token";
+                        val2["refresh_token"] = refreshToken;
+                        val2["arc_values"] = $"gameId:j68d profileId:{profileId}";
+
+                        msptclient.Headers.Remove(HttpRequestHeader.Authorization);
+                        msptclient.Headers.Add(HttpRequestHeader.Authorization,
+                            "Basic " + "dW5pdHkuY2xpZW50OnNlY3JldA==");
+                        var resp4 = msptclient.UploadValues(tep, val2);
+
+                        var resp5 = Encoding.Default.GetString(resp4);
+                        dynamic resp6 = JsonConvert.DeserializeObject(resp5);
+
+                        var accessToken = resp6["access_token"].ToString();
+                        
+                        Console.Write(accessToken);
+
+                        Console.ReadKey();
+                    }
+                });
         }
 
         static void recycleNoneRareClothes(string server, int actorId, string ticket)
