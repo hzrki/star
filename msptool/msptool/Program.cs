@@ -2,13 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Threading;
-using Spectre.Console;
 using System.Text;
-using System.Net;
 using System.Collections.Specialized;
+using System.Threading;
+using System.Threading.Tasks;
+using Spectre.Console;
+using Newtonsoft.Json;
+using System.IdentityModel.Tokens.Jwt;
 using static msptool.AMF;
 using static msptool.Checksum;
+using WebClient = System.Net.WebClient;
 
 namespace msptool
 {
@@ -56,15 +59,16 @@ namespace msptool
                     }
                 }
             }
+
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Choose").LeftJustified());
             Console.Write("\n");
 
             var selectedLogin = AnsiConsole.Prompt(
-                    new SelectionPrompt<string>()
-                        .Title("[[[#71d5fb]+[/]]] Select on what MSP you want connect")
-                        .PageSize(3)
-                        .AddChoices(new[] { "MovieStarPlanet 1", "MovieStarPlanet 2" })
-                );
+                new SelectionPrompt<string>()
+                    .Title("[[[#71d5fb]+[/]]] Select which MSP you want to use")
+                    .PageSize(3)
+                    .AddChoices(new[] { "MovieStarPlanet 1", "MovieStarPlanet 2" })
+            );
 
             if (selectedLogin == "MovieStarPlanet 1")
                 MSP1_Login();
@@ -73,102 +77,85 @@ namespace msptool
 
         }
 
-        static async void MSP2_Login()
+        static async Task MSP2_Login()
         {
             Console.Clear();
-                AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Login MSP2").LeftJustified());
-                Console.Write("\n");
-                var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
-                    .PromptStyle("#71d5fb"));
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Login MSP2").LeftJustified());
+            Console.Write("\n");
+            var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
+                .PromptStyle("#71d5fb"));
 
-                var password = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter password: ")
-                    .PromptStyle("#71d5fb")
-                    .Secret());
+            var password = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter password: ")
+                .PromptStyle("#71d5fb")
+                .Secret());
 
-                var choices = new (string Name, string Value)[]
-                {
-                    ("United Kingdom", "GB"),
-                    ("United States", "US"),
-                    ("Türkiye", "TR"),
-                    ("Sweden", "SE"),
-                    ("France", "FR"),
-                    ("Deutschland", "DE"),
-                    ("Netherlands", "NL"),
-                    ("Finland", "FI"),
-                    ("Norway", "NO"),
-                    ("Denmark", "DK"),
-                    ("Canada", "CA"),
-                    ("Australia", "AU"),
-                    ("Poland", "PL"),
-                    ("New Zealand", "NZ"),
-                    ("Ireland", "IE"),
-                    ("Spain", "ES")
-                };
-
-                var selectedCountry = AnsiConsole.Prompt(
-                    new SelectionPrompt<string>()
-                        .Title("[[[#71d5fb]+[/]]] Select an server: ")
-                        .PageSize(15)
-                        .MoreChoicesText("[grey](Move up and down to reveal more servers)[/]")
-                        .AddChoices(choices.Select(choice => choice.Name))
-                );
-
-                var server = choices.First(choice => choice.Name == selectedCountry).Value;
-                var region = GetRegion(server);
-                var values = new Dictionary<string, string>
-                  {
-                      { "client_id", "unity.client" },
-                      { "client_secret", "secret" }
-                  };
-
-
-                using (var client = new WebClient())
-                {
-
-                    var val = new NameValueCollection();
-                    val["client_id"] = "unity.client";
-                    val["client_secret"] = "secret";
-                    val["grant_type"] = "password";
-                    val["scope"] = "openid nebula offline_access";
-                    val["username"] = $"{server}|{username}";
-                    val["password"] = password;
-                    val["acr_values"] = "gameId:j68d";
-                    try
-                    {
-                        var response = client.UploadValues($"https://{region}-secure.mspapis.com/loginidentity/connect/token", val);
-
-                        var responseString = Encoding.Default.GetString(response);
-                        Console.Out.WriteLine(responseString);
-                        Console.ReadKey();
-                    }
-                    catch (WebException ex)
-                    {
-                        if (ex.Response != null)
-                        {
-                            var errorResponse = (HttpWebResponse)ex.Response;
-                            using (var reader = new System.IO.StreamReader(errorResponse.GetResponseStream()))
-                            {
-                                string errorText = reader.ReadToEnd();
-                                Console.WriteLine("Error Response:");
-                                Console.WriteLine(errorText);
-                                Console.ReadKey();
-                            }
-                        }
-                    }
-                }
-        }
-
-        static string GetRegion(string server) {
-            string[][] servers = {
-                new string[] {"US", "CA", "AU", "NZ"},
-                new string[] {"GB", "DE", "FR", "TR", "SE", "DK", "FI", "PL", "IE", "ES", "NL", "NO"}
+            var choices = new (string Name, string Value)[]
+            {
+                ("United Kingdom", "GB"),
+                ("United States", "US"),
+                ("Türkiye", "TR"),
+                ("Sweden", "SE"),
+                ("France", "FR"),
+                ("Deutschland", "DE"),
+                ("Netherlands", "NL"),
+                ("Finland", "FI"),
+                ("Norway", "NO"),
+                ("Denmark", "DK"),
+                ("Canada", "CA"),
+                ("Australia", "AU"),
+                ("Poland", "PL"),
+                ("New Zealand", "NZ"),
+                ("Ireland", "IE"),
+                ("Spain", "ES")
             };
-            if (servers[0].Contains(server))
-                return "us";
-            else if (servers[1].Contains(server))
-                return "eu";
-            return "us";
+
+            var selectedCountry = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("[[[#71d5fb]+[/]]] Select an server: ")
+                    .PageSize(15)
+                    .MoreChoicesText("[grey](Move up and down to reveal more servers)[/]")
+                    .AddChoices(choices.Select(choice => choice.Name))
+            );
+
+            var server = choices.First(choice => choice.Name == selectedCountry).Value;
+            var region = new[] { "US", "CA", "AU", "NZ" }.Contains(server) ? "us" : "eu";
+
+            var tep = $"https://{region}-secure.mspapis.com/loginidentity/connect/token";
+            
+            using (var msptclient = new WebClient())
+            {
+
+                var val = new NameValueCollection();
+                val["client_id"] = "unity.client";
+                val["client_secret"] = "secret";
+                val["grant_type"] = "password";
+                val["scope"] = "openid nebula offline_access";
+                val["username"] = $"{server}|{username}";
+                val["password"] = password;
+                val["acr_values"] = "gameId:j68d";
+                
+                var resp = msptclient.UploadValues(tep,val);
+
+                var resp1 = Encoding.Default.GetString(resp);
+                dynamic resp2 = JsonConvert.DeserializeObject(resp1);
+        
+                var accessToken = resp2["access_token"].ToString();
+                var refreshToken = resp2["refresh_token"].ToString();
+                
+                var th = new JwtSecurityTokenHandler();
+                var jtoken = th.ReadJwtToken(accessToken);
+                var loginId = jtoken.Payload["loginId"];
+                
+                Console.Write(accessToken);
+                Console.Write(refreshToken);
+                Console.Write(loginId);
+
+
+
+                Console.ReadKey();
+            }
         }
+
 
         static void MSP1_Login()
         {
@@ -893,7 +880,7 @@ namespace msptool
                     0
                 });
         }
-        
+
         static void wheelspins(string server, int actorId, string ticket)
         {
             Console.Clear();
@@ -906,7 +893,8 @@ namespace msptool
             ClaimDailyAward(server, ticket, "advertWheelVipDwl", 400, actorId, 2);
         }
 
-        static void ClaimDailyAward(string server, string ticket, string awardType, int awardVal, int actorId, int count)
+        static void ClaimDailyAward(string server, string ticket, string awardType, int awardVal, int actorId,
+            int count)
         {
             for (int i = 0; i < count; i++)
             {
@@ -931,9 +919,9 @@ namespace msptool
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ WishList").LeftJustified().RoundedBorder());
             Console.Write("\n");
             int clothId = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] Enter ClothesId: ")
-                                          .PromptStyle("#71d5fb"));
+                .PromptStyle("#71d5fb"));
             string clothColor = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter Color: ")
-                                          .PromptStyle("#71d5fb"));
+                .PromptStyle("#71d5fb"));
 
             dynamic wishlist = AMFConn(server,
                 "MovieStarPlanet.WebService.Gifts.AMFGiftsService+Version2.AddItemToWishlist",
@@ -949,10 +937,15 @@ namespace msptool
                         clothColor
                     }
                 });
-            if (wishlist != 0) {
-                AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
-            } else {
-                AnsiConsole.Markup("\n[#06c70c]SUCCESS[/] > [#f7b136][underline]An cloth have been added in your wishlist[/] [[Click any key to return to Home]][/]");
+            if (wishlist != 0)
+            {
+                AnsiConsole.Markup(
+                    "\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
+            }
+            else
+            {
+                AnsiConsole.Markup(
+                    "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]An cloth have been added in your wishlist[/] [[Click any key to return to Home]][/]");
             }
         }
 
@@ -961,9 +954,10 @@ namespace msptool
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ IconChanger").LeftJustified().RoundedBorder());
             Console.Write("\n");
-            AnsiConsole.Markup("[slowblink][[[#c70000]?![/]]] Use it at your own risk, we are not responsible for your misdeeds.[/]\n");
+            AnsiConsole.Markup(
+                "[slowblink][[[#c70000]?![/]]] Use it at your own risk, we are not responsible for your misdeeds.[/]\n");
             string urlImage = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter image url: ")
-                                          .PromptStyle("#71d5fb"));
+                .PromptStyle("#71d5fb"));
             System.Net.WebClient webClient = new System.Net.WebClient();
             byte[] array = webClient.DownloadData(urlImage);
 
@@ -990,13 +984,15 @@ namespace msptool
                 });
             if (moviestar && fullSizeMoviestar)
             {
-                AnsiConsole.Markup("\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Icon changed[/] [[Click any key to return to Home]][/]");
+                AnsiConsole.Markup(
+                    "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Icon changed[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
                 Console.Clear();
             }
             else
             {
-                AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
+                AnsiConsole.Markup(
+                    "\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
                 Console.Clear();
             }
@@ -1007,9 +1003,10 @@ namespace msptool
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ RoomChanger").LeftJustified().RoundedBorder());
             Console.Write("\n");
-            AnsiConsole.Markup("[slowblink][[[#c70000]?![/]]] Use it at your own risk, we are not responsible for your misdeeds.[/]\n");
+            AnsiConsole.Markup(
+                "[slowblink][[[#c70000]?![/]]] Use it at your own risk, we are not responsible for your misdeeds.[/]\n");
             string urlImage = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter image url: ")
-                                          .PromptStyle("#71d5fb"));
+                .PromptStyle("#71d5fb"));
             System.Net.WebClient webClient = new System.Net.WebClient();
             byte[] array = webClient.DownloadData(urlImage);
 
@@ -1046,13 +1043,15 @@ namespace msptool
                 });
             if (room && roomProfile && roomMedium)
             {
-                AnsiConsole.Markup("\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Room changed[/] [[Click any key to return to Home]][/]");
+                AnsiConsole.Markup(
+                    "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Room changed[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
                 Console.Clear();
             }
             else
             {
-                AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
+                AnsiConsole.Markup(
+                    "\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
                 Console.Clear();
             }
