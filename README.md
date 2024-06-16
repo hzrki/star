@@ -37,10 +37,10 @@
   <a href="https://github.com/l3c1d/star">
   </a>
 
-  <h3 align="center">MovieStarPlanet Extension</h3>
+  <h3 align="center">MovieStarPlanet & MovieStarPlanet 2 Extension</h3>
 
   <p align="center">
-    An awesome Tool to simplify your MSP Experience
+    An awesome Tool to simplify your MSP & MSP2 Experience
     <br />
     <a href="https://github.com/l3c1d/star/tree/main/msptool"><strong>Explore the docs »</strong></a>
     <br />
@@ -80,7 +80,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This repository contains a collection of tools for interacting with MovieStarPlanet (MSP), a popular online social game. The tools are implemented in C# and allow users to automate various tasks within the game. Below is an overview of the available tools and their functionalities.
+This repository contains a collection of tools for interacting with MovieStarPlanet (MSP) and MovieStarPlanet 2, a popular online social game. The tools are implemented in C# and allow users to automate various tasks within the game. Below is an overview of the available tools and their functionalities.
 
 
 ### Built With
@@ -122,7 +122,9 @@ Just check the Requirements and install em and ur good to go, aint hard.
 ## Usage
 
 To use the tools, simply run the application and select the desired option from the menu. The options are:
-
+ -----------------
+* MovieStarPlanet:
+  -----------------
 * Recycle None-Rare Clothes
 * Buy Boonie
 * Buy Animations
@@ -139,9 +141,13 @@ To use the tools, simply run the application and select the desired option from 
 * Block Zac, Pixi, nova
 * Recycle Diamond Items
 * Wheel Spins
-
-* Extra >> msplisa.exe for windows users for 10 years celebration on release downloads along with updated src
-
+  * Extra >> msplisa.exe for windows users for 10 years celebration on release downloads along with updated src
+* -----------------
+* MovieStarPlanet 2:
+  -----------------
+* Mood Changer
+* Gender Changer
+* Delete Room
 
 ## Disclaimer
 
