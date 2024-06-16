@@ -123,8 +123,8 @@ Just check the Requirements and install em and ur good to go, aint hard.
 
 To use the tools, simply run the application and select the desired option from the menu. The options are:
  -----------------
-* MovieStarPlanet 
-* -----------------
+* MovieStarPlanet:
+  -----------------
 * Recycle None-Rare Clothes
 * Buy Boonie
 * Buy Animations
@@ -142,8 +142,8 @@ To use the tools, simply run the application and select the desired option from 
 * Recycle Diamond Items
 * Wheel Spins
 * -----------------
-* MovieStarPlanet 2 
-*  -----------------
+* MovieStarPlanet 2:
+  -----------------
 * Mood Changer
 * Gender Changer
 * Delete Room
