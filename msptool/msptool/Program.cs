@@ -70,10 +70,10 @@ namespace msptool
                 new SelectionPrompt<string>()
                     .Title("[[[#71d5fb]+[/]]] Select which MSP you want to use")
                     .PageSize(3)
-                    .AddChoices(new[] { "MovieStarPlanet 1", "MovieStarPlanet 2" })
+                    .AddChoices(new[] { "MovieStarPlanet", "MovieStarPlanet 2" })
             );
 
-            if (selectedLogin == "MovieStarPlanet 1")
+            if (selectedLogin == "MovieStarPlanet")
                 MSP1_Login();
             else
                 MSP2_Login();
