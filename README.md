@@ -37,10 +37,10 @@
   <a href="https://github.com/l3c1d/star">
   </a>
 
-  <h3 align="center">MovieStarPlanet Extension</h3>
+  <h3 align="center">MovieStarPlanet & MovieStarPlanet 2 Extension</h3>
 
   <p align="center">
-    An awesome Tool to simplify your MSP Experience
+    An awesome Tool to simplify your MSP & MSP2 Experience
     <br />
     <a href="https://github.com/l3c1d/star/tree/main/msptool"><strong>Explore the docs »</strong></a>
     <br />
@@ -80,7 +80,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This repository contains a collection of tools for interacting with MovieStarPlanet (MSP), a popular online social game. The tools are implemented in C# and allow users to automate various tasks within the game. Below is an overview of the available tools and their functionalities.
+This repository contains a collection of tools for interacting with MovieStarPlanet (MSP) and MovieStarPlanet 2, a popular online social game. The tools are implemented in C# and allow users to automate various tasks within the game. Below is an overview of the available tools and their functionalities.
 
 
 ### Built With
