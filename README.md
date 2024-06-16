@@ -141,15 +141,13 @@ To use the tools, simply run the application and select the desired option from 
 * Block Zac, Pixi, nova
 * Recycle Diamond Items
 * Wheel Spins
+  * Extra >> msplisa.exe for windows users for 10 years celebration on release downloads along with updated src
 * -----------------
 * MovieStarPlanet 2:
   -----------------
 * Mood Changer
 * Gender Changer
 * Delete Room
-
-* Extra >> msplisa.exe for windows users for 10 years celebration on release downloads along with updated src
-
 
 ## Disclaimer
 
