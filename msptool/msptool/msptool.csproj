@@ -203,7 +203,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="icon.ico" />
-    <None Include="icon.jpg" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
