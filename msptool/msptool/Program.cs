@@ -190,10 +190,8 @@ namespace msptool
                         AnsiConsole.Markup("[#71d5fb]18[/] > Automated Autographer\n");
                         AnsiConsole.Markup("[#71d5fb]19[/] > Automated Pixeller\n");
                         AnsiConsole.Markup("[#71d5fb]20[/] > Item Glitcher\n");
-                        AnsiConsole.Markup("[#71d5fb]21[/] > Scrape Usernames\n");
-                        AnsiConsole.Markup("[#71d5fb]22[/] > Bot Generator\n");
-                        AnsiConsole.Markup("[#71d5fb]23[/] > Login with scraped usernames\n");
-                        AnsiConsole.Markup("[#71d5fb]24[/] > Logout\n\n");
+                        AnsiConsole.Markup("[#71d5fb]21[/] > Bot Generator\n");
+                        AnsiConsole.Markup("[#71d5fb]22[/] > Logout\n\n");
                         AnsiConsole.Write(
                             new Rule(
                                     "[slowblink][#71d5fb]lucid & 6c0[/][/] ・ [link=https://discord.gg/starmsp]discord.gg/starmsp[/]")
@@ -264,15 +262,9 @@ namespace msptool
                                 itemGlitcher(server, ticket);
                                 break;
                             case "21":
-                                scrapeUsernames(server, ticket);
-                                break;
-                            case "22":
                                 botGenerator(server, ticket);
                                 break;
-                            case "23":
-                                loginInactives(server, ticket);
-                                break;
-                            case "24":
+                            case "22":
                                 Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
                                 loggedIn = false;
@@ -1061,19 +1053,7 @@ namespace msptool
             Console.ReadKey();
             Console.Clear();
         }
-        static void scrapeUsernames(string server, string ticket)
-        {
-            Console.Write("soon");
-            Console.ReadKey();
-            Console.Clear();
-        }
         static void botGenerator(string server, string ticket)
-        {
-            Console.Write("soon");
-            Console.ReadKey();
-            Console.Clear();
-        }
-        static void loginInactives(string server, string ticket)
         {
             Console.Write("soon");
             Console.ReadKey();
