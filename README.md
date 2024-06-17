@@ -163,8 +163,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Contact For any inquiries or support, please contact lightsofhopee@outlook.com
-
+Contact For any inquiries or support, please contact me@realmofstars.com
 Project Link: [https://github.com/l3c1d/star](https://github.com/l3c1d/star)
 
 
