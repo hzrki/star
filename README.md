@@ -163,7 +163,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Contact For any inquiries or support, please contact me@realmofstars.com
+Contact For any inquiries or support, please contact ""
 Project Link: [https://github.com/l3c1d/star](https://github.com/l3c1d/star)
 
 
