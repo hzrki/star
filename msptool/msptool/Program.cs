@@ -10,7 +10,6 @@ using Spectre.Console;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
-using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using static msptool.AMF;
 using static msptool.Checksum;
@@ -282,6 +281,7 @@ namespace msptool
                     }
                 }
             }
+        }
 
             static void recycleNoneRareClothes(string server, int actorId, string ticket)
             {
@@ -1026,7 +1026,6 @@ namespace msptool
                     Console.Clear();
                 }
             }
-        }
 
         static void lisaHack(string server, string ticket)
         {
@@ -1034,7 +1033,7 @@ namespace msptool
             Console.ReadKey();
             Console.Clear();
         }
-        
+
         static void automatedAutographer(string server, string ticket)
         {
             Console.Write("soon");
@@ -1060,7 +1059,7 @@ namespace msptool
             Console.Clear();
         }
 
-    static async Task MSP2_Login()
+        static async Task MSP2_Login()
         {
             Console.Clear();
             bool loggedIn2 = false;
@@ -1107,6 +1106,9 @@ namespace msptool
                 var server = choices.First(choice => choice.Name == selectedCountry).Value;
                 var region = new[] { "US", "CA", "AU", "NZ" }.Contains(server) ? "us" : "eu";
 
+                string accessToken = null;
+                string profileId = null;
+
                 AnsiConsole.Status()
                     .SpinnerStyle(Spectre.Console.Style.Parse("#71d5fb"))
                     .Start("Login...", ctx =>
@@ -1147,7 +1149,7 @@ namespace msptool
                                 "Bearer " + accessToken_first);
                             string resp3 = msptclient.DownloadString(pid);
 
-                            string profileId = JArray.Parse(resp3)[0]["id"].ToString();
+                            profileId = JArray.Parse(resp3)[0]["id"].ToString();
 
                             var val2 = new NameValueCollection
                             {
@@ -1164,11 +1166,13 @@ namespace msptool
                             var resp5 = Encoding.Default.GetString(resp4);
                             dynamic resp6 = JsonConvert.DeserializeObject(resp5);
 
-                            var accessToken = resp6["access_token"].ToString();
-                            Console.Clear();
+                            accessToken = resp6["access_token"].ToString();
 
-                            while (true)
-                            {
+                            Console.Clear();
+                        }
+                    });
+                    while (true)
+                    {
                                 loggedIn2 = true;
                                 AnsiConsole.Write(
                                     new Rule("[#71d5fb]MSPTOOL[/] ・ Home").LeftJustified().RoundedBorder());
@@ -1176,7 +1180,7 @@ namespace msptool
                                 AnsiConsole.Markup("[#71d5fb]1[/]  > Mood Changer\n");
                                 AnsiConsole.Markup("[#71d5fb]2[/]  > Gender Changer\n");
                                 AnsiConsole.Markup("[#71d5fb]3[/]  > Delete Room\n");
-                                AnsiConsole.Markup("[#71d5fb]4[/] > Logout\n\n");
+                                AnsiConsole.Markup("[#71d5fb]4[/]  > Logout\n\n");
                                 AnsiConsole.Write(
                                     new Rule(
                                             "[slowblink][#71d5fb]lucid & 6c0[/][/] ・ [link=https://discord.gg/starmsp]discord.gg/starmsp[/]")
@@ -1209,14 +1213,11 @@ namespace msptool
 
                                 if (!loggedIn2)
                                     break;
-                            }
-                        }
-                    });
+                            };
             }
-
-            static void moodChanger(string region, string accessToken, string profileId)
-            {
-            }
+        }
+        static void moodChanger(string region, string accessToken, string profileId)
+        {
         }
 
         static void genderChanger(string region, string accessToken, string profileId)
@@ -1246,9 +1247,3 @@ namespace msptool
         }
     }
 }
-
-    
-                
-        
-            
-            
