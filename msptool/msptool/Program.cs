@@ -164,6 +164,9 @@ namespace msptool
                     string ticket = login["loginStatus"]["ticket"];
                     string accessToken = login["loginStatus"]["nebulaLoginStatus"]["accessToken"];
                     string profileId = login["loginStatus"]["nebulaLoginStatus"]["profileId"];
+                    var th = new JwtSecurityTokenHandler();
+                    var jtoken = th.ReadJwtToken(accessToken);
+                    var loginId = jtoken.Payload["loginId"].ToString();
                     Console.Clear();
 
                     while (true)
