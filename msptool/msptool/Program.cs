@@ -10,6 +10,7 @@ using Spectre.Console;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
+using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using static msptool.AMF;
 using static msptool.Checksum;
@@ -1216,8 +1217,74 @@ namespace msptool
                             };
             }
         }
-        static void moodChanger(string region, string accessToken, string profileId)
+
+        static async Task moodChanger(string region, string accessToken, string profileId)
         {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Change Mood").LeftJustified().RoundedBorder());
+
+            var moodOptions = new (string Name, string Value)[]
+            {
+                ("Bunny", "bunny_hold"),
+                ("Ice Skating", "noshoes_skating"),
+                ("Swimming", "swim_new"),
+                ("Spider Crawl", "2023_spidercrawl_lsz"),
+                ("Bubblegum", "bad_2022_teenwalk_dg"),
+                ("Like a Frog", "very_2022_froglike_lsz"),
+                ("Cool Slide", "cool_slide"),
+                ("Like Bambi", "bambislide"),
+                ("Freezing", "xmas_2022_freezing_lsz"),
+            };
+
+            var selectedMood = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("[[[#71d5fb]+[/]]] Select a mood: ")
+                    .PageSize(10)
+                    .AddChoices(moodOptions.Select(choice => choice.Name))
+            );
+
+            var selectedChoice = moodOptions.First(choice => choice.Name == selectedMood);
+
+            using (HttpClient mt2client = new HttpClient())
+            {
+                mt2client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                mt2client.DefaultRequestHeaders.UserAgent.ParseAdd(
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0");
+
+                string moodApi =
+                    $"https://{region}.mspapis.com/profileattributes/v1/profiles/{profileId}/games/j68d/attributes";
+
+                HttpResponseMessage resp = await mt2client.GetAsync(moodApi);
+
+                string resp2 = await resp.Content.ReadAsStringAsync();
+                JObject moodData = JObject.Parse(resp2);
+
+                if (moodData["additionalData"] == null)
+                {
+                    moodData["additionalData"] = new JObject();
+                }
+
+                moodData["additionalData"]["Mood"] = selectedChoice.Value;
+
+                string loc1 = moodData.ToString();
+                HttpContent loc2 = new StringContent(loc1);
+                loc2.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                HttpResponseMessage resp3 = await mt2client.PutAsync(moodApi, loc2);
+                if (resp3.IsSuccessStatusCode)
+                {
+                    AnsiConsole.Markup(
+                        "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Mood changed[/] [[Click any key to return to Home]][/]");
+                }
+                else
+                {
+                    AnsiConsole.Markup(
+                        "\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
+                }
+
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
 
         static void genderChanger(string region, string accessToken, string profileId)
