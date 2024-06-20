@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("msptool")]
 [assembly: AssemblyCopyright("Copyright 2024 © lucid & 6c0")]
 [assembly: AssemblyTrademark("StarNE")]
-[assembly: AssemblyCulture("en-GB")]
+[assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
 
