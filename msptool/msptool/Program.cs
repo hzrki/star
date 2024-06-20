@@ -1070,7 +1070,7 @@ namespace msptool
 
             if (success)
             {
-                Console.WriteLine("\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Stars are out your account has been levelled and has starcoins : )[/] [[Click any key to return to Home]][/]");
+                AnsiConsole.Markup("\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Stars are out your account has been levelled and has starcoins : )[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
                 Console.Clear();
             }
