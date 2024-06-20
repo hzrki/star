@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -1260,11 +1259,6 @@ namespace msptool
                 string resp2 = await resp.Content.ReadAsStringAsync();
                 JObject moodData = JObject.Parse(resp2);
 
-                if (moodData["additionalData"] == null)
-                {
-                    moodData["additionalData"] = new JObject();
-                }
-
                 moodData["additionalData"]["Mood"] = selectedChoice.Value;
 
                 string loc1 = moodData.ToString();
@@ -1288,13 +1282,110 @@ namespace msptool
             }
         }
 
-        static void genderChanger(string region, string accessToken, string profileId)
+        static async Task genderChanger(string region, string accessToken, string profileId)
         {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Change Gender").LeftJustified().RoundedBorder());
+
+            var genderOptions = new (string Name, string Value)[]
+            {
+                ("Girl", "Girl"),
+                ("Boy", "Boy"),
+            };
+
+            var selectedGender = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("[[[#71d5fb]+[/]]] Select a mood: ")
+                    .PageSize(10)
+                    .AddChoices(genderOptions.Select(choice => choice.Name))
+            );
+
+            var selectedChoice = genderOptions.First(choice => choice.Name == selectedGender);
+
+            using (HttpClient mt2client = new HttpClient())
+            {
+                mt2client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                mt2client.DefaultRequestHeaders.UserAgent.ParseAdd(
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0");
+
+                string genderApi =
+                    $"https://{region}.mspapis.com/profileattributes/v1/profiles/{profileId}/games/j68d/attributes";
+
+                HttpResponseMessage resp = await mt2client.GetAsync(genderApi);
+
+                string resp2 = await resp.Content.ReadAsStringAsync();
+                JObject genderData = JObject.Parse(resp2);
+
+                genderData["additionalData"]["Gender"] = selectedChoice.Value;
+
+                string loc1 = genderData.ToString();
+                HttpContent loc2 = new StringContent(loc1);
+                loc2.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                HttpResponseMessage resp3 = await mt2client.PutAsync(genderApi, loc2);
+                if (resp3.IsSuccessStatusCode)
+                {
+                    AnsiConsole.Markup(
+                        "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Gender changed[/] [[Click any key to return to Home]][/]");
+                }
+                else
+                {
+                    AnsiConsole.Markup(
+                        "\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
+                }
+
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
 
-        static void deleteRoom(string region, string accessToken, string profileId)
+        static async Task deleteRoom(string region, string accessToken, string profileId)
         {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Delete Room").LeftJustified().RoundedBorder());
+
+            using (HttpClient mt2client = new HttpClient())
+            {
+                mt2client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                mt2client.DefaultRequestHeaders.UserAgent.ParseAdd(
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0");
+
+                string roomApi =
+                    $"https://{region}.mspapis.com/profileattributes/v1/profiles/{profileId}/games/j68d/attributes";
+
+                HttpResponseMessage resp = await mt2client.GetAsync(roomApi);
+                
+
+                string resp1 = await resp.Content.ReadAsStringAsync();
+                JObject roomData = JObject.Parse(resp1);
+
+                if (roomData["additionalData"]?["DefaultMyHome"] != null)
+                {
+                    roomData["additionalData"]["DefaultMyHome"].Parent.Remove();
+                }
+
+                string loc1 = roomData.ToString();
+                HttpContent loc2 = new StringContent(loc1);
+                loc2.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                HttpResponseMessage resp3 = await mt2client.PutAsync(roomApi, loc2);
+
+                if (resp3.IsSuccessStatusCode)
+                {
+                    AnsiConsole.Markup(
+                        "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Room deleted[/] [[Click any key to return to Home]][/]");
+                }
+                else
+                {
+                    AnsiConsole.Markup(
+                        "\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
+                }
+
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
+
 
         static bool isCurrentVersion()
         {
