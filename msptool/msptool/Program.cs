@@ -136,7 +136,7 @@ namespace msptool
                         login = AMFConn(selectedChoice.Value, "MovieStarPlanet.WebService.User.AMFUserServiceWeb.Login",
                             new object[6]
                             {
-                                username, password, new object[] { 134744072 }, null, null, "MSP1-Standalone:XXXXXX"
+                                username, password, new object[] {  }, null, null, "MSP1-Standalone:XXXXXX"
                             });
                         Thread.Sleep(1000);
                     });
