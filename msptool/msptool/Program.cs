@@ -27,6 +27,9 @@ namespace msptool
 
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.GetEncoding("Cyrillic");
+            Console.InputEncoding = System.Text.Encoding.GetEncoding("Cyrillic");
+            
             if (!isCurrentVersion())
             {
                 HttpClient client = new HttpClient();
