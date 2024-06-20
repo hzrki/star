@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCompany("Star NE by Lucid")]
 [assembly: AssemblyProduct("msptool")]
-[assembly: AssemblyCopyright("Copyright 2024 © lucid & 6c0")]
+[assembly: AssemblyCopyright("Copyright © lucid & 6c0 2024")]
 [assembly: AssemblyTrademark("StarNE")]
 [assembly: AssemblyCulture("")]
 
