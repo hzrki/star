@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -190,10 +191,8 @@ namespace msptool
                         AnsiConsole.Markup("[#71d5fb]18[/] > Automated Autographer\n");
                         AnsiConsole.Markup("[#71d5fb]19[/] > Automated Pixeller\n");
                         AnsiConsole.Markup("[#71d5fb]20[/] > Item Glitcher\n");
-                        AnsiConsole.Markup("[#71d5fb]21[/] > Scrape Usernames\n");
-                        AnsiConsole.Markup("[#71d5fb]22[/] > Bot Generator\n");
-                        AnsiConsole.Markup("[#71d5fb]23[/] > Login with scraped usernames\n");
-                        AnsiConsole.Markup("[#71d5fb]24[/] > Logout\n\n");
+                        AnsiConsole.Markup("[#71d5fb]21[/] > Bot Generator\n");
+                        AnsiConsole.Markup("[#71d5fb]22[/] > Logout\n\n");
                         AnsiConsole.Write(
                             new Rule(
                                     "[slowblink][#71d5fb]lucid & 6c0[/][/] ・ [link=https://discord.gg/starmsp]discord.gg/starmsp[/]")
@@ -264,15 +263,9 @@ namespace msptool
                                 itemGlitcher(server, ticket);
                                 break;
                             case "21":
-                                scrapeUsernames(server, ticket);
-                                break;
-                            case "22":
                                 botGenerator(server, ticket);
                                 break;
-                            case "23":
-                                loginInactives(server, ticket);
-                                break;
-                            case "24":
+                            case "22":
                                 Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
                                 loggedIn = false;
@@ -290,6 +283,7 @@ namespace msptool
                     }
                 }
             }
+        }
 
             static void recycleNoneRareClothes(string server, int actorId, string ticket)
             {
@@ -1034,7 +1028,6 @@ namespace msptool
                     Console.Clear();
                 }
             }
-        }
 
         static void lisaHack(string server, string ticket)
         {
@@ -1042,7 +1035,7 @@ namespace msptool
             Console.ReadKey();
             Console.Clear();
         }
-        
+
         static void automatedAutographer(string server, string ticket)
         {
             Console.Write("soon");
@@ -1061,26 +1054,14 @@ namespace msptool
             Console.ReadKey();
             Console.Clear();
         }
-        static void scrapeUsernames(string server, string ticket)
-        {
-            Console.Write("soon");
-            Console.ReadKey();
-            Console.Clear();
-        }
         static void botGenerator(string server, string ticket)
         {
             Console.Write("soon");
             Console.ReadKey();
             Console.Clear();
         }
-        static void loginInactives(string server, string ticket)
-        {
-            Console.Write("soon");
-            Console.ReadKey();
-            Console.Clear();
-        }
 
-    static async Task MSP2_Login()
+        static async Task MSP2_Login()
         {
             Console.Clear();
             bool loggedIn2 = false;
@@ -1127,6 +1108,9 @@ namespace msptool
                 var server = choices.First(choice => choice.Name == selectedCountry).Value;
                 var region = new[] { "US", "CA", "AU", "NZ" }.Contains(server) ? "us" : "eu";
 
+                string accessToken = null;
+                string profileId = null;
+
                 AnsiConsole.Status()
                     .SpinnerStyle(Spectre.Console.Style.Parse("#71d5fb"))
                     .Start("Login...", ctx =>
@@ -1167,7 +1151,7 @@ namespace msptool
                                 "Bearer " + accessToken_first);
                             string resp3 = msptclient.DownloadString(pid);
 
-                            string profileId = JArray.Parse(resp3)[0]["id"].ToString();
+                            profileId = JArray.Parse(resp3)[0]["id"].ToString();
 
                             var val2 = new NameValueCollection
                             {
@@ -1184,11 +1168,13 @@ namespace msptool
                             var resp5 = Encoding.Default.GetString(resp4);
                             dynamic resp6 = JsonConvert.DeserializeObject(resp5);
 
-                            var accessToken = resp6["access_token"].ToString();
-                            Console.Clear();
+                            accessToken = resp6["access_token"].ToString();
 
-                            while (true)
-                            {
+                            Console.Clear();
+                        }
+                    });
+                    while (true)
+                    {
                                 loggedIn2 = true;
                                 AnsiConsole.Write(
                                     new Rule("[#71d5fb]MSPTOOL[/] ・ Home").LeftJustified().RoundedBorder());
@@ -1196,7 +1182,7 @@ namespace msptool
                                 AnsiConsole.Markup("[#71d5fb]1[/]  > Mood Changer\n");
                                 AnsiConsole.Markup("[#71d5fb]2[/]  > Gender Changer\n");
                                 AnsiConsole.Markup("[#71d5fb]3[/]  > Delete Room\n");
-                                AnsiConsole.Markup("[#71d5fb]4[/] > Logout\n\n");
+                                AnsiConsole.Markup("[#71d5fb]4[/]  > Logout\n\n");
                                 AnsiConsole.Write(
                                     new Rule(
                                             "[slowblink][#71d5fb]lucid & 6c0[/][/] ・ [link=https://discord.gg/starmsp]discord.gg/starmsp[/]")
@@ -1229,13 +1215,76 @@ namespace msptool
 
                                 if (!loggedIn2)
                                     break;
-                            }
-                        }
-                    });
+                            };
             }
+        }
 
-            static void moodChanger(string region, string accessToken, string profileId)
+        static async Task moodChanger(string region, string accessToken, string profileId)
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Change Mood").LeftJustified().RoundedBorder());
+
+            var moodOptions = new (string Name, string Value)[]
             {
+                ("Bunny", "bunny_hold"),
+                ("Ice Skating", "noshoes_skating"),
+                ("Swimming", "swim_new"),
+                ("Spider Crawl", "2023_spidercrawl_lsz"),
+                ("Bubblegum", "bad_2022_teenwalk_dg"),
+                ("Like a Frog", "very_2022_froglike_lsz"),
+                ("Cool Slide", "cool_slide"),
+                ("Like Bambi", "bambislide"),
+                ("Freezing", "xmas_2022_freezing_lsz"),
+            };
+
+            var selectedMood = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("[[[#71d5fb]+[/]]] Select a mood: ")
+                    .PageSize(10)
+                    .AddChoices(moodOptions.Select(choice => choice.Name))
+            );
+
+            var selectedChoice = moodOptions.First(choice => choice.Name == selectedMood);
+
+            using (HttpClient mt2client = new HttpClient())
+            {
+                mt2client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                mt2client.DefaultRequestHeaders.UserAgent.ParseAdd(
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0");
+
+                string moodApi =
+                    $"https://{region}.mspapis.com/profileattributes/v1/profiles/{profileId}/games/j68d/attributes";
+
+                HttpResponseMessage resp = await mt2client.GetAsync(moodApi);
+
+                string resp2 = await resp.Content.ReadAsStringAsync();
+                JObject moodData = JObject.Parse(resp2);
+
+                if (moodData["additionalData"] == null)
+                {
+                    moodData["additionalData"] = new JObject();
+                }
+
+                moodData["additionalData"]["Mood"] = selectedChoice.Value;
+
+                string loc1 = moodData.ToString();
+                HttpContent loc2 = new StringContent(loc1);
+                loc2.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                HttpResponseMessage resp3 = await mt2client.PutAsync(moodApi, loc2);
+                if (resp3.IsSuccessStatusCode)
+                {
+                    AnsiConsole.Markup(
+                        "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Mood changed[/] [[Click any key to return to Home]][/]");
+                }
+                else
+                {
+                    AnsiConsole.Markup(
+                        "\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
+                }
+
+                Console.ReadKey();
+                Console.Clear();
             }
         }
 
@@ -1266,9 +1315,3 @@ namespace msptool
         }
     }
 }
-
-    
-                
-        
-            
-            
