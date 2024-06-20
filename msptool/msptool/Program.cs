@@ -252,7 +252,7 @@ namespace msptool
                                 wheelspins(server, actorId, ticket);
                                 break;
                             case "17":
-                                lisaHack(server, ticket);
+                                lisaHack(server, actorId, ticket);
                                 break;
                             case "18":
                                 automatedAutographer(server, ticket);
@@ -1027,12 +1027,55 @@ namespace msptool
             }
         }
 
-        static void lisaHack(string server, string ticket)
+        static void lisaHack(string server, int actorId, string ticket)
         {
-            Console.Write("soon");
-            Console.ReadKey();
             Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Lisa Hack").LeftJustified()
+                .RoundedBorder());
+            Console.Write("\n");
+            AnsiConsole.Markup(
+                "[slowblink][[[#c70000]?![/]]] Use it at your own risk, we are not responsible for your misdeeds.[/]\n");
+
+            bool success = false;
+
+            for (int i = 0; i < 100; i++)
+            {
+                dynamic lisaFame = AMFConn(server,
+                    "MovieStarPlanet.WebService.AMFAwardService.claimDailyAward",
+                    new object[4]
+                    {
+                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                        "twoPlayerFame",
+                        50,
+                        actorId
+                    });
+                Console.WriteLine("Generated 50 fame");
+
+                dynamic lisaMoney = AMFConn(server,
+                    "MovieStarPlanet.WebService.AMFAwardService.claimDailyAward",
+                    new object[4]
+                    {
+                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                        "twoPlayerMoney",
+                        50,
+                        actorId
+                    });
+                Console.WriteLine("Generated 50 starcoins");
+
+                if (i == 99) 
+                {
+                    success = true;
+                }
+            }
+
+            if (success)
+            {
+                Console.WriteLine("\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Stars are out your account has been levelled and has starcoins : )[/] [[Click any key to return to Home]][/]");
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
+
 
         static void automatedAutographer(string server, string ticket)
         {
