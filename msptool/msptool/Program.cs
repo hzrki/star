@@ -27,6 +27,9 @@ namespace msptool
 
         static void Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.InputEncoding = Encoding.UTF8;
+
             if (!isCurrentVersion())
             {
                 HttpClient client = new HttpClient();
@@ -132,7 +135,7 @@ namespace msptool
                     .Start("Login...", ctx =>
                     {
                         ctx.Refresh();
-                        ctx.Spinner(Spinner.Known.Moon);
+                        ctx.Spinner(Spinner.Known.Circle);
                         login = AMFConn(selectedChoice.Value, "MovieStarPlanet.WebService.User.AMFUserServiceWeb.Login",
                             new object[6]
                             {
@@ -1062,7 +1065,7 @@ namespace msptool
                     });
                 Console.WriteLine("Generated 50 starcoins");
 
-                if (i == 99) 
+                if (i == 99)
                 {
                     success = true;
                 }
@@ -1151,7 +1154,7 @@ namespace msptool
                     .Start("Login...", ctx =>
                     {
                         ctx.Refresh();
-                        ctx.Spinner(Spinner.Known.Moon);
+                        ctx.Spinner(Spinner.Known.Circle);
 
                         var tep = $"https://{region}-secure.mspapis.com/loginidentity/connect/token";
 
@@ -1315,7 +1318,7 @@ namespace msptool
                 {
                     AnsiConsole.Markup(
                         "\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Auto redirect in 2 seconds]][/]");
-                    
+
                 }
             }
         }
