@@ -775,7 +775,7 @@ namespace msptool
         static void addSponsors(string server, string ticket)
         {
             Console.Clear();
-            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Status").LeftJustified()
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Add Sponsors").LeftJustified()
                 .RoundedBorder());
             Console.Write("\n");
 
@@ -799,7 +799,7 @@ namespace msptool
         static void blockDefaults(string server, int actorId, string ticket)
         {
             Console.Clear();
-            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Status").LeftJustified()
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Block Defaults").LeftJustified()
                 .RoundedBorder());
             Console.Write("\n");
 
@@ -846,7 +846,7 @@ namespace msptool
         static void wheelspins(string server, int actorId, string ticket)
         {
             Console.Clear();
-            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Status").LeftJustified()
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Wheelspins").LeftJustified()
                 .RoundedBorder());
             Console.Write("\n");
 
