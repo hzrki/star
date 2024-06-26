@@ -111,6 +111,12 @@
     <ItemGroup>
         <Compile Include="amf.cs" />
         <Compile Include="checksum.cs" />
+        <Compile Include="home.cs">
+          <SubType>Form</SubType>
+        </Compile>
+        <Compile Include="home.Designer.cs">
+          <DependentUpon>home.cs</DependentUpon>
+        </Compile>
         <Compile Include="login.cs">
             <SubType>Form</SubType>
         </Compile>
