@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading;
@@ -57,10 +57,6 @@ namespace msptoolui
                 var jtoken = th.ReadJwtToken(accessToken);
                 var loginId = jtoken.Payload["loginId"].ToString();
             }
-        }
-
-        private void login_Load(object sender, EventArgs e)
-        {
         }
     }
 }
