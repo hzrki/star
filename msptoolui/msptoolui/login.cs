@@ -56,7 +56,7 @@ namespace msptoolui
                 var th = new JwtSecurityTokenHandler();
                 var jtoken = th.ReadJwtToken(accessToken);
                 var loginId = jtoken.Payload["loginId"].ToString();
-                home home = new home(server, ticket, actorId, accessToken, profileId, loginId);
+                home home = new home(server, name, ticket, actorId, accessToken, profileId, loginId);
                 home.Show();
                 Hide();
             }
