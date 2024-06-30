@@ -149,12 +149,6 @@ To use the tools, simply run the application and select the desired option from 
 * Gender Changer
 * Delete Room
 
-## Disclaimer
-
-We are not affiliated with MovieStarPlanet ApS. This project is not for profit and is released under the MIT License.
-
-
-
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
