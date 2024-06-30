@@ -1,22 +1,11 @@
 # Changelog
 
-## v1.5
+## v1.6
 
 ### Added or Changed
-- Upgraded `.NET Framework to 4.8.1`
 - Added `Item Glitcher (Gift non vips - diamond/vip items)`
 - Added `Automated Autographer`
 - Added `Automated pixeller`
-- Added `Bot Generator`
-- Added `MovieStarPlanet 2 Login`
-- Added `MSP2 - Mood Changer`
-- Added `MSP2 - Gender Changer`
-- Added `MSP2 - Delete Room`
-
-
-
-
-
 
 ### Removed
 
