@@ -123,7 +123,7 @@ Just check the Requirements and install em and ur good to go, aint hard.
 
 To use the tools, simply run the application and select the desired option from the menu. The options are:
  -----------------
-* MovieStarPlanet:
+ MovieStarPlanet:
   -----------------
 * Recycle None-Rare Clothes
 * Buy Boonie
@@ -143,7 +143,7 @@ To use the tools, simply run the application and select the desired option from 
 * Wheel Spins
   * Extra >> msplisa.exe for windows users for 10 years celebration on release downloads along with updated src
 * -----------------
-* MovieStarPlanet 2:
+  MovieStarPlanet 2:
   -----------------
 * Mood Changer
 * Gender Changer
