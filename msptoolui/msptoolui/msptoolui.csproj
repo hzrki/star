@@ -109,7 +109,6 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="amf.cs" />
         <Compile Include="checksum.cs" />
         <Compile Include="home.cs">
           <SubType>Form</SubType>

@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Forms;
-using static msptoolui.AMF;
 using static msptoolui.Checksum;
 
 namespace msptoolui
