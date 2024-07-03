@@ -195,7 +195,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="amf.cs" />
     <Compile Include="checksum.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

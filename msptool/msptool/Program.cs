@@ -12,7 +12,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
-using static msptool.AMF;
 using static msptool.Checksum;
 using Rule = Spectre.Console.Rule;
 using WebClient = System.Net.WebClient;
