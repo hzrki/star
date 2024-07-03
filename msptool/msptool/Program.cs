@@ -192,9 +192,8 @@ namespace msptool
                         AnsiConsole.Markup("[#71d5fb]14[/] > Wheel Spins\n");
                         AnsiConsole.Markup("[#71d5fb]15[/] > Lisa Hack\n");
                         AnsiConsole.Markup("[#71d5fb]16[/] > Automated Autographer\n");
-                        AnsiConsole.Markup("[#71d5fb]17[/] > Automated Pixeller\n");
-                        AnsiConsole.Markup("[#71d5fb]18[/] > Item Glitcher\n");
-                        AnsiConsole.Markup("[#71d5fb]19[/] > Logout\n\n");
+                        AnsiConsole.Markup("[#71d5fb]17[/] > Item Glitcher\n");
+                        AnsiConsole.Markup("[#71d5fb]18[/] > Logout\n\n");
                         AnsiConsole.Write(
                             new Rule(
                                     "[slowblink][#71d5fb]lucid & 6c0[/][/]")
@@ -253,12 +252,9 @@ namespace msptool
                                 automatedAutographer(server, ticket);
                                 break;
                             case "17":
-                                automatedPixeller(server, ticket);
-                                break;
-                            case "18":
                                 itemGlitcher(server, ticket);
                                 break;
-                            case "19":
+                            case "18":
                                 Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
                                 loggedIn = false;
@@ -967,13 +963,14 @@ namespace msptool
             Console.ReadKey();
             Console.Clear();
         }
-        static void automatedPixeller(string server, string ticket)
+        static void itemGlitcher(string server, string ticket)
         {
             Console.Write("soon");
             Console.ReadKey();
             Console.Clear();
         }
-        static void itemGlitcher(string server, string ticket)
+        
+        static void automatedPixeller(string server, string ticket)
         {
             Console.Write("soon");
             Console.ReadKey();
