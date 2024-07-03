@@ -186,17 +186,15 @@ namespace msptool
                         AnsiConsole.Markup("[#71d5fb]8[/]  > Wear RareSkin\n");
                         AnsiConsole.Markup("[#71d5fb]9[/]  > Add to wishlist\n");
                         AnsiConsole.Markup("[#71d5fb]10[/] > Custom Status\n");
-                        AnsiConsole.Markup("[#71d5fb]11[/] > Icon changer\n");
-                        AnsiConsole.Markup("[#71d5fb]12[/] > Room changer\n");
-                        AnsiConsole.Markup("[#71d5fb]13[/] > Add Sponsors\n");
-                        AnsiConsole.Markup("[#71d5fb]14[/] > Block Zac, Pixi, nova\n");
-                        AnsiConsole.Markup("[#71d5fb]15[/] > Recycle Diamond Items\n");
-                        AnsiConsole.Markup("[#71d5fb]16[/] > Wheel Spins\n");
-                        AnsiConsole.Markup("[#71d5fb]17[/] > Lisa Hack\n");
-                        AnsiConsole.Markup("[#71d5fb]18[/] > Automated Autographer\n");
-                        AnsiConsole.Markup("[#71d5fb]19[/] > Automated Pixeller\n");
-                        AnsiConsole.Markup("[#71d5fb]20[/] > Item Glitcher\n");
-                        AnsiConsole.Markup("[#71d5fb]21[/] > Logout\n\n");
+                        AnsiConsole.Markup("[#71d5fb]11[/] > Add Sponsors\n");
+                        AnsiConsole.Markup("[#71d5fb]12[/] > Block Zac, Pixi, nova\n");
+                        AnsiConsole.Markup("[#71d5fb]13[/] > Recycle Diamond Items\n");
+                        AnsiConsole.Markup("[#71d5fb]14[/] > Wheel Spins\n");
+                        AnsiConsole.Markup("[#71d5fb]15[/] > Lisa Hack\n");
+                        AnsiConsole.Markup("[#71d5fb]16[/] > Automated Autographer\n");
+                        AnsiConsole.Markup("[#71d5fb]17[/] > Automated Pixeller\n");
+                        AnsiConsole.Markup("[#71d5fb]18[/] > Item Glitcher\n");
+                        AnsiConsole.Markup("[#71d5fb]19[/] > Logout\n\n");
                         AnsiConsole.Write(
                             new Rule(
                                     "[slowblink][#71d5fb]lucid & 6c0[/][/] ・ [link=https://discord.gg/starmsp]discord.gg/starmsp[/]")
@@ -237,36 +235,30 @@ namespace msptool
                                 customStatus(server, name, actorId, ticket);
                                 break;
                             case "11":
-                                iconChanger(server, actorId, ticket);
-                                break;
-                            case "12":
-                                roomChanger(server, actorId, ticket);
-                                break;
-                            case "13":
                                 addSponsors(server, ticket);
                                 break;
-                            case "14":
+                            case "12":
                                 blockDefaults(server, actorId, ticket);
                                 break;
-                            case "15":
+                            case "13":
                                 recycleitems(server, actorId, ticket);
                                 break;
-                            case "16":
+                            case "14":
                                 wheelspins(server, actorId, ticket);
                                 break;
-                            case "17":
+                            case "15":
                                 lisaHack(server, actorId, ticket);
                                 break;
-                            case "18":
+                            case "16":
                                 automatedAutographer(server, ticket);
                                 break;
-                            case "19":
+                            case "17":
                                 automatedPixeller(server, ticket);
                                 break;
-                            case "20":
+                            case "18":
                                 itemGlitcher(server, ticket);
                                 break;
-                            case "21":
+                            case "19":
                                 Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
                                 loggedIn = false;
