@@ -193,7 +193,8 @@ namespace msptool
                         AnsiConsole.Markup("[#71d5fb]15[/] > Lisa Hack\n");
                         AnsiConsole.Markup("[#71d5fb]16[/] > Automated Autographer\n");
                         AnsiConsole.Markup("[#71d5fb]17[/] > Item Glitcher\n");
-                        AnsiConsole.Markup("[#71d5fb]18[/] > Logout\n\n");
+                        AnsiConsole.Markup("[#71d5fb]18[/] > Query\n");
+                        AnsiConsole.Markup("[#71d5fb]19[/] > Logout\n\n");
                         AnsiConsole.Write(
                             new Rule(
                                     "[slowblink][#71d5fb]lucid & 6c0[/][/]")
@@ -255,6 +256,9 @@ namespace msptool
                                 itemGlitcher(server, ticket);
                                 break;
                             case "18":
+                                query(server, actorId, ticket);
+                                break;
+                            case "19":
                                 Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
                                 loggedIn = false;
@@ -963,6 +967,85 @@ namespace msptool
             Console.ReadKey();
             Console.Clear();
         }
+
+        static void query(string server, int actorId, string ticket)
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Msp Query").LeftJustified()
+                .RoundedBorder());
+            var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
+                .PromptStyle("#71d5fb"));
+
+
+            dynamic queryusername = AMFConn(server,
+                "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorIdFromName",
+                new object[1] { username });
+
+            if (queryusername["Content"] != "-1")
+            {
+                Console.WriteLine(
+                    "\n\x1b[91mFAILED\u001b[39m > \x1b[93mThe account doesn't exist or has been deleted [Click any key to return to login]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                int queryactorId = queryusername["Content"];
+
+
+                dynamic queryprofile = AMFConn(server,
+                    "MovieStarPlanet.WebService.Profile.AMFProfileService.LoadProfileSummary",
+                    new object[3]
+                    {
+                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                        queryactorId,
+                        actorId
+                    });
+
+                string createdate = queryprofile["Created"];
+
+
+                dynamic queryprofileinfo = AMFConn(server,
+                    "MovieStarPlanet.WebService.AMFActorService.LoadMovieStarListRevised",
+                    new object[3]
+                    {
+                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                        queryactorId,
+                        actorId
+                    });
+
+                if (queryprofileinfo[0] != "-1")
+                {
+                    Console.WriteLine(
+                        "\n\x1b[91mFAILED\u001b[39m > \x1b[93mUnknown Error [Click any key to return to login]");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else
+                {
+                    string nebulaProfileId = queryprofileinfo["NebulaProfileId"];
+                    int qactorId = queryprofileinfo["ActorId"];
+                    string qusername = queryprofileinfo["Name"];
+                    int level = queryprofileinfo["Level"];
+                    int fame = queryprofileinfo["Fame"];
+                    int starcoins = queryprofileinfo["Money"];
+                    int diamonds = queryprofileinfo["Diamonds"];
+                    string skinColor = queryprofileinfo["SkinColor"];
+                    int eyeId = queryprofileinfo["EyeId"];
+                    string eyeColors = queryprofileinfo["EyeColors"];
+                    int noseId = queryprofileinfo["NoseId"];
+                    int mouthId = queryprofileinfo["MouthId"];
+                    string mouthColors = queryprofileinfo["MouthColors"];
+                    string membershiptimeoutdate = queryprofileinfo["MembershipTimeoutDate"];
+                    string LastLogin = queryprofileinfo["LastLogin"];
+
+                }
+            }
+        }
+        
+
+
+
         static void itemGlitcher(string server, string ticket)
         {
             Console.Write("soon");
