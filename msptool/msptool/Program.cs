@@ -197,7 +197,7 @@ namespace msptool
                         AnsiConsole.Markup("[#71d5fb]19[/] > Logout\n\n");
                         AnsiConsole.Write(
                             new Rule(
-                                    "[slowblink][#71d5fb]lucid & 6c0[/][/] ・ [link=https://discord.gg/starmsp]discord.gg/starmsp[/]")
+                                    "[slowblink][#71d5fb]lucid & 6c0[/][/]")
                                 .RightJustified().RoundedBorder());
                         var options = AnsiConsole.Prompt(new TextPrompt<string>("\n[[[#71d5fb]+[/]]] Pick an option: ")
                             .PromptStyle("#71d5fb"));
@@ -1216,7 +1216,7 @@ namespace msptool
                     AnsiConsole.Markup("[#71d5fb]4[/]  > Logout\n\n");
                     AnsiConsole.Write(
                         new Rule(
-                                "[slowblink][#71d5fb]lucid & 6c0[/][/] ・ [link=https://discord.gg/starmsp]discord.gg/starmsp[/]")
+                                "[slowblink][#71d5fb]lucid & 6c0[/][/]")
                             .RightJustified().RoundedBorder());
                     var options = AnsiConsole.Prompt(
                         new TextPrompt<string>("\n[[[#71d5fb]+[/]]] Pick an option: ")
