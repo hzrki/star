@@ -229,7 +229,7 @@ namespace msptool
                                 wearRareSkin(server, actorId, ticket);
                                 break;
                             case "9":
-                                addToWishlist(server, actorId, ticket);
+                                addToWishlist(server, ticket);
                                 break;
                             case "10":
                                 customStatus(server, name, actorId, ticket);
@@ -845,13 +845,13 @@ namespace msptool
                 .RoundedBorder());
             Console.Write("\n");
 
-            ClaimDailyAward(server, ticket, "starwheel", 120, actorId, 4);
-            ClaimDailyAward(server, ticket, "starVipWheel", 200, actorId, 4);
-            ClaimDailyAward(server, ticket, "advertWheelDwl", 240, actorId, 2);
-            ClaimDailyAward(server, ticket, "advertWheelVipDwl", 400, actorId, 2);
+            dailyAwardTypes(server, ticket, "starwheel", 120, actorId, 4);
+            dailyAwardTypes(server, ticket, "starVipWheel", 200, actorId, 4);
+            dailyAwardTypes(server, ticket, "advertWheelDwl", 240, actorId, 2);
+            dailyAwardTypes(server, ticket, "advertWheelVipDwl", 400, actorId, 2);
         }
 
-        static void ClaimDailyAward(string server, string ticket, string awardType, int awardVal,
+        static void dailyAwardTypes(string server, string ticket, string awardType, int awardVal,
             int actorId,
             int count)
         {
@@ -872,7 +872,7 @@ namespace msptool
         }
 
 
-        static void addToWishlist(string server, int actorId, string ticket)
+        static void addToWishlist(string server, string ticket)
         {
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ WishList").LeftJustified()
