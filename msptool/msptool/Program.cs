@@ -14,6 +14,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using static msptool.AMF;
 using static msptool.Checksum;
+using Rule = Spectre.Console.Rule;
 using WebClient = System.Net.WebClient;
 
 namespace msptool
@@ -990,7 +991,7 @@ namespace msptool
             }
             else
             {
-                int queryactorId = queryusername["Content"];
+                int queryactorId = queryusername["Content"] ?? "Unknown";
 
 
                 dynamic queryprofile = AMFConn(server,
@@ -1013,16 +1014,7 @@ namespace msptool
                         queryactorId,
                         actorId
                     });
-
-                if (queryprofileinfo[0] != "-1")
-                {
-                    Console.WriteLine(
-                        "\n\x1b[91mFAILED\u001b[39m > \x1b[93mUnknown Error [Click any key to return to login]");
-                    Console.ReadKey();
-                    Console.Clear();
-                }
-                else
-                {
+                
                     string nebulaProfileId = queryprofileinfo["NebulaProfileId"];
                     int qactorId = queryprofileinfo["ActorId"];
                     string qusername = queryprofileinfo["Name"];
@@ -1041,7 +1033,6 @@ namespace msptool
 
                 }
             }
-        }
         
 
 
