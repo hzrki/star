@@ -20,12 +20,12 @@ namespace msptool
 {
     internal class Program
     {
-        private static readonly string currentVersion = "1.5.1";
+        private static readonly string currentVersion = "1.5.2";
 
         private static readonly string checkVersion =
             "https://raw.githubusercontent.com/l3c1d/star/main/msptool/version.txt";
 
-        static void Main(string[] args)
+        static void Main()
         {
             Console.OutputEncoding = Encoding.UTF8;
             Console.InputEncoding = Encoding.UTF8;
