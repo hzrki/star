@@ -65,7 +65,6 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
       </ul>
     </li>
     <li><a href="#license">License</a></li>
@@ -95,8 +94,6 @@ This repository contains a collection of tools for interacting with MovieStarPla
 ## Getting Started
 
 How to start?
-
-### Prerequisites
 
 Just check the Requirements and install em and ur good to go, aint hard.
   ```
