@@ -116,7 +116,7 @@ Just check the Requirements and install em and ur good to go, aint hard.
 
 ## License
 
-We are not affiliated with MovieStarPlanet ApS. This project is not for profit and is distributed under the MIT License. See `LICENSE.txt` for more information.
+We are not affiliated with `MovieStarPlanet ApS` This project is not for profit and is distributed under the MIT License. See `LICENSE.txt` for more information.
 
 
 <!-- CONTACT -->
