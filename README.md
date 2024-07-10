@@ -122,7 +122,7 @@ We are not affiliated with MovieStarPlanet ApS. This project is not for profit a
 <!-- CONTACT -->
 ## Contact
 
-Contact For any inquiries or support, please contact ""
+Contact For any inquiries or support, please contact via github
 Project Link: [https://github.com/l3c1d/star](https://github.com/l3c1d/star)
 
 
