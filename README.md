@@ -69,7 +69,6 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
@@ -118,36 +117,6 @@ Just check the Requirements and install em and ur good to go, aint hard.
      
 4. Build in Visual Studio / Jetbrains Rider or Visual Studio Mac
 
-
-## Usage
-
-To use the tools, simply run the application and select the desired option from the menu. The options are:
- -----------------
- MovieStarPlanet:
-  -----------------
-* Recycle None-Rare Clothes
-* Buy Boonie
-* Buy Animations
-* Buy Clothes
-* Buy Eyes
-* Buy Nose
-* Buy Lips
-* Wear RareSkin
-* Add to wishlist
-* Custom Status
-* Icon changer
-* Room changer
-* Add Sponsors
-* Block Zac, Pixi, nova
-* Recycle Diamond Items
-* Wheel Spins
-  * Extra >> msplisa.exe for windows users for 10 years celebration on release downloads along with updated src
-* -----------------
-  MovieStarPlanet 2:
-  -----------------
-* Mood Changer
-* Gender Changer
-* Delete Room
 
 ## License
 
