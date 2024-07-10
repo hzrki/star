@@ -58,9 +58,6 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Tool</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -78,16 +75,6 @@
 ## About The Project
 
 This repository contains a collection of tools for interacting with MovieStarPlanet (MSP) and MovieStarPlanet 2, a popular online social game. The tools are implemented in C# and allow users to automate various tasks within the game. Below is an overview of the available tools and their functionalities.
-
-
-### Built With
-
-
-* ![Csharp][star-csharpurl]
-
-### Built For
-* ![Windows][star-windowsurl]
-* ![MacOS][star-macosurl]
 
 
 <!-- GETTING STARTED -->
