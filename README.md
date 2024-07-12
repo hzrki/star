@@ -93,12 +93,12 @@ Just check the Requirements and install em and ur good to go, aint hard.
    git clone https://github.com/l3c1d/star.git
    ```
 3. Install Requirements
-   * FluorineFx.Client
+   * StarService
    * Newtonsoft.Json
    * Spectre.Console
    * Optional : Costura.fody
      
-4. Build in Visual Studio / Jetbrains Rider or Visual Studio Mac
+5. Build in Visual Studio / Jetbrains Rider or Visual Studio Mac
 
 
 ## License
