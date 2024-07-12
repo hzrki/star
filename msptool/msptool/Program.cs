@@ -12,9 +12,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
-using static msptool.Checksum;
+using StarService.Security;
 using Rule = Spectre.Console.Rule;
 using WebClient = System.Net.WebClient;
+using static StarService.Security.AMFCall;
+using static StarService.Security.ChecksumCalculator;
 
 namespace msptool
 {
