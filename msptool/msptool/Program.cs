@@ -12,11 +12,12 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
-using StarService.Security;
+using StarService.Enum;
+using StarService.Utility;
+using static StarService.Utility.AMFCall;
+using static StarService.Utility.ChecksumCalculator;
 using Rule = Spectre.Console.Rule;
 using WebClient = System.Net.WebClient;
-using static StarService.Security.AMFCall;
-using static StarService.Security.ChecksumCalculator;
 
 namespace msptool
 {
@@ -100,45 +101,29 @@ namespace msptool
                     .PromptStyle("#71d5fb")
                     .Secret());
 
-                var choices = new (string Name, string Value)[]
-                {
-                    ("United Kingdom", "GB"),
-                    ("United States", "US"),
-                    ("Türkiye", "TR"),
-                    ("Sweden", "SE"),
-                    ("France", "FR"),
-                    ("Deutschland", "DE"),
-                    ("Netherlands", "NL"),
-                    ("Finland", "FI"),
-                    ("Norway", "NO"),
-                    ("Denmark", "DK"),
-                    ("Canada", "CA"),
-                    ("Australia", "AU"),
-                    ("Poland", "PL"),
-                    ("New Zealand", "NZ"),
-                    ("Ireland", "IE"),
-                    ("Spain", "ES")
-                };
+                var choices = Enum.GetValues(typeof(WebServer))
+                    .Cast<WebServer>()
+                    .Select(ws => (ws.loc3().Item1, ws.loc3().Item2)) 
+                    .ToArray();
 
                 var selectedCountry = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
-                        .Title("[[[#71d5fb]+[/]]] Select an server: ")
+                        .Title("[[[#71d5fb]+[/]]] Select a server: ")
                         .PageSize(15)
                         .MoreChoicesText("[grey](Move up and down to reveal more servers)[/]")
-                        .AddChoices(choices.Select(choice => choice.Name))
+                        .AddChoices(choices.Select(choice => choice.Item1)) 
                 );
 
-                var selectedChoice = choices.First(choice => choice.Name == selectedCountry);
-
+                var selectedChoice = choices.First(choice => choice.Item1 == selectedCountry);
                 dynamic login = null;
-                string server = selectedChoice.Value;
+                string server = selectedChoice.Item2;
                 AnsiConsole.Status()
                     .SpinnerStyle(Spectre.Console.Style.Parse("#71d5fb"))
                     .Start("Login...", ctx =>
                     {
                         ctx.Refresh();
                         ctx.Spinner(Spinner.Known.Circle);
-                        login = AMFConn(selectedChoice.Value, "MovieStarPlanet.WebService.User.AMFUserServiceWeb.Login",
+                        login = AMFConn(server, "MovieStarPlanet.WebService.User.AMFUserServiceWeb.Login",
                             new object[6]
                             {
                                 username, password, new object[] {  }, null, null, "MSP1-Standalone:XXXXXX"
@@ -685,8 +670,6 @@ namespace msptool
                 Console.Clear();
             }
         }
-
-
         static void customStatus(string server, string name, int actorId, string ticket)
         {
             Console.Clear();
@@ -1068,35 +1051,20 @@ namespace msptool
                     .PromptStyle("#71d5fb")
                     .Secret());
 
-                var choices = new (string Name, string Value)[]
-                {
-                    ("United Kingdom", "GB"),
-                    ("United States", "US"),
-                    ("Türkiye", "TR"),
-                    ("Sweden", "SE"),
-                    ("France", "FR"),
-                    ("Deutschland", "DE"),
-                    ("Netherlands", "NL"),
-                    ("Finland", "FI"),
-                    ("Norway", "NO"),
-                    ("Denmark", "DK"),
-                    ("Canada", "CA"),
-                    ("Australia", "AU"),
-                    ("Poland", "PL"),
-                    ("New Zealand", "NZ"),
-                    ("Ireland", "IE"),
-                    ("Spain", "ES")
-                };
+                var choices = Enum.GetValues(typeof(WebServer))
+                    .Cast<WebServer>()
+                    .Select(ws => (ws.loc3().Item1, ws.loc3().Item2)) 
+                    .ToArray();
 
                 var selectedCountry = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("[[[#71d5fb]+[/]]] Select a server: ")
                         .PageSize(15)
                         .MoreChoicesText("[grey](Move up and down to reveal more servers)[/]")
-                        .AddChoices(choices.Select(choice => choice.Name))
+                        .AddChoices(choices.Select(choice => choice.Item1)) 
                 );
 
-                var server = choices.First(choice => choice.Name == selectedCountry).Value;
+                var server = choices.First(choice => choice.Item1 == selectedCountry).Item2;
                 var region = new[] { "US", "CA", "AU", "NZ" }.Contains(server) ? "us" : "eu";
 
                 string accessToken = null;
