@@ -16,6 +16,7 @@ using StarService.Enum;
 using StarService.Utility;
 using static StarService.Utility.AMFCall;
 using static StarService.Utility.ChecksumCalculator;
+using static StarService.Utility.SignatureCalculator;
 using Rule = Spectre.Console.Rule;
 using WebClient = System.Net.WebClient;
 
