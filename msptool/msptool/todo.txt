@@ -1,0 +1,18 @@
+Autographer:
+MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorIdFromName",
+                         username
+MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GiveAutographAndCalculateTimestamp
+actor(ticket), actorId, actorId2
+
+----------------------------
+
+Check Usernames:
+MovieStarPlanet.WebService.AMFActorService.IsActorNameUsed
+
+----------------------------
+
+Gifter:
+MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorIdFromName",
+                         username
+MovieStarPlanet.WebService.Gifts.AMFGiftsService+Version2.GiveGiftOfCategory
+actor(ticket), actorId, friend_actorId, relid, 0, 1, f"Gift_item_5.swf"
