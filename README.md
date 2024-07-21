@@ -1,8 +1,6 @@
 <a name="readme-top"></a>
 
 
-
-
 <!-- PROJECT SHIELDS -->
 
 <div align="center">
