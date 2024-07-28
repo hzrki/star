@@ -238,15 +238,12 @@ namespace msptool
                                 lisaHack(server, actorId, ticket);
                                 break;
                             case "16":
-                                automatedAutographer(server, ticket);
+                                automatedPixeller(server, ticket);
                                 break;
                             case "17":
-                                itemGlitcher(server, ticket);
-                                break;
-                            case "18":
                                 query(server, actorId, ticket);
                                 break;
-                            case "19":
+                            case "18":
                                 Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
                                 loggedIn = false;
@@ -946,14 +943,6 @@ namespace msptool
             }
         }
 
-
-        static void automatedAutographer(string server, string ticket)
-        {
-            Console.Write("soon");
-            Console.ReadKey();
-            Console.Clear();
-        }
-
         static void query(string server, int actorId, string ticket)
         {
             Console.Clear();
@@ -1022,16 +1011,6 @@ namespace msptool
 
                 }
             }
-        
-
-
-
-        static void itemGlitcher(string server, string ticket)
-        {
-            Console.Write("soon");
-            Console.ReadKey();
-            Console.Clear();
-        }
         
         static void automatedPixeller(string server, string ticket)
         {
