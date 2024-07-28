@@ -179,10 +179,9 @@ namespace msptool
                         AnsiConsole.Markup("[#71d5fb]13[/] > Recycle Diamond Items\n");
                         AnsiConsole.Markup("[#71d5fb]14[/] > Wheel Spins\n");
                         AnsiConsole.Markup("[#71d5fb]15[/] > Lisa Hack\n");
-                        AnsiConsole.Markup("[#71d5fb]16[/] > Automated Autographer\n");
-                        AnsiConsole.Markup("[#71d5fb]17[/] > Item Glitcher\n");
-                        AnsiConsole.Markup("[#71d5fb]18[/] > Query\n");
-                        AnsiConsole.Markup("[#71d5fb]19[/] > Logout\n\n");
+                        AnsiConsole.Markup("[#71d5fb]16[/] > Automated Pixeller\n");
+                        AnsiConsole.Markup("[#71d5fb]17[/] > Query\n");
+                        AnsiConsole.Markup("[#71d5fb]18[/] > Logout\n\n");
                         AnsiConsole.Write(
                             new Rule(
                                     "[slowblink][#71d5fb]lcfi & 6c0[/][/]")
@@ -980,7 +979,7 @@ namespace msptool
                 var c21 = queryprofile["Created"];
 
                 DateTime c22 = (DateTime)c21;
-                string createdate = c22.ToString("yyyy-MM-dd HH:mm:ss");
+                string qreatedate = c22.ToString("yyyy-MM-dd HH:mm:ss");
 
                 dynamic queryprofileinfo = AMFConn(server,
                     "MovieStarPlanet.WebService.AMFActorService.BulkLoadActors",
@@ -1009,7 +1008,27 @@ namespace msptool
                     DateTime membershiptimeoutdate = queryprofileinfo[0]["MembershipTimeoutDate"];
                     DateTime LastLogin = queryprofileinfo[0]["LastLogin"];
 
-                }
+                    AnsiConsole.MarkupLine("[bold white]Profile Information[/]");
+                    AnsiConsole.MarkupLine($"[bold blue]NebulaProfileId:[/] {nebulaProfileId}");
+                    AnsiConsole.MarkupLine($"[bold blue]ActorId:[/] {qactorId}");
+                    AnsiConsole.MarkupLine($"[bold blue]Name:[/] {qusername}");
+                    AnsiConsole.MarkupLine($"[bold blue]Level:[/] {level}");
+                    AnsiConsole.MarkupLine($"[bold blue]Fame:[/] {fame}");
+                    AnsiConsole.MarkupLine($"[bold blue]Money:[/] {starcoins}");
+                    AnsiConsole.MarkupLine($"[bold blue]Diamonds:[/] {diamonds}");
+                    AnsiConsole.MarkupLine($"[bold blue]SkinColor:[/] {skinColor}");
+                    AnsiConsole.MarkupLine($"[bold blue]EyeId:[/] {eyeId}");
+                    AnsiConsole.MarkupLine($"[bold blue]EyeColors:[/] {eyeColors}");
+                    AnsiConsole.MarkupLine($"[bold blue]NoseId:[/] {noseId}");
+                    AnsiConsole.MarkupLine($"[bold blue]MouthId:[/] {mouthId}");
+                    AnsiConsole.MarkupLine($"[bold blue]MouthColors:[/] {mouthColors}");
+                    AnsiConsole.MarkupLine($"[bold blue]Created:[/] {qreatedate}");
+                    AnsiConsole.MarkupLine($"[bold blue]MembershipTimeoutDate:[/] {membershiptimeoutdate}");
+                    AnsiConsole.MarkupLine($"[bold blue]LastLogin:[/] {LastLogin}");
+                    
+                    AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Queried {qusername} :)[/] [[Click any key to return to Home]][/]");
+                    Console.ReadKey();
+                    Console.Clear();               }
             }
         
         static void automatedPixeller(string server, string ticket)
