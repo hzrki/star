@@ -1004,21 +1004,21 @@ namespace msptool
                         }
                     });
                 
-                    string nebulaProfileId = queryprofileinfo["NebulaProfileId"];
-                    double qactorId = queryprofileinfo["ActorId"];
-                    string qusername = queryprofileinfo["Name"];
-                    int level = queryprofileinfo["Level"];
-                    int fame = queryprofileinfo["Fame"];
-                    int starcoins = queryprofileinfo["Money"];
-                    int diamonds = queryprofileinfo["Diamonds"];
-                    string skinColor = queryprofileinfo["SkinColor"];
-                    int eyeId = queryprofileinfo["EyeId"];
-                    string eyeColors = queryprofileinfo["EyeColors"];
-                    int noseId = queryprofileinfo["NoseId"];
-                    int mouthId = queryprofileinfo["MouthId"];
-                    string mouthColors = queryprofileinfo["MouthColors"];
-                    string membershiptimeoutdate = queryprofileinfo["MembershipTimeoutDate"];
-                    string LastLogin = queryprofileinfo["LastLogin"];
+                    string nebulaProfileId = queryprofileinfo[0]["NebulaProfileId"];
+                    double qactorId = queryprofileinfo[0]["ActorId"];
+                    string qusername = queryprofileinfo[0]["Name"];
+                    int level = queryprofileinfo[0]["Level"];
+                    double fame = queryprofileinfo[0]["Fame"];
+                    int starcoins = queryprofileinfo[0]["Money"];
+                    int diamonds = queryprofileinfo[0]["Diamonds"];
+                    string skinColor = queryprofileinfo[0]["SkinColor"];
+                    int eyeId = queryprofileinfo[0]["EyeId"];
+                    string eyeColors = queryprofileinfo[0]["EyeColors"];
+                    int noseId = queryprofileinfo[0]["NoseId"];
+                    int mouthId = queryprofileinfo[0]["MouthId"];
+                    string mouthColors = queryprofileinfo[0]["MouthColors"];
+                    DateTime membershiptimeoutdate = queryprofileinfo[0]["MembershipTimeoutDate"];
+                    DateTime LastLogin = queryprofileinfo[0]["LastLogin"];
 
                 }
             }
