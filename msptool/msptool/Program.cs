@@ -1033,7 +1033,13 @@ namespace msptool
         
         static void automatedPixeller(string server, string ticket)
         {
-            Console.Write("soon");
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Automated Pixeller").LeftJustified()
+                .RoundedBorder());
+            AnsiConsole.MarkupLine($"[#71d5fb]Login with second account : )[/]");
+            var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] username: ")
+                .PromptStyle("#71d5fb"));
+            
             Console.ReadKey();
             Console.Clear();
         }
