@@ -963,11 +963,11 @@ namespace msptool
                 .PromptStyle("#71d5fb"));
 
 
-            dynamic queryusername = AMFConn(server,
+            dynamic queryUsername = AMFConn(server,
                 "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorIdFromName",
                 new object[1] { username });
 
-            if (queryusername["Content"] != "-1")
+            if (queryUsername == -1)
             {
                 Console.WriteLine(
                     "\n\x1b[91mFAILED\u001b[39m > \x1b[93mThe account doesn't exist or has been deleted [Click any key to return to login]");
@@ -976,7 +976,7 @@ namespace msptool
             }
             else
             {
-                int queryactorId = queryusername["Content"] ?? "Unknown";
+                double queryactorId = queryUsername;
 
 
                 dynamic queryprofile = AMFConn(server,
@@ -988,20 +988,24 @@ namespace msptool
                         actorId
                     });
 
-                string createdate = queryprofile["Created"];
+                var c21 = queryprofile["Created"];
 
+                DateTime c22 = (DateTime)c21;
+                string createdate = c22.ToString("yyyy-MM-dd HH:mm:ss");
 
                 dynamic queryprofileinfo = AMFConn(server,
-                    "MovieStarPlanet.WebService.AMFActorService.LoadMovieStarListRevised",
-                    new object[3]
+                    "MovieStarPlanet.WebService.AMFActorService.BulkLoadActors",
+                    new object[2]
                     {
                         new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                        queryactorId,
-                        actorId
+                        new object[]
+                        {
+                            queryactorId
+                        }
                     });
                 
                     string nebulaProfileId = queryprofileinfo["NebulaProfileId"];
-                    int qactorId = queryprofileinfo["ActorId"];
+                    double qactorId = queryprofileinfo["ActorId"];
                     string qusername = queryprofileinfo["Name"];
                     int level = queryprofileinfo["Level"];
                     int fame = queryprofileinfo["Fame"];
