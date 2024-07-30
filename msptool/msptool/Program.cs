@@ -443,10 +443,11 @@ namespace msptool
             string clothColor = AnsiConsole.Prompt(
                 new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter Color: ")
                     .PromptStyle("#71d5fb"));
-
-            dynamic cloth = AMFConn(server, "MovieStarPlanet.WebService.AMFSpendingService.BuyClothes",
-                new object[4]
-                {
+            try
+            {
+                dynamic cloth = AMFConn(server, "MovieStarPlanet.WebService.AMFSpendingService.BuyClothes",
+                    new object[4]
+                    {
                         new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                         actorId,
                         new object[]
@@ -463,23 +464,30 @@ namespace msptool
                             },
                         },
                         0
-                });
+                    });
 
-            if (cloth["Code"] != 0)
+                if (cloth["Code"] != 0)
+                {
+                    AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]"
+                                       + (cloth["Description"] ?? "Unknown") +
+                                       "[/] [[Click any key to return to Home]][/]");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else
+                {
+                    AnsiConsole.Markup(
+                        "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Clothing bought![/] [[Click any key to return to Home]][/]");
+                }
+            }
+            catch (Exception)
             {
-                AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]"
-                                   + (cloth["Description"] ?? "Unknown") +
+                AnsiConsole.Markup("\n[#fa1414]FAILED[/] > Hidden or Deleted [#f7b136][underline]"
+                                   + 
                                    "[/] [[Click any key to return to Home]][/]");
-                Console.ReadKey();
-                Console.Clear();
             }
-            else
-            {
-                AnsiConsole.Markup(
-                    "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Clothing bought![/] [[Click any key to return to Home]][/]");
-                Console.ReadKey();
-                Console.Clear();
-            }
+            Console.ReadKey();
+            Console.Clear();
         }
 
         static void buyNose(string server, int actorId, string ticket)
