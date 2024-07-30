@@ -765,7 +765,7 @@ namespace msptool
             Console.Write("\n");
 
             List<int> anchorCharacterList = new List<int>
-                    { 273, 276, 277, 341, 418, 419, 420, 421, 83417, 83423, 83424 };
+                { 273, 276, 277, 341, 418, 419, 420, 421, 83417, 83423, 83427, 83424 };
 
             foreach (int anchorId in anchorCharacterList)
             {
@@ -773,12 +773,27 @@ namespace msptool
                     "MovieStarPlanet.WebService.AnchorCharacter.AMFAnchorCharacterService.RequestFriendship",
                     new object[2]
                     {
-                            new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                            anchorId
+                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                        anchorId
                     });
-                Console.WriteLine($"Added: {anchorId}");
-
+                if (anchor["Code"] != 0)
+                {
+                    AnsiConsole.Markup(
+                        $"\n[#fa1414]FAILED[/] > [#f7b136][underline]{anchor["Description"] ?? "Unknown"}[/][/]"
+                    );
+                }
+                else
+                {
+                    AnsiConsole.Markup(
+                        $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Anchor {anchorId} has been added!![/][/]"
+                    );
+                }
             }
+            AnsiConsole.Markup(
+                "\n[#71d5fb][/] > [#f7b136][underline]Click any key to return to Home[/][/]"
+            );
+            Console.ReadKey();
+            Console.Clear();
         }
 
         static void blockDefaults(string server, int actorId, string ticket)
