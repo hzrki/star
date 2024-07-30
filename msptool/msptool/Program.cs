@@ -976,10 +976,7 @@ namespace msptool
                         actorId
                     });
 
-                var c21 = queryprofile["Created"];
-
-                DateTime c22 = (DateTime)c21;
-                string qreatedate = c22.ToString("yyyy-MM-dd HH:mm:ss");
+                DateTime qreatedate = queryprofile["Created"];
 
                 dynamic queryprofileinfo = AMFConn(server,
                     "MovieStarPlanet.WebService.AMFActorService.BulkLoadActors",
