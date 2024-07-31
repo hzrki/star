@@ -180,7 +180,8 @@ namespace msptool
                         AnsiConsole.Markup("[#71d5fb]15[/] > Lisa Hack\n");
                         AnsiConsole.Markup("[#71d5fb]16[/] > Automated Pixeller\n");
                         AnsiConsole.Markup("[#71d5fb]17[/] > Query\n");
-                        AnsiConsole.Markup("[#71d5fb]18[/] > Logout\n\n");
+                        AnsiConsole.Markup("[#71d5fb]18[/] > Username Checker\n");
+                        AnsiConsole.Markup("[#71d5fb]19[/] > Logout\n\n");
                         AnsiConsole.Write(
                             new Rule(
                                     "[slowblink][#71d5fb]lcfi & 6c0[/][/]")
@@ -242,6 +243,9 @@ namespace msptool
                                 query(server, actorId, ticket);
                                 break;
                             case "18":
+                                usernameChecker();
+                                break;
+                            case "19":
                                 Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
                                 loggedIn = false;
@@ -1049,8 +1053,8 @@ namespace msptool
                     Console.ReadKey();
                     Console.Clear();               }
             }
-        
-        static void automatedPixeller(string server, string ticket)
+
+            static void automatedPixeller(string server, string ticket)
         {
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Automated Pixeller").LeftJustified()
@@ -1062,6 +1066,47 @@ namespace msptool
             
             Console.ReadKey();
             Console.Clear();
+        }
+
+        static void usernameChecker()
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Username Checker").LeftJustified()
+                .RoundedBorder());
+            var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] username: ")
+                .PromptStyle("#71d5fb"));
+            var loc1 = new string[][]
+            {
+                new string[] { "US", "CA", "AU", "NZ" },
+                new string[] { "GB", "DE", "FR", "TR", "SE", "DK", "FI", "PL", "IE", "ES", "NL", "NO" }
+            };
+
+            foreach (var loc2 in loc1)
+            {
+                foreach (var server in loc2)
+                {
+                    var usernameChecker = AMFConn(server,
+                        "MovieStarPlanet.WebService.AMFActorService.IsActorNameUsed",
+                        new object[] { username });
+
+                    bool loc3 = Convert.ToBoolean(usernameChecker);
+
+                    if (loc3)
+                    {
+                        AnsiConsole.MarkupLine(
+                            $"[#FF0000]{server} | {username} | Not available[/]");
+                    }
+                    else
+                    
+                    {
+                        AnsiConsole.MarkupLine(
+                            $"[#00FF00]{server} | {username} | available[/]");
+                    }
+                }
+            }
+            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all servers for username :)[/] [[Click any key to return to Home]][/]");
+            Console.ReadKey();
+            Console.Clear();  
         }
 
         static async Task MSP2_Login()
