@@ -24,7 +24,7 @@ namespace msptool
 {
     internal class Program
     {
-        private static readonly string currentVersion = "1.5.2";
+        private static readonly string currentVersion = "1.5.3";
 
         private static readonly string checkVersion =
             "https://raw.githubusercontent.com/l3c1d/star/main/msptool/version.txt";
@@ -1059,6 +1059,7 @@ namespace msptool
             AnsiConsole.MarkupLine($"[#71d5fb]Login with second account : )[/]");
             var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] username: ")
                 .PromptStyle("#71d5fb"));
+            AnsiConsole.MarkupLine($"[#71d5fb]Coming next update : )[/]");
             
             Console.ReadKey();
             Console.Clear();
