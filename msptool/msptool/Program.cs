@@ -183,7 +183,9 @@ namespace msptool
                         AnsiConsole.Markup("[#71d5fb]18[/] > Username Checker\n");
                         AnsiConsole.Markup("[#71d5fb]19[/] > Clothes Extractor\n");
                         AnsiConsole.Markup("[#71d5fb]20[/] > Username To ActorId\n");
-                        AnsiConsole.Markup("[#71d5fb]21[/] > Logout\n\n");
+                        AnsiConsole.Markup("[#71d5fb]21[/] > ActorId To Username\n");
+                        AnsiConsole.Markup("[#71d5fb]22[/] > Item Tracker\n");
+                        AnsiConsole.Markup("[#71d5fb]23[/] > Logout\n\n");
                         AnsiConsole.Write(
                             new Rule(
                                     "[slowblink][#71d5fb]lcfi & 6c0[/][/]")
@@ -254,6 +256,12 @@ namespace msptool
                                 usernameToActorid(server);
                                 break;
                             case "21":
+                                actorIdToUsername(server);
+                                break;
+                            case "22":
+                                itemTracker(server);
+                                break;
+                            case "23":
                                 Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
                                 loggedIn = false;
@@ -1215,11 +1223,86 @@ namespace msptool
             {
                 double actorId = loc1;
                 
-                AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]ActorId: {actorId} for {username} :)[/] [[Click any key to return to Home]][/]");
+                AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]ActorId: {actorId} | {username} :)[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
                 Console.Clear();  
             }
         }
+
+        static void actorIdToUsername(string server)
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ ActorId to Username").LeftJustified()
+                .RoundedBorder());
+            var ActorId = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] actorid: ")
+                .PromptStyle("#71d5fb"));
+
+            dynamic loc5 = AMFConn(server,
+                "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorNameFromId",
+                new object[1]
+                    { ActorId });
+
+            string username = loc5;
+            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Username: {username} | ActorId: {ActorId}  :)[/] [[Click any key to return to Home]][/]");
+            Console.ReadKey();
+            Console.Clear();  
+        }
+
+        static void itemTracker(string server)
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Item Tracker").LeftJustified()
+                .RoundedBorder());
+            var ActorClothesRelId = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] ActorClothesRelId: ")
+                .PromptStyle("#71d5fb"));
+            
+            dynamic loc4 = AMFConn(server,
+                        "MovieStarPlanet.WebService.MovieStar.AMFMovieStarService.GetActorClothesRel",
+                        new object[1]
+                        { ActorClothesRelId });
+                    
+            int actorId = loc4["ActorId"];
+            
+            dynamic loc5 = AMFConn(server,
+                "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorNameFromId",
+                new object[1]
+                    { actorId });
+            
+            string username = loc5;
+                
+            string clothName = loc4["Cloth"]["Name"] ?? "Unknown";
+            int clothId = loc4["ClothesId"];
+            string color = loc4["Color"].ToString();
+            string shopId = loc4["Cloth"]["ShopId"].ToString();
+            int isVip = loc4["Cloth"]["Vip"];
+            int isDiamondItem = loc4["Cloth"]["DiamondsPrice"];
+                    
+            string isDiamond = isDiamondItem != 0 ? "Yes" : "No";
+            string IsVip = isVip != 0 ? "Yes" : "No";
+            string isRare = shopId != "-100" ? "Yes" : "No";
+                    
+            AnsiConsole.MarkupLine($"[#71d5fb]ActorClothesRelId:[/] {ActorClothesRelId}");
+            AnsiConsole.MarkupLine($"[#71d5fb]ClothesName:[/] {clothName}");
+            AnsiConsole.MarkupLine($"[#71d5fb]ClothesId:[/] {clothId}");
+            if (!string.IsNullOrEmpty(color))
+            {
+                AnsiConsole.MarkupLine($"[#71d5fb]Colors:[/] {color}");
+            }
+            else
+            {
+                AnsiConsole.MarkupLine("[#71d5fb]Colors:[/] None");
+            }
+        
+            AnsiConsole.MarkupLine($"[#71d5fb]IsRareItem:[/] {isRare}");
+            AnsiConsole.MarkupLine($"[#71d5fb]IsVipItem:[/] {IsVip}");
+            AnsiConsole.MarkupLine($"[#71d5fb]IsDiamondItem:[/] {isDiamond}");
+            AnsiConsole.MarkupLine("");
+            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Item tracked to {username}  :)[/] [[Click any key to return to Home]][/]");
+            Console.ReadKey();
+            Console.Clear();  
+
+        }
+            
         static async Task MSP2_Login()
         {
             Console.Clear();
