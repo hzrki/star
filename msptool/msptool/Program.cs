@@ -182,7 +182,8 @@ namespace msptool
                         AnsiConsole.Markup("[#71d5fb]17[/] > Query\n");
                         AnsiConsole.Markup("[#71d5fb]18[/] > Username Checker\n");
                         AnsiConsole.Markup("[#71d5fb]19[/] > Clothes Extractor\n");
-                        AnsiConsole.Markup("[#71d5fb]20[/] > Logout\n\n");
+                        AnsiConsole.Markup("[#71d5fb]20[/] > Username To ActorId\n");
+                        AnsiConsole.Markup("[#71d5fb]21[/] > Logout\n\n");
                         AnsiConsole.Write(
                             new Rule(
                                     "[slowblink][#71d5fb]lcfi & 6c0[/][/]")
@@ -250,6 +251,9 @@ namespace msptool
                                 clothesExtractor(server, ticket);
                                 break;
                             case "20":
+                                usernameToActorid(server);
+                                break;
+                            case "21":
                                 Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
                                 loggedIn = false;
@@ -1188,6 +1192,34 @@ namespace msptool
             Console.Clear();  
         }
 
+        static void usernameToActorid(string server)
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Username To ActorId").LeftJustified()
+                .RoundedBorder());
+            var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] username: ")
+                .PromptStyle("#71d5fb"));
+
+            dynamic loc1 = AMFConn(server,
+                "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorIdFromName",
+                new object[1] { username });
+
+            if (loc1 == -1)
+            {
+                Console.WriteLine(
+                    "\n\x1b[91mFAILED\u001b[39m > \x1b[93mThe account doesn't exist or has been deleted [Click any key to return to login]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                double actorId = loc1;
+                
+                AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]ActorId: {actorId} for {username} :)[/] [[Click any key to return to Home]][/]");
+                Console.ReadKey();
+                Console.Clear();  
+            }
+        }
         static async Task MSP2_Login()
         {
             Console.Clear();
