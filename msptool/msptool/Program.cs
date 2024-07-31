@@ -27,8 +27,7 @@ namespace msptool
         private static readonly string currentVersion = "1.5.3";
 
         private static readonly string checkVersion =
-            "https://raw.githubusercontent.com/l3c1d/star/main/msptool/version.txt";
-
+            "https://raw.githubusercontent.com/lcfidev/star/main/msptool/version.txt";
         static void Main()
         {
             Console.OutputEncoding = Encoding.UTF8;
@@ -41,7 +40,7 @@ namespace msptool
                 AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Update").LeftJustified());
                 Console.Write("\n");
                 AnsiConsole.Markup(
-                    $"[#71d5fb]Go on and download last release[/] ・ [link=https://github.com/l3c1d/star/releases/tag/v{latestVersion}]github.com/l3c1d/star/releases/tag/v{latestVersion}[/]");
+                    $"[#71d5fb]Go on and download last release[/] ・ [link=https://github.com/lcfidev/star/releases/tag/v{latestVersion}]github.com/l3c1d/star/releases/tag/v{latestVersion}[/]");
                 Console.ReadKey();
                 while (true)
                 {
