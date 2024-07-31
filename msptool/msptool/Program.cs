@@ -1164,21 +1164,21 @@ namespace msptool
                     string IsVip = isVip != 0 ? "Yes" : "No";
                     string isRare = shopId != "-100" ? "Yes" : "No";
                     
-                    AnsiConsole.MarkupLine($"[bold]ActorClothesRelId:[/] {ActorClothesRelId}");
-                    AnsiConsole.MarkupLine($"[bold]ClothesName:[/] {clothName}");
-                    AnsiConsole.MarkupLine($"[bold]ClothesId:[/] {clothId}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]ActorClothesRelId:[/] {ActorClothesRelId}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]ClothesName:[/] {clothName}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]ClothesId:[/] {clothId}");
                     if (!string.IsNullOrEmpty(color))
                     {
-                        AnsiConsole.MarkupLine($"[bold]Colors (If any):[/] {color}");
+                        AnsiConsole.MarkupLine($"[#71d5fb]Colors:[/] {color}");
                     }
                     else
                     {
-                        AnsiConsole.MarkupLine("[bold]Colors (If any):[/] None");
+                        AnsiConsole.MarkupLine("[#71d5fb]Colors:[/] None");
                     }
         
-                    AnsiConsole.MarkupLine($"[bold]IsRareItem:[/] {isRare}");
-                    AnsiConsole.MarkupLine($"[bold]IsVipItem:[/] {IsVip}");
-                    AnsiConsole.MarkupLine($"[bold]IsDiamondItem:[/] {isDiamond}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]IsRareItem:[/] {isRare}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]IsVipItem:[/] {IsVip}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]IsDiamondItem:[/] {isDiamond}");
                     AnsiConsole.MarkupLine("");
 
                 }
