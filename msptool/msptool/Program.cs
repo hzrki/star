@@ -414,7 +414,7 @@ namespace msptool
                         animationId
                 });
 
-            if (animation["Description"] != "null")
+            if (animation["Code"] != 0)
             {
                 AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]"
                                    + (animation["Description"] ?? "Unknown") +
