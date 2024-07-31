@@ -181,7 +181,8 @@ namespace msptool
                         AnsiConsole.Markup("[#71d5fb]16[/] > Automated Pixeller\n");
                         AnsiConsole.Markup("[#71d5fb]17[/] > Query\n");
                         AnsiConsole.Markup("[#71d5fb]18[/] > Username Checker\n");
-                        AnsiConsole.Markup("[#71d5fb]19[/] > Logout\n\n");
+                        AnsiConsole.Markup("[#71d5fb]19[/] > Clothes Extractor\n");
+                        AnsiConsole.Markup("[#71d5fb]20[/] > Logout\n\n");
                         AnsiConsole.Write(
                             new Rule(
                                     "[slowblink][#71d5fb]lcfi & 6c0[/][/]")
@@ -246,6 +247,9 @@ namespace msptool
                                 usernameChecker();
                                 break;
                             case "19":
+                                clothesExtractor(server, ticket);
+                                break;
+                            case "20":
                                 Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
                                 loggedIn = false;
@@ -1105,6 +1109,81 @@ namespace msptool
                 }
             }
             AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all servers for username :)[/] [[Click any key to return to Home]][/]");
+            Console.ReadKey();
+            Console.Clear();  
+        }
+
+        static void clothesExtractor(string server, string ticket)
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Clothes Extractor").LeftJustified()
+                .RoundedBorder());
+            var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] username: ")
+                .PromptStyle("#71d5fb"));
+
+            dynamic loc1 = AMFConn(server,
+                "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorIdFromName",
+                new object[1] { username });
+
+            if (loc1 == -1)
+            {
+                Console.WriteLine(
+                    "\n\x1b[91mFAILED\u001b[39m > \x1b[93mThe account doesn't exist or has been deleted [Click any key to return to login]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                double ceactorId = loc1;
+
+                dynamic loc2 = AMFConn(server,
+                    "MovieStarPlanet.WebService.ActorClothes.AMFActorClothes.GetActorClothesRelMinimals",
+                    new object[2]
+                    {
+                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                        ceactorId,
+                    });
+
+                foreach (var loc3 in loc2)
+                {
+                    int ActorClothesRelId = Convert.ToInt32(loc3["ActorClothesRelId"]);
+                    
+                    dynamic loc4 = AMFConn(server,
+                        "MovieStarPlanet.WebService.MovieStar.AMFMovieStarService.GetActorClothesRel",
+                        new object[1]
+                        { ActorClothesRelId });
+                    
+                    string clothName = loc4["Cloth"]["Name"] ?? "Unknown";
+                    int clothId = loc4["ClothesId"];
+                    string color = loc4["Color"].ToString();
+                    string shopId = loc4["Cloth"]["ShopId"].ToString();
+                    int isVip = loc4["Cloth"]["Vip"];
+                    int isDiamondItem = loc4["Cloth"]["DiamondsPrice"];
+                    
+                    string isDiamond = isDiamondItem != 0 ? "Yes" : "No";
+                    string IsVip = isVip != 0 ? "Yes" : "No";
+                    string isRare = shopId != "-100" ? "Yes" : "No";
+                    
+                    AnsiConsole.MarkupLine($"[bold]ActorClothesRelId:[/] {ActorClothesRelId}");
+                    AnsiConsole.MarkupLine($"[bold]ClothesName:[/] {clothName}");
+                    AnsiConsole.MarkupLine($"[bold]ClothesId:[/] {clothId}");
+                    if (!string.IsNullOrEmpty(color))
+                    {
+                        AnsiConsole.MarkupLine($"[bold]Colors (If any):[/] {color}");
+                    }
+                    else
+                    {
+                        AnsiConsole.MarkupLine("[bold]Colors (If any):[/] None");
+                    }
+        
+                    AnsiConsole.MarkupLine($"[bold]IsRareItem:[/] {isRare}");
+                    AnsiConsole.MarkupLine($"[bold]IsVipItem:[/] {IsVip}");
+                    AnsiConsole.MarkupLine($"[bold]IsDiamondItem:[/] {isDiamond}");
+                    AnsiConsole.MarkupLine("");
+
+                }
+            }
+            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all {username} clothes :)[/] [[Click any key to return to Home]][/]");
             Console.ReadKey();
             Console.Clear();  
         }
