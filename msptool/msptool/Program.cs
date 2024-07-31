@@ -1384,7 +1384,6 @@ namespace msptool
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("ERROR");
                     return true;
                 }
 
