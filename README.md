@@ -13,17 +13,17 @@
 
 </div>
 
-[contributors-shield]: https://img.shields.io/github/contributors/l3c1d/star.svg?style=flat-square
-[forks-shield]: https://img.shields.io/github/forks/l3c1d/star.svg?style=flat-square
-[stars-shield]: https://img.shields.io/github/stars/l3c1d/star.svg?style=flat-square
-[issues-shield]: https://img.shields.io/github/issues/l3c1d/star.svg?style=flat-square
-[license-shield]: https://img.shields.io/github/license/l3c1d/star.svg?style=flat-square
+[contributors-shield]: https://img.shields.io/github/contributors/lcfidev/star.svg?style=flat-square
+[forks-shield]: https://img.shields.io/github/forks/lcfidev/star.svg?style=flat-square
+[stars-shield]: https://img.shields.io/github/stars/lcfidev/star.svg?style=flat-square
+[issues-shield]: https://img.shields.io/github/issues/lcfidev/star.svg?style=flat-square
+[license-shield]: https://img.shields.io/github/license/lcfidev/star.svg?style=flat-square
 
-[contributors-url]: https://github.com/l3c1d/star/graphs/contributors
-[forks-url]: https://github.com/l3c1d/star/network/members
-[stars-url]: https://github.com/l3c1d/star/stargazers
-[issues-url]: https://github.com/l3c1d/star/issues
-[license-url]: https://github.com/l3c1d/star/blob/main/LICENSE.txt
+[contributors-url]: https://github.com/lcfidev/star/graphs/contributors
+[forks-url]: https://github.com/lcfidev/star/network/members
+[stars-url]: https://github.com/lcfidev/star/stargazers
+[issues-url]: https://github.com/lcfidev/star/issues
+[license-url]: https://github.com/lcfidev/star/blob/main/LICENSE.txt
 
 
 
@@ -32,7 +32,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/l3c1d/star">
+  <a href="https://github.com/lcfidev/star">
   </a>
 
   <h3 align="center">MovieStarPlanet & MovieStarPlanet 2 Extension</h3>
@@ -40,12 +40,12 @@
   <p align="center">
     An awesome Tool to simplify your MSP & MSP2 Experience
     <br />
-    <a href="https://github.com/l3c1d/star/tree/main/msptool"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/lcfidev/star/tree/main/msptool"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/l3c1d/star/issues/new?labels=bug">Report Bug</a>
+    <a href="https://github.com/lcfidev/star/issues/new?labels=bug">Report Bug</a>
     ·
-    <a href="https://github.com/l3c1d/star/issues/new?labels=enhancement">Request Feature</a>
+    <a href="https://github.com/lcfidev/star/issues/new?labels=enhancement">Request Feature</a>
   </p>
 </div>
 
@@ -88,7 +88,7 @@ Just check the Requirements and install em and ur good to go, aint hard.
 1. Clone the Git Repository or Download the Repo manually
 2. Clone the repo
    ```sh
-   git clone https://github.com/l3c1d/star.git
+   git clone https://github.com/lcfidev/star.git
    ```
 3. Install Requirements
    * StarService
@@ -108,7 +108,7 @@ We are not affiliated with `MovieStarPlanet ApS` This project is not for profit 
 ## Contact
 
 Contact For any inquiries or support, please contact via github
-Project Link: [https://github.com/l3c1d/star](https://github.com/l3c1d/star)
+Project Link: [https://github.com/lcfidev/star](https://github.com/lcfidev/star)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -117,9 +117,9 @@ Project Link: [https://github.com/l3c1d/star](https://github.com/l3c1d/star)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/l3c1d/star/graphs/contributors
+[contributors-url]: https://github.com/lcfidev/star/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/l3c1d/star/network/members
+[forks-url]: https://github.com/lcfidev/star/network/members
 [stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
 [star-csharp]: https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white
 [star-csharpurl]: https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white
@@ -134,11 +134,11 @@ Project Link: [https://github.com/l3c1d/star](https://github.com/l3c1d/star)
 [star-linuxurl]: https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black
 
 [stars-swift]: https://i.imgur.com/9NFfY9z.png
-[stars-url]: https://github.com/l3c1d/star/stargazers
+[stars-url]: https://github.com/lcfidev/star/stargazers
 [issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/l3c1d/star/issues
+[issues-url]: https://github.com/lcfidev/star/issues
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/l3c1d/star/blob/master/LICENSE.txt
+[license-url]: https://github.com/lcfidev/star/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
