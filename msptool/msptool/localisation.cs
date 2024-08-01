@@ -162,7 +162,7 @@ namespace msptool
                 { 7, "Lippen kaufen" },
                 { 8, "RareSkin tragen" },
                 { 9, "Zur Wunschliste hinzufügen" },
-                { 10, "Benutzerdefinierter Status" },
+                { 10, "Status ändern" },
                 { 11, "Sponsoren hinzufügen" },
                 { 12, "Zac, Pixi, nova blockieren" },
                 { 13, "Alles recyceln (Diamantgegenstände, Kleidung usw.)" },
