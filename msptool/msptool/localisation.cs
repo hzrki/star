@@ -32,7 +32,8 @@ namespace msptool
                 { 22, "Item Tracker" },
                 { 23, "Room Thumbnail Changer" },
                 { 24, "Animation Extractor" },
-                { 25, "Logout" }
+                { 25, "Icon Changer" },
+                { 26, "Logout" }
             },
             ["US"] = new Dictionary<int, string>
             {
@@ -60,7 +61,8 @@ namespace msptool
                 { 22, "Item Tracker" },
                 { 23, "Room Thumbnail Changer" },
                 { 24, "Animation Extractor" },
-                { 25, "Logout" }
+                { 25, "Icon Changer" },
+                { 26, "Logout" }
             },
             ["TR"] = new Dictionary<int, string>
             {
@@ -88,7 +90,8 @@ namespace msptool
                 { 22, "Eşya Takipçisi" },
                 { 23, "Oda Küçük Resim Değiştirici" },
                 { 24, "Animasyon Çıkarıcı" },
-                { 25, "Çıkış Yap" }
+                { 25, "Simge Değiştirici" },
+                { 26, "Çıkış Yap" }
             },
             ["SE"] = new Dictionary<int, string>
             {
@@ -116,7 +119,8 @@ namespace msptool
                 { 22, "Objektspårare" },
                 { 23, "Rumstumnageländrare" },
                 { 24, "Animationsutvinare" },
-                { 25, "Logga ut" }
+                { 25, "Ikonbytare" },
+                { 26, "Logga ut" }
             },
             ["FR"] = new Dictionary<int, string>
             {
@@ -144,7 +148,8 @@ namespace msptool
                 { 22, "Suivi d'objets" },
                 { 23, "Changeur de miniature de salle" },
                 { 24, "Extracteur d'animations" },
-                { 25, "Déconnexion" }
+                { 25, "Changeur d'Icône" },
+                { 26, "Déconnexion" }
             },
             ["DE"] = new Dictionary<int, string>
             {
@@ -172,7 +177,8 @@ namespace msptool
                 { 22, "Gegenstand-Tracker" },
                 { 23, "Raum-Thumbnail-Wechsler" },
                 { 24, "Animations-Extractor" },
-                { 25, "Abmelden" }
+                { 25, "Icon-Wechsler" },
+                { 26, "Abmelden" }
             },
             ["NL"] = new Dictionary<int, string>
             {
@@ -200,7 +206,8 @@ namespace msptool
                 { 22, "Item Tracker" },
                 { 23, "Kamer Thumbnail Wijzig" },
                 { 24, "Animatie Extractor" },
-                { 25, "Uitloggen" }
+                { 25, "Pictogramwisselaar" },
+                { 26, "Uitloggen" }
             },
             ["FI"] = new Dictionary<int, string>
             {
@@ -228,7 +235,8 @@ namespace msptool
                 { 22, "Esineiden seuranta" },
                 { 23, "Huoneen pikkukuva vaihtaja" },
                 { 24, "Animaation extractor" },
-                { 25, "Kirjaudu ulos" }
+                { 25, "Ikonin Vaihtaja" },
+                { 26, "Kirjaudu ulos" }
             },
             ["NO"] = new Dictionary<int, string>
             {
@@ -256,7 +264,8 @@ namespace msptool
                 { 22, "Gjenstand Tracker" },
                 { 23, "Rom Miniatyr Endrer" },
                 { 24, "Animasjon Extractor" },
-                { 25, "Logg ut" }
+                { 25, "Ikonbytter" },
+                { 26, "Logg ut" }
             },
             ["DK"] = new Dictionary<int, string>
             {
@@ -284,7 +293,8 @@ namespace msptool
                 { 22, "Genstand Tracker" },
                 { 23, "Rum Thumbnail Skifter" },
                 { 24, "Animations Extractor" },
-                { 25, "Log ud" }
+                { 25, "Ikonudskifter" },
+                { 26, "Log ud" }
             },
             ["CA"] = new Dictionary<int, string>
             {
@@ -312,7 +322,8 @@ namespace msptool
                 { 22, "Suivi d'objets" },
                 { 23, "Changer la miniature de la salle" },
                 { 24, "Extracteur d'animations" },
-                { 25, "Déconnexion" }
+                { 25, "Changeur d'icônes" },
+                { 26, "Déconnexion" }
             },
             ["AU"] = new Dictionary<int, string>
             {
@@ -340,7 +351,8 @@ namespace msptool
                 { 22, "Item Tracker" },
                 { 23, "Room Thumbnail Changer" },
                 { 24, "Animation Extractor" },
-                { 25, "Logout" }
+                { 25, "Icon Changer" },
+                { 26, "Logout" }
             },
             ["PL"] = new Dictionary<int, string>
             {
@@ -368,7 +380,8 @@ namespace msptool
                 { 22, "Śledzenie przedmiotów" },
                 { 23, "Zmieniacz miniatury pokoju" },
                 { 24, "Ekstraktor animacji" },
-                { 25, "Wyloguj się" }
+                { 25, "Zmieniacz Ikon" },
+                { 26, "Wyloguj się" }
             },
             ["NZ"] = new Dictionary<int, string>
             {
@@ -396,7 +409,8 @@ namespace msptool
                 { 22, "Item Tracker" },
                 { 23, "Room Thumbnail Changer" },
                 { 24, "Animation Extractor" },
-                { 25, "Logout" }
+                { 25, "Icon Changer" },
+                { 26, "Logout" }
             },
             ["IE"] = new Dictionary<int, string>
             {
@@ -424,7 +438,8 @@ namespace msptool
                 { 22, "Item Tracker" },
                 { 23, "Room Thumbnail Changer" },
                 { 24, "Animation Extractor" },
-                { 25, "Logout" }
+                { 25, "Icon Changer" },
+                { 26, "Logout" }
             },
             ["ES"] = new Dictionary<int, string>
             {
@@ -452,7 +467,8 @@ namespace msptool
                 { 22, "Rastreador de objetos" },
                 { 23, "Cambiar miniatura de sala" },
                 { 24, "Extractor de animaciones" },
-                { 25, "Cerrar sesión" }
+                { 25, "Cambiar Icono" },
+                { 26, "Cerrar sesión" }
             }
         };
     }

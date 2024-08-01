@@ -304,6 +304,9 @@ namespace msptool
                                 animationsExtractor(server, ticket);
                                 break;
                             case "25":
+                                iconChanger(server, actorId, ticket);
+                                break;
+                            case "26":
                                 Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
                                 loggedIn = false;
@@ -1454,6 +1457,52 @@ namespace msptool
             AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all {username} animations :)[/] [[Click any key to return to Home]][/]");
             Console.ReadKey();
             Console.Clear();  
+        }
+        
+          static void iconChanger(string server, int actorId, string ticket)
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Icon Changer").LeftJustified().RoundedBorder());
+            Console.Write("\n");
+            AnsiConsole.Markup("[slowblink][[[#c70000]?![/]]] Use it at your own risk, we are not responsible for your misdeeds.[/]\n");
+            string urlImage = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter image url: ")
+                                          .PromptStyle("#71d5fb"));
+            System.Net.WebClient webClient = new System.Net.WebClient();
+            byte[] array = webClient.DownloadData(urlImage);
+
+            dynamic moviestar = AMFConn(server,
+                "MovieStarPlanet.WebService.Snapshots.AMFGenericSnapshotService.CreateSnapshot",
+                new object[5]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    "moviestar",
+                    array,
+                    "jpg"
+                });
+
+            dynamic fullSizeMoviestar = AMFConn(server,
+                "MovieStarPlanet.WebService.Snapshots.AMFGenericSnapshotService.CreateSnapshot",
+                new object[5]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    "fullSizeMoviestar",
+                    array,
+                    "jpg"
+                });
+            if (moviestar && fullSizeMoviestar)
+            {
+                AnsiConsole.Markup("\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Icon changed[/] [[Click any key to return to Home]][/]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
 
         static async Task MSP2_Login()
