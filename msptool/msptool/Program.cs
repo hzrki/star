@@ -25,7 +25,7 @@ namespace msptool
 {
     internal class Program
     {
-        private static readonly string currentVersion = "1.5.3";
+        private static readonly string currentVersion = "1.6";
 
         private static readonly string checkVersion =
             "https://raw.githubusercontent.com/lcfidev/star/main/msptool/version.txt";
