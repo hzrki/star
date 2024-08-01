@@ -380,7 +380,7 @@ namespace msptool
                 { 22, "Śledzenie przedmiotów" },
                 { 23, "Zmieniacz miniatury pokoju" },
                 { 24, "Ekstraktor animacji" },
-                { 25, "Zmieniacz Ikon" },
+                { 25, "Zmiana Ikony Profilu" },
                 { 26, "Wyloguj się" }
             },
             ["NZ"] = new Dictionary<int, string>
