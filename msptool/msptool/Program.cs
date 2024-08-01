@@ -1223,7 +1223,7 @@ namespace msptool
             {
                 double actorId = loc1;
                 
-                AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]ActorId: {actorId} | {username} :)[/] [[Click any key to return to Home]][/]");
+                AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]ActorId: {actorId} | Username: {username} :)[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
                 Console.Clear();  
             }
