@@ -17,6 +17,7 @@ using StarService.Utility;
 using static StarService.Utility.AMFCall;
 using static StarService.Utility.ChecksumCalculator;
 using static StarService.Utility.SignatureCalculator;
+using static msptool.localisation;
 using Rule = Spectre.Console.Rule;
 using WebClient = System.Net.WebClient;
 
@@ -170,6 +171,7 @@ namespace msptool
                 var selectedChoice = choices.First(choice => choice.Item1 == selectedCountry);
                 dynamic login = null;
                 string server = selectedChoice.Item2;
+                if (Msptoolhome.TryGetValue(server, out var allmsptools))
                 AnsiConsole.Status()
                     .SpinnerStyle(Spectre.Console.Style.Parse("#71d5fb"))
                     .Start("Login...", ctx =>
@@ -216,31 +218,10 @@ namespace msptool
                     {
                         AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home").LeftJustified().RoundedBorder());
                         Console.Write("\n");
-                        AnsiConsole.Markup("[#71d5fb]1[/]  > Recycle None-Rare Clothes\n");
-                        AnsiConsole.Markup("[#71d5fb]2[/]  > Buy Boonie\n");
-                        AnsiConsole.Markup("[#71d5fb]3[/]  > Buy Animations\n");
-                        AnsiConsole.Markup("[#71d5fb]4[/]  > Buy Clothes\n");
-                        AnsiConsole.Markup("[#71d5fb]5[/]  > Buy Eyes\n");
-                        AnsiConsole.Markup("[#71d5fb]6[/]  > Buy Nose\n");
-                        AnsiConsole.Markup("[#71d5fb]7[/]  > Buy Lips\n");
-                        AnsiConsole.Markup("[#71d5fb]8[/]  > Wear RareSkin\n");
-                        AnsiConsole.Markup("[#71d5fb]9[/]  > Add to wishlist\n");
-                        AnsiConsole.Markup("[#71d5fb]10[/] > Custom Status\n");
-                        AnsiConsole.Markup("[#71d5fb]11[/] > Add Sponsors\n");
-                        AnsiConsole.Markup("[#71d5fb]12[/] > Block Zac, Pixi, nova\n");
-                        AnsiConsole.Markup("[#71d5fb]13[/] > Recycler Anything (Diamond items, clothes etc)\n");
-                        AnsiConsole.Markup("[#71d5fb]14[/] > Wheel Spins\n");
-                        AnsiConsole.Markup("[#71d5fb]15[/] > Lisa Hack\n");
-                        AnsiConsole.Markup("[#71d5fb]16[/] > Automated Pixeller\n");
-                        AnsiConsole.Markup("[#71d5fb]17[/] > Query\n");
-                        AnsiConsole.Markup("[#71d5fb]18[/] > Username Checker\n");
-                        AnsiConsole.Markup("[#71d5fb]19[/] > Clothes Extractor\n");
-                        AnsiConsole.Markup("[#71d5fb]20[/] > Username To ActorId\n");
-                        AnsiConsole.Markup("[#71d5fb]21[/] > ActorId To Username\n");
-                        AnsiConsole.Markup("[#71d5fb]22[/] > Item Tracker\n");
-                        AnsiConsole.Markup("[#71d5fb]23[/] > Room Thumbnail Changer\n");
-                        AnsiConsole.Markup("[#71d5fb]24[/] > Animation Extractor\n");
-                        AnsiConsole.Markup("[#71d5fb]25[/] > Logout\n\n");
+                        foreach (var eachtool in allmsptools)
+                        {
+                            AnsiConsole.Markup($"[#71d5fb]{eachtool.Key}[/]  > {eachtool.Value}\n");
+                        }
                         AnsiConsole.Write(
                             new Rule(
                                     "[slowblink][#71d5fb]lcfi & 6c0[/][/]")
