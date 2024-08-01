@@ -186,7 +186,8 @@ namespace msptool
                         AnsiConsole.Markup("[#71d5fb]21[/] > ActorId To Username\n");
                         AnsiConsole.Markup("[#71d5fb]22[/] > Item Tracker\n");
                         AnsiConsole.Markup("[#71d5fb]23[/] > Room Thumbnail Changer\n");
-                        AnsiConsole.Markup("[#71d5fb]24[/] > Logout\n\n");
+                        AnsiConsole.Markup("[#71d5fb]24[/] > Animation Extractor\n");
+                        AnsiConsole.Markup("[#71d5fb]25[/] > Logout\n\n");
                         AnsiConsole.Write(
                             new Rule(
                                     "[slowblink][#71d5fb]lcfi & 6c0[/][/]")
@@ -266,6 +267,9 @@ namespace msptool
                                 roomChanger(server, actorId, ticket);
                                 break;
                             case "24":
+                                animationsExtractor(server, ticket);
+                                break;
+                            case "25":
                                 Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
                                 loggedIn = false;
@@ -1362,7 +1366,55 @@ namespace msptool
                 Console.Clear();
             }
         }
-            
+
+        static void animationsExtractor(string server, string ticket)
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Animation Extractor").LeftJustified()
+                .RoundedBorder());
+            var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] username: ")
+                .PromptStyle("#71d5fb"));
+
+            dynamic loc1 = AMFConn(server,
+                "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorIdFromName",
+                new object[1] { username });
+
+            if (loc1 == -1)
+            {
+                Console.WriteLine(
+                    "\n\x1b[91mFAILED\u001b[39m > \x1b[93mThe account doesn't exist or has been deleted [Click any key to return to login]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                double ceactorId = loc1;
+
+                dynamic loc2 = AMFConn(server,
+                    "MovieStarPlanet.WebService.Media.AMFMediaService.GetMyAnimations",
+                    new object[2]
+                    {
+                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                        ceactorId,
+                    });
+
+                    foreach (var loc3 in loc2)
+                {
+                    string animationName = loc3["Animation"]["Name"] ?? "Unknown";
+                    int animationId = loc3["Animation"]["AnimationId"] ?? -1; 
+                    int actorAnimationRelid = loc3["ActorAnimationRelId"] ?? -1; 
+
+                    AnsiConsole.MarkupLine($"[#71d5fb]Name:[/] {animationName}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]AnimationId:[/] {animationId}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]ActorAnimationRelId:[/] {actorAnimationRelid}");
+                    AnsiConsole.MarkupLine("");
+                }
+            }
+            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all {username} animations :)[/] [[Click any key to return to Home]][/]");
+            Console.ReadKey();
+            Console.Clear();  
+        }
+
         static async Task MSP2_Login()
         {
             Console.Clear();
