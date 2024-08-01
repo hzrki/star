@@ -357,7 +357,7 @@ namespace msptool
                 { 11, "Dodaj sponsorów" },
                 { 12, "Zablokuj Zac, Pixi, nova" },
                 { 13, "Recykling czegokolwiek (przedmioty diamentowe, ubrania itd.)" },
-                { 14, "Obroty koła" },
+                { 14, "Kręcenie kołem" },
                 { 15, "Hack Lisa" },
                 { 16, "Automatyczny Pixeller" },
                 { 17, "Zapytanie" },
