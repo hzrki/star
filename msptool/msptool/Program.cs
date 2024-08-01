@@ -1438,9 +1438,9 @@ namespace msptool
                     int animationId = loc3["Animation"]["AnimationId"] ?? -1; 
                     int actorAnimationRelid = loc3["ActorAnimationRelId"] ?? -1; 
                     int isRare = loc3["Animation"]["Deleted"];
-                    int isVip = loc3["Animation"]["Vip"];
+                    int? isVip = loc3["Animation"]["Vip"] as int?;
                     
-                    string IsVip = isVip != 0 ? "Yes" : "No";
+                    string IsVip = isVip.HasValue ? isVip.Value != 0 ? "Yes" : "No" : "None";
                     string IsRare = isRare != 0 ? "Yes" : "No";
 
                     AnsiConsole.MarkupLine($"[#71d5fb]Name:[/] {animationName}");
