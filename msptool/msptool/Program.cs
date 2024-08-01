@@ -175,7 +175,7 @@ namespace msptool
                         AnsiConsole.Markup("[#71d5fb]10[/] > Custom Status\n");
                         AnsiConsole.Markup("[#71d5fb]11[/] > Add Sponsors\n");
                         AnsiConsole.Markup("[#71d5fb]12[/] > Block Zac, Pixi, nova\n");
-                        AnsiConsole.Markup("[#71d5fb]13[/] > Recycle Diamond Items\n");
+                        AnsiConsole.Markup("[#71d5fb]13[/] > Recycler Anything (Diamond items, clothes etc)\n");
                         AnsiConsole.Markup("[#71d5fb]14[/] > Wheel Spins\n");
                         AnsiConsole.Markup("[#71d5fb]15[/] > Lisa Hack\n");
                         AnsiConsole.Markup("[#71d5fb]16[/] > Automated Pixeller\n");
@@ -185,7 +185,8 @@ namespace msptool
                         AnsiConsole.Markup("[#71d5fb]20[/] > Username To ActorId\n");
                         AnsiConsole.Markup("[#71d5fb]21[/] > ActorId To Username\n");
                         AnsiConsole.Markup("[#71d5fb]22[/] > Item Tracker\n");
-                        AnsiConsole.Markup("[#71d5fb]23[/] > Logout\n\n");
+                        AnsiConsole.Markup("[#71d5fb]23[/] > Room Thumbnail Changer\n");
+                        AnsiConsole.Markup("[#71d5fb]24[/] > Logout\n\n");
                         AnsiConsole.Write(
                             new Rule(
                                     "[slowblink][#71d5fb]lcfi & 6c0[/][/]")
@@ -262,6 +263,9 @@ namespace msptool
                                 itemTracker(server);
                                 break;
                             case "23":
+                                roomChanger(server, actorId, ticket);
+                                break;
+                            case "24":
                                 Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
                                 loggedIn = false;
@@ -1301,6 +1305,62 @@ namespace msptool
             Console.ReadKey();
             Console.Clear();  
 
+        }
+        
+          static void roomChanger(string server, int actorId, string ticket)
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ RoomChanger").LeftJustified().RoundedBorder());
+            Console.Write("\n");
+            AnsiConsole.Markup("[slowblink][[[#c70000]?![/]]] Use it at your own risk, we are not responsible for your misdeeds.[/]\n");
+            string urlImage = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter image url: ")
+                                          .PromptStyle("#71d5fb"));
+            System.Net.WebClient webClient = new System.Net.WebClient();
+            byte[] array = webClient.DownloadData(urlImage);
+
+            dynamic room = AMFConn(server,
+                "MovieStarPlanet.WebService.Snapshots.AMFGenericSnapshotService.CreateSnapshot",
+                new object[5]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    "room",
+                    array,
+                    "jpg"
+                });
+
+            dynamic roomProfile = AMFConn(server,
+                "MovieStarPlanet.WebService.Snapshots.AMFGenericSnapshotService.CreateSnapshot",
+                new object[5]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    "roomProfile",
+                    array,
+                    "jpg"
+                });
+            dynamic roomMedium = AMFConn(server,
+                "MovieStarPlanet.WebService.Snapshots.AMFGenericSnapshotService.CreateSnapshot",
+                new object[5]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    "roomMedium",
+                    array,
+                    "jpg"
+                });
+            if (room && roomProfile && roomMedium)
+            {
+                AnsiConsole.Markup("\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Room changed[/] [[Click any key to return to Home]][/]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
             
         static async Task MSP2_Login()
