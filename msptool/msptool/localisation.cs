@@ -378,7 +378,7 @@ namespace msptool
                 { 20, "Nazwa użytkownika na ID gracza" },
                 { 21, "ActorID gracza na nazwe użytkownika" },
                 { 22, "Śledzenie przedmiotów" },
-                { 23, "Zmieniacz miniatury pokoju" },
+                { 23, "Zmiana miniatury pokoju" },
                 { 24, "Ekstraktor animacji" },
                 { 25, "Zmiana Ikony Profilu" },
                 { 26, "Wyloguj się" }
