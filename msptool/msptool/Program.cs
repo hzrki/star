@@ -1437,10 +1437,17 @@ namespace msptool
                     string animationName = loc3["Animation"]["Name"] ?? "Unknown";
                     int animationId = loc3["Animation"]["AnimationId"] ?? -1; 
                     int actorAnimationRelid = loc3["ActorAnimationRelId"] ?? -1; 
+                    int isRare = loc3["Animation"]["Deleted"];
+                    int isVip = loc3["Animation"]["Vip"];
+                    
+                    string IsVip = isVip != 0 ? "Yes" : "No";
+                    string IsRare = isRare != 0 ? "Yes" : "No";
 
                     AnsiConsole.MarkupLine($"[#71d5fb]Name:[/] {animationName}");
                     AnsiConsole.MarkupLine($"[#71d5fb]AnimationId:[/] {animationId}");
                     AnsiConsole.MarkupLine($"[#71d5fb]ActorAnimationRelId:[/] {actorAnimationRelid}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]IsRareItem:[/] {IsRare}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]IsVipItem:[/] {IsVip}");
                     AnsiConsole.MarkupLine("");
                 }
             }
