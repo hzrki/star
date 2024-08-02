@@ -122,7 +122,6 @@ namespace msptool
                     }
                 }
             }
-
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Choose").LeftJustified());
             Console.Write("\n");
 
@@ -143,9 +142,20 @@ namespace msptool
         static void MSP1_Login()
         {
             Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Choose Language").LeftJustified());
+            Console.Write("\n");
+
+            var setLang = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("[[[#71d5fb]+[/]]] Select your language")
+                    .PageSize(11)
+                    .AddChoices(new[] { "English", "French", "Turkish", "German", "Polish", "Swedish", "Dutch", "Finnish", "Norwegian", "Danish", "Spanish" })
+            );
+            Console.Clear();
             bool loggedIn = false;
             while (!loggedIn)
             {
+
                 AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Login MSP").LeftJustified());
                 Console.Write("\n");
                 var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
@@ -171,7 +181,7 @@ namespace msptool
                 var selectedChoice = choices.First(choice => choice.Item1 == selectedCountry);
                 dynamic login = null;
                 string server = selectedChoice.Item2;
-                if (Msptoolhome.TryGetValue(server, out var allmsptools))
+                if (Msptoolhome.TryGetValue(setLang, out var allmsptools))
                 AnsiConsole.Status()
                     .SpinnerStyle(Spectre.Console.Style.Parse("#71d5fb"))
                     .Start("Login...", ctx =>

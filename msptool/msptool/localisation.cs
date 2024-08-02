@@ -6,7 +6,7 @@ namespace msptool
     {
         public static readonly Dictionary<string, Dictionary<int, string>> Msptoolhome = new()
         {
-            ["GB"] = new Dictionary<int, string>
+            ["English"] = new Dictionary<int, string>
             {
                 { 1, "Recycle None-Rare Clothes" },
                 { 2, "Buy Boonie" },
@@ -35,94 +35,7 @@ namespace msptool
                 { 25, "Icon Changer" },
                 { 26, "Logout" }
             },
-            ["US"] = new Dictionary<int, string>
-            {
-                { 1, "Recycle None-Rare Clothes" },
-                { 2, "Buy Boonie" },
-                { 3, "Buy Animations" },
-                { 4, "Buy Clothes" },
-                { 5, "Buy Eyes" },
-                { 6, "Buy Nose" },
-                { 7, "Buy Lips" },
-                { 8, "Wear RareSkin" },
-                { 9, "Add to wishlist" },
-                { 10, "Custom Status" },
-                { 11, "Add Sponsors" },
-                { 12, "Block Zac, Pixi, nova" },
-                { 13, "Recycler Anything (Diamond items, clothes etc)" },
-                { 14, "Wheel Spins" },
-                { 15, "Lisa Hack" },
-                { 16, "Automated Pixeller" },
-                { 17, "Query" },
-                { 18, "Username Checker" },
-                { 19, "Clothes Extractor" },
-                { 20, "Username To ActorId" },
-                { 21, "ActorId To Username" },
-                { 22, "Item Tracker" },
-                { 23, "Room Thumbnail Changer" },
-                { 24, "Animation Extractor" },
-                { 25, "Icon Changer" },
-                { 26, "Logout" }
-            },
-            ["TR"] = new Dictionary<int, string>
-            {
-                { 1, "Nadir Olmayan Kıyafetleri Geri Dönüştür" },
-                { 2, "Boonie Satın Al" },
-                { 3, "Animasyon Satın Al" },
-                { 4, "Kıyafet Satın Al" },
-                { 5, "Göz Satın Al" },
-                { 6, "Burun Satın Al" },
-                { 7, "Dudak Satın Al" },
-                { 8, "RareSkin Tak" },
-                { 9, "İstek Listesine Ekle" },
-                { 10, "Özel Durum" },
-                { 11, "Sponsor Ekle" },
-                { 12, "Zac, Pixi, nova'yı Engelle" },
-                { 13, "Her Şeyi Geri Dönüştür (Elmas eşyalar, kıyafetler vb.)" },
-                { 14, "çark çevirme" },
-                { 15, "Lisa Hack" },
-                { 16, "Otomatik Pixeller" },
-                { 17, "hesap sorgu" },
-                { 18, "Kullanıcı Adı Kontrol Edici" },
-                { 19, "Kıyafet Çıkarıcı" },
-                { 20, "Kullanıcı Adı ile ActorId" },
-                { 21, "ActorId ile Kullanıcı Adı" },
-                { 22, "Eşya Takipçisi" },
-                { 23, "Oda Küçük Resim Değiştirici" },
-                { 24, "Animasyon Çıkarıcı" },
-                { 25, "Simge Değiştirici" },
-                { 26, "Çıkış Yap" }
-            },
-            ["SE"] = new Dictionary<int, string>
-            {
-                { 1, "Återvinn icke-sällsynta kläder" },
-                { 2, "Köp Boonie" },
-                { 3, "Köp animationer" },
-                { 4, "Köp kläder" },
-                { 5, "Köp ögon" },
-                { 6, "Köp näsa" },
-                { 7, "Köp läppar" },
-                { 8, "Bär RareSkin" },
-                { 9, "Lägg till önskelista" },
-                { 10, "Anpassad status" },
-                { 11, "Lägg till sponsorer" },
-                { 12, "Blockera Zac, Pixi, nova" },
-                { 13, "Återvinn vad som helst (diamanter, kläder osv.)" },
-                { 14, "Hjulspinn" },
-                { 15, "Lisa Hack" },
-                { 16, "Automatiserad Pixeller" },
-                { 17, "Fråga" },
-                { 18, "Användarnamnskontroll" },
-                { 19, "Klädextraktör" },
-                { 20, "Användarnamn till ActorId" },
-                { 21, "ActorId till användarnamn" },
-                { 22, "Objektspårare" },
-                { 23, "Rumstumnageländrare" },
-                { 24, "Animationsutvinare" },
-                { 25, "Ikonbytare" },
-                { 26, "Logga ut" }
-            },
-            ["FR"] = new Dictionary<int, string>
+            ["French"] = new Dictionary<int, string>
             {
                 { 1, "Recycler des vêtements non rares" },
                 { 2, "Acheter un Boonie" },
@@ -151,7 +64,36 @@ namespace msptool
                 { 25, "Changeur d'Icône" },
                 { 26, "Déconnexion" }
             },
-            ["DE"] = new Dictionary<int, string>
+            ["Turkish"] = new Dictionary<int, string>
+            {
+                { 1, "Nadir Olmayan Kıyafetleri Geri Dönüştür" },
+                { 2, "Boonie Satın Al" },
+                { 3, "Animasyon Satın Al" },
+                { 4, "Kıyafet Satın Al" },
+                { 5, "Göz Satın Al" },
+                { 6, "Burun Satın Al" },
+                { 7, "Dudak Satın Al" },
+                { 8, "RareSkin Tak" },
+                { 9, "İstek Listesine Ekle" },
+                { 10, "Özel Durum" },
+                { 11, "Sponsor Ekle" },
+                { 12, "Zac, Pixi, nova'yı Engelle" },
+                { 13, "Her Şeyi Geri Dönüştür (Elmas eşyalar, kıyafetler vb.)" },
+                { 14, "çark çevirme" },
+                { 15, "Lisa Hack" },
+                { 16, "Otomatik Pixeller" },
+                { 17, "hesap sorgu" },
+                { 18, "Kullanıcı Adı Kontrol Edici" },
+                { 19, "Kıyafet Çıkarıcı" },
+                { 20, "Kullanıcı Adı ile ActorId" },
+                { 21, "ActorId ile Kullanıcı Adı" },
+                { 22, "Eşya Takipçisi" },
+                { 23, "Oda Küçük Resim Değiştirici" },
+                { 24, "Animasyon Çıkarıcı" },
+                { 25, "Simge Değiştirici" },
+                { 26, "Çıkış Yap" }
+            },
+            ["German"] = new Dictionary<int, string>
             {
                 { 1, "Nicht seltene Kleidung recyceln" },
                 { 2, "Boonie kaufen" },
@@ -180,7 +122,36 @@ namespace msptool
                 { 25, "Icon-Wechsler" },
                 { 26, "Abmelden" }
             },
-            ["NL"] = new Dictionary<int, string>
+            ["Swedish"] = new Dictionary<int, string>
+            {
+                { 1, "Återvinn icke-sällsynta kläder" },
+                { 2, "Köp Boonie" },
+                { 3, "Köp animationer" },
+                { 4, "Köp kläder" },
+                { 5, "Köp ögon" },
+                { 6, "Köp näsa" },
+                { 7, "Köp läppar" },
+                { 8, "Bär RareSkin" },
+                { 9, "Lägg till önskelista" },
+                { 10, "Anpassad status" },
+                { 11, "Lägg till sponsorer" },
+                { 12, "Blockera Zac, Pixi, nova" },
+                { 13, "Återvinn vad som helst (diamanter, kläder osv.)" },
+                { 14, "Hjulspinn" },
+                { 15, "Lisa Hack" },
+                { 16, "Automatiserad Pixeller" },
+                { 17, "Fråga" },
+                { 18, "Användarnamnskontroll" },
+                { 19, "Klädextraktör" },
+                { 20, "Användarnamn till ActorId" },
+                { 21, "ActorId till användarnamn" },
+                { 22, "Objektspårare" },
+                { 23, "Rumstumnageländrare" },
+                { 24, "Animationsutvinare" },
+                { 25, "Ikonbytare" },
+                { 26, "Logga ut" }
+            },
+            ["Dutch"] = new Dictionary<int, string>
             {
                 { 1, "Recycle geen zeldzame kleding" },
                 { 2, "Koop Boonie" },
@@ -209,7 +180,7 @@ namespace msptool
                 { 25, "Pictogramwisselaar" },
                 { 26, "Uitloggen" }
             },
-            ["FI"] = new Dictionary<int, string>
+            ["Finnish"] = new Dictionary<int, string>
             {
                 { 1, "Kierrätä ei-harvinaisia vaatteita" },
                 { 2, "Osta Boonie" },
@@ -238,7 +209,7 @@ namespace msptool
                 { 25, "Ikonin Vaihtaja" },
                 { 26, "Kirjaudu ulos" }
             },
-            ["NO"] = new Dictionary<int, string>
+            ["Norwegian"] = new Dictionary<int, string>
             {
                 { 1, "Resirkuler ikke-sjeldne klær" },
                 { 2, "Kjøp Boonie" },
@@ -267,7 +238,7 @@ namespace msptool
                 { 25, "Ikonbytter" },
                 { 26, "Logg ut" }
             },
-            ["DK"] = new Dictionary<int, string>
+            ["Danish"] = new Dictionary<int, string>
             {
                 { 1, "Genbrug ikke-sjældne tøj" },
                 { 2, "Køb Boonie" },
@@ -296,65 +267,7 @@ namespace msptool
                 { 25, "Ikonudskifter" },
                 { 26, "Log ud" }
             },
-            ["CA"] = new Dictionary<int, string>
-            {
-                { 1, "Recycler les vêtements non rares" },
-                { 2, "Acheter un Boonie" },
-                { 3, "Acheter des animations" },
-                { 4, "Acheter des vêtements" },
-                { 5, "Acheter des yeux" },
-                { 6, "Acheter un nez" },
-                { 7, "Acheter des lèvres" },
-                { 8, "Porter RareSkin" },
-                { 9, "Ajouter à la liste de souhaits" },
-                { 10, "Statut personnalisé" },
-                { 11, "Ajouter des commanditaires" },
-                { 12, "Bloquer Zac, Pixi, nova" },
-                { 13, "Recycler tout (objets diamant, vêtements, etc.)" },
-                { 14, "Tours de roue" },
-                { 15, "Hack Lisa" },
-                { 16, "Pixeller automatisé" },
-                { 17, "Requête" },
-                { 18, "Vérificateur de nom d'utilisateur" },
-                { 19, "Extracteur de vêtements" },
-                { 20, "Nom d'utilisateur à ActorId" },
-                { 21, "ActorId à nom d'utilisateur" },
-                { 22, "Suivi d'objets" },
-                { 23, "Changer la miniature de la salle" },
-                { 24, "Extracteur d'animations" },
-                { 25, "Changeur d'icônes" },
-                { 26, "Déconnexion" }
-            },
-            ["AU"] = new Dictionary<int, string>
-            {
-                { 1, "Recycle Non-Rare Clothes" },
-                { 2, "Buy Boonie" },
-                { 3, "Buy Animations" },
-                { 4, "Buy Clothes" },
-                { 5, "Buy Eyes" },
-                { 6, "Buy Nose" },
-                { 7, "Buy Lips" },
-                { 8, "Wear RareSkin" },
-                { 9, "Add to Wishlist" },
-                { 10, "Custom Status" },
-                { 11, "Add Sponsors" },
-                { 12, "Block Zac, Pixi, nova" },
-                { 13, "Recycle Anything (Diamond Items, Clothes, etc.)" },
-                { 14, "Wheel Spins" },
-                { 15, "Lisa Hack" },
-                { 16, "Automated Pixeller" },
-                { 17, "Query" },
-                { 18, "Username Checker" },
-                { 19, "Clothes Extractor" },
-                { 20, "Username to ActorId" },
-                { 21, "ActorId to Username" },
-                { 22, "Item Tracker" },
-                { 23, "Room Thumbnail Changer" },
-                { 24, "Animation Extractor" },
-                { 25, "Icon Changer" },
-                { 26, "Logout" }
-            },
-            ["PL"] = new Dictionary<int, string>
+            ["Polish"] = new Dictionary<int, string>
             {
                 { 1, "Recykling ubrań nie-rzadkich" },
                 { 2, "Kup Boonie" },
@@ -383,65 +296,7 @@ namespace msptool
                 { 25, "Zmiana Ikony Profilu" },
                 { 26, "Wyloguj się" }
             },
-            ["NZ"] = new Dictionary<int, string>
-            {
-                { 1, "Recycle Non-Rare Clothes" },
-                { 2, "Buy Boonie" },
-                { 3, "Buy Animations" },
-                { 4, "Buy Clothes" },
-                { 5, "Buy Eyes" },
-                { 6, "Buy Nose" },
-                { 7, "Buy Lips" },
-                { 8, "Wear RareSkin" },
-                { 9, "Add to Wishlist" },
-                { 10, "Custom Status" },
-                { 11, "Add Sponsors" },
-                { 12, "Block Zac, Pixi, nova" },
-                { 13, "Recycle Anything (Diamond Items, Clothes, etc.)" },
-                { 14, "Wheel Spins" },
-                { 15, "Lisa Hack" },
-                { 16, "Automated Pixeller" },
-                { 17, "Query" },
-                { 18, "Username Checker" },
-                { 19, "Clothes Extractor" },
-                { 20, "Username to ActorId" },
-                { 21, "ActorId to Username" },
-                { 22, "Item Tracker" },
-                { 23, "Room Thumbnail Changer" },
-                { 24, "Animation Extractor" },
-                { 25, "Icon Changer" },
-                { 26, "Logout" }
-            },
-            ["IE"] = new Dictionary<int, string>
-            {
-                { 1, "Recycle Non-Rare Clothes" },
-                { 2, "Buy Boonie" },
-                { 3, "Buy Animations" },
-                { 4, "Buy Clothes" },
-                { 5, "Buy Eyes" },
-                { 6, "Buy Nose" },
-                { 7, "Buy Lips" },
-                { 8, "Wear RareSkin" },
-                { 9, "Add to Wishlist" },
-                { 10, "Custom Status" },
-                { 11, "Add Sponsors" },
-                { 12, "Block Zac, Pixi, nova" },
-                { 13, "Recycle Anything (Diamond Items, Clothes, etc.)" },
-                { 14, "Wheel Spins" },
-                { 15, "Lisa Hack" },
-                { 16, "Automated Pixeller" },
-                { 17, "Query" },
-                { 18, "Username Checker" },
-                { 19, "Clothes Extractor" },
-                { 20, "Username to ActorId" },
-                { 21, "ActorId to Username" },
-                { 22, "Item Tracker" },
-                { 23, "Room Thumbnail Changer" },
-                { 24, "Animation Extractor" },
-                { 25, "Icon Changer" },
-                { 26, "Logout" }
-            },
-            ["ES"] = new Dictionary<int, string>
+            ["Spanish"] = new Dictionary<int, string>
             {
                 { 1, "Reciclar ropa no rara" },
                 { 2, "Comprar Boonie" },
