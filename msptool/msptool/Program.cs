@@ -13,6 +13,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
 using Newtonsoft.Json.Linq;
 using StarService.Enum;
 using StarService.Utility;
@@ -1835,9 +1836,18 @@ namespace msptool
         private static async Task InstallUpdate(string latestVersion)
         {
             string loc1 = XIU(latestVersion);
-            string loc2 = $"https://github.com/lcfidev/star/releases/download/v{loc1}/msptool.exe";
-            string loc3 = string.Format(loc2, loc1);
-            string loc4 = Path.Combine(Path.GetTempPath(), "msptool.exe");
+            
+            string loc2 = string.Empty;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                loc2 = string.Format($"https://github.com/lcfidev/star/releases/download/v{loc1}/msptool.exe", loc1);
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                loc2 = string.Format($"https://github.com/lcfidev/star/releases/download/v{loc1}/msptool_macos_arm64.zip", loc1); 
+            }
+            string loc3 = string.Format(loc2, loc1); 
+            string loc4 = Path.Combine(Path.GetTempPath(), "msptool");
             string loc5 = Process.GetCurrentProcess().MainModule.FileName;
             using HttpClient loc6 = new HttpClient();
         
