@@ -899,19 +899,19 @@ namespace msptool
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Status").LeftJustified()
                 .RoundedBorder());
+            
             Console.Write("\n");
+            int loc1 = AnsiConsole.Prompt(
+                new TextPrompt<int>("[[[#71d5fb]+[/]]] Enter Item relid: ")
+                    .PromptStyle("#71d5fb"));
 
-            Console.Write("Enter Item relid: ");
-            int relId = int.Parse(Console.ReadLine());
-
-
-            dynamic recycleitems = AMFConn(server,
+            dynamic loc2 = AMFConn(server,
                 "MovieStarPlanet.WebService.Profile.AMFProfileService.RecycleItem",
                 new object[4]
                 {
                         new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                         actorId,
-                        relId,
+                        loc1,
                         0
                 });
         }
@@ -923,19 +923,19 @@ namespace msptool
                 .RoundedBorder());
             Console.Write("\n");
 
-            dailyAwardTypes(server, ticket, "starwheel", 120, actorId, 4);
-            dailyAwardTypes(server, ticket, "starVipWheel", 200, actorId, 4);
-            dailyAwardTypes(server, ticket, "advertWheelDwl", 240, actorId, 2);
-            dailyAwardTypes(server, ticket, "advertWheelVipDwl", 400, actorId, 2);
+            loc1(server, ticket, "starwheel", 120, actorId, 4);
+            loc1(server, ticket, "starVipWheel", 200, actorId, 4);
+            loc1(server, ticket, "advertWheelDwl", 240, actorId, 2);
+            loc1(server, ticket, "advertWheelVipDwl", 400, actorId, 2);
         }
 
-        static void dailyAwardTypes(string server, string ticket, string awardType, int awardVal,
+        static void loc1(string server, string ticket, string awardType, int awardVal,
             int actorId,
             int count)
         {
             for (int i = 0; i < count; i++)
             {
-                dynamic result = AMFConn(server,
+                dynamic loc2 = AMFConn(server,
                     "MovieStarPlanet.WebService.Awarding.AMFAwardingService.claimDailyAward",
                     new object[4]
                     {
@@ -956,27 +956,27 @@ namespace msptool
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ WishList").LeftJustified()
                 .RoundedBorder());
             Console.Write("\n");
-            int clothId = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] Enter ClothesId: ")
+            int loc1 = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] Enter ClothesId: ")
                 .PromptStyle("#71d5fb"));
-            string clothColor = AnsiConsole.Prompt(
+            string loc2 = AnsiConsole.Prompt(
                 new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter Color: ")
                     .PromptStyle("#71d5fb"));
 
-            dynamic wishlist = AMFConn(server,
+            dynamic loc3 = AMFConn(server,
                 "MovieStarPlanet.WebService.Gifts.AMFGiftsService+Version2.AddItemToWishlist",
                 new object[3]
                 {
                         new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                         new object[]
                         {
-                            clothId
+                            loc1
                         },
                         new object[]
                         {
-                            clothColor
+                            loc2
                         }
                 });
-            if (wishlist != 0)
+            if (loc3 != 0)
             {
                 AnsiConsole.Markup(
                     "\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
@@ -998,11 +998,11 @@ namespace msptool
             AnsiConsole.Markup(
                 "[slowblink][[[#c70000]?![/]]] Use it at your own risk, we are not responsible for your misdeeds.[/]\n");
 
-            bool success = false;
+            bool loc1 = false;
 
             for (int i = 0; i < 100; i++)
             {
-                dynamic lisaFame = AMFConn(server,
+                dynamic loc2 = AMFConn(server,
                     "MovieStarPlanet.WebService.AMFAwardService.claimDailyAward",
                     new object[4]
                     {
@@ -1013,7 +1013,7 @@ namespace msptool
                     });
                 Console.WriteLine("Generated 50 fame");
 
-                dynamic lisaMoney = AMFConn(server,
+                dynamic loc3 = AMFConn(server,
                     "MovieStarPlanet.WebService.AMFAwardService.claimDailyAward",
                     new object[4]
                     {
@@ -1026,11 +1026,11 @@ namespace msptool
 
                 if (i == 99)
                 {
-                    success = true;
+                    loc1 = true;
                 }
             }
 
-            if (success)
+            if (loc1)
             {
                 AnsiConsole.Markup("\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Stars are out your account has been levelled and has starcoins : )[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
@@ -1043,15 +1043,15 @@ namespace msptool
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Msp Query").LeftJustified()
                 .RoundedBorder());
-            var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
+            var loc1 = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
                 .PromptStyle("#71d5fb"));
 
 
-            dynamic queryUsername = AMFConn(server,
+            dynamic loc2 = AMFConn(server,
                 "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorIdFromName",
-                new object[1] { username });
+                new object[1] { loc1 });
 
-            if (queryUsername == -1)
+            if (loc2 == -1)
             {
                 Console.WriteLine(
                     "\n\x1b[91mFAILED\u001b[39m > \x1b[93mThe account doesn't exist or has been deleted [Click any key to return to login]");
@@ -1060,66 +1060,66 @@ namespace msptool
             }
             else
             {
-                double queryactorId = queryUsername;
+                double loc3 = loc2;
 
 
-                dynamic queryprofile = AMFConn(server,
+                dynamic loc4 = AMFConn(server,
                     "MovieStarPlanet.WebService.Profile.AMFProfileService.LoadProfileSummary",
                     new object[3]
                     {
                         new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                        queryactorId,
+                        loc3,
                         actorId
                     });
 
-                DateTime qreatedate = queryprofile["Created"];
+                DateTime loc5 = loc4["Created"];
 
-                dynamic queryprofileinfo = AMFConn(server,
+                dynamic loc6 = AMFConn(server,
                     "MovieStarPlanet.WebService.AMFActorService.BulkLoadActors",
                     new object[2]
                     {
                         new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                         new object[]
                         {
-                            queryactorId
+                            loc3
                         }
                     });
                 
-                    string nebulaProfileId = queryprofileinfo[0]["NebulaProfileId"];
-                    double qactorId = queryprofileinfo[0]["ActorId"];
-                    string qusername = queryprofileinfo[0]["Name"];
-                    int level = queryprofileinfo[0]["Level"];
-                    double fame = queryprofileinfo[0]["Fame"];
-                    int starcoins = queryprofileinfo[0]["Money"];
-                    int diamonds = queryprofileinfo[0]["Diamonds"];
-                    string skinColor = queryprofileinfo[0]["SkinColor"];
-                    int eyeId = queryprofileinfo[0]["EyeId"];
-                    string eyeColors = queryprofileinfo[0]["EyeColors"];
-                    int noseId = queryprofileinfo[0]["NoseId"];
-                    int mouthId = queryprofileinfo[0]["MouthId"];
-                    string mouthColors = queryprofileinfo[0]["MouthColors"];
-                    DateTime membershiptimeoutdate = queryprofileinfo[0]["MembershipTimeoutDate"];
-                    DateTime LastLogin = queryprofileinfo[0]["LastLogin"];
+                    string loc7 = loc6[0]["NebulaProfileId"];
+                    double loc8 = loc6[0]["ActorId"];
+                    string loc9 = loc6[0]["Name"];
+                    int loc10 = loc6[0]["Level"];
+                    double loc11 = loc6[0]["Fame"];
+                    int loc12 = loc6[0]["Money"];
+                    int loc13 = loc6[0]["Diamonds"];
+                    string loc14 = loc6[0]["SkinColor"];
+                    int loc15 = loc6[0]["EyeId"];
+                    string loc16 = loc6[0]["EyeColors"];
+                    int loc17 = loc6[0]["NoseId"];
+                    int loc18 = loc6[0]["MouthId"];
+                    string loc19 = loc6[0]["MouthColors"];
+                    DateTime loc20 = loc6[0]["MembershipTimeoutDate"];
+                    DateTime loc21 = loc6[0]["LastLogin"];
 
                     AnsiConsole.MarkupLine("[bold white]Profile Information[/]");
-                    AnsiConsole.MarkupLine($"[bold blue]NebulaProfileId:[/] {nebulaProfileId}");
-                    AnsiConsole.MarkupLine($"[bold blue]ActorId:[/] {qactorId}");
-                    AnsiConsole.MarkupLine($"[bold blue]Name:[/] {qusername}");
-                    AnsiConsole.MarkupLine($"[bold blue]Level:[/] {level}");
-                    AnsiConsole.MarkupLine($"[bold blue]Fame:[/] {fame}");
-                    AnsiConsole.MarkupLine($"[bold blue]Money:[/] {starcoins}");
-                    AnsiConsole.MarkupLine($"[bold blue]Diamonds:[/] {diamonds}");
-                    AnsiConsole.MarkupLine($"[bold blue]SkinColor:[/] {skinColor}");
-                    AnsiConsole.MarkupLine($"[bold blue]EyeId:[/] {eyeId}");
-                    AnsiConsole.MarkupLine($"[bold blue]EyeColors:[/] {eyeColors}");
-                    AnsiConsole.MarkupLine($"[bold blue]NoseId:[/] {noseId}");
-                    AnsiConsole.MarkupLine($"[bold blue]MouthId:[/] {mouthId}");
-                    AnsiConsole.MarkupLine($"[bold blue]MouthColors:[/] {mouthColors}");
-                    AnsiConsole.MarkupLine($"[bold blue]Created:[/] {qreatedate}");
-                    AnsiConsole.MarkupLine($"[bold blue]MembershipTimeoutDate:[/] {membershiptimeoutdate}");
-                    AnsiConsole.MarkupLine($"[bold blue]LastLogin:[/] {LastLogin}");
+                    AnsiConsole.MarkupLine($"[bold blue]NebulaProfileId:[/] {loc7}");
+                    AnsiConsole.MarkupLine($"[bold blue]ActorId:[/] {loc8}");
+                    AnsiConsole.MarkupLine($"[bold blue]Name:[/] {loc9}");
+                    AnsiConsole.MarkupLine($"[bold blue]Level:[/] {loc10}");
+                    AnsiConsole.MarkupLine($"[bold blue]Fame:[/] {loc11}");
+                    AnsiConsole.MarkupLine($"[bold blue]Money:[/] {loc12}");
+                    AnsiConsole.MarkupLine($"[bold blue]Diamonds:[/] {loc13}");
+                    AnsiConsole.MarkupLine($"[bold blue]SkinColor:[/] {loc14}");
+                    AnsiConsole.MarkupLine($"[bold blue]EyeId:[/] {loc15}");
+                    AnsiConsole.MarkupLine($"[bold blue]EyeColors:[/] {loc16}");
+                    AnsiConsole.MarkupLine($"[bold blue]NoseId:[/] {loc17}");
+                    AnsiConsole.MarkupLine($"[bold blue]MouthId:[/] {loc18}");
+                    AnsiConsole.MarkupLine($"[bold blue]MouthColors:[/] {loc19}");
+                    AnsiConsole.MarkupLine($"[bold blue]Created:[/] {loc5}");
+                    AnsiConsole.MarkupLine($"[bold blue]MembershipTimeoutDate:[/] {loc20}");
+                    AnsiConsole.MarkupLine($"[bold blue]LastLogin:[/] {loc21}");
                     
-                    AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Queried {qusername} :)[/] [[Click any key to return to Home]][/]");
+                    AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Queried {loc9} :)[/] [[Click any key to return to Home]][/]");
                     Console.ReadKey();
                     Console.Clear();               }
             }
@@ -1155,11 +1155,11 @@ namespace msptool
             {
                 foreach (var server in loc2)
                 {
-                    var usernameChecker = AMFConn(server,
+                    var loc4 = AMFConn(server,
                         "MovieStarPlanet.WebService.AMFActorService.IsActorNameUsed",
                         new object[] { username });
 
-                    bool loc3 = Convert.ToBoolean(usernameChecker);
+                    bool loc3 = Convert.ToBoolean(loc4);
 
                     if (loc3)
                     {
