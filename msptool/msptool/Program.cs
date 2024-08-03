@@ -124,14 +124,14 @@ namespace msptool
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Choose").LeftJustified());
             Console.Write("\n");
 
-            var selectedLogin = AnsiConsole.Prompt(
+            var loc2 = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("[[[#71d5fb]+[/]]] Select which MSP you want to use")
                     .PageSize(3)
                     .AddChoices(new[] { "MovieStarPlanet", "MovieStarPlanet 2" })
             );
 
-            if (selectedLogin == "MovieStarPlanet")
+            if (loc2 == "MovieStarPlanet")
                 MSP1_Login();
             else
                 MSP2_Login();
@@ -144,58 +144,58 @@ namespace msptool
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Choose Language").LeftJustified());
             Console.Write("\n");
 
-            var setLang = AnsiConsole.Prompt(
+            var loc1 = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("[[[#71d5fb]+[/]]] Select your language")
                     .PageSize(11)
                     .AddChoices(new[] { "English", "French", "Turkish", "German", "Polish", "Swedish", "Dutch", "Finnish", "Norwegian", "Danish", "Spanish" })
             );
             Console.Clear();
-            bool loggedIn = false;
-            while (!loggedIn)
+            bool loc2 = false;
+            while (!loc2)
             {
 
                 AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Login MSP").LeftJustified());
                 Console.Write("\n");
-                var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
+                var loc3 = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
                     .PromptStyle("#71d5fb"));
 
-                var password = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter password: ")
+                var loc4 = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter password: ")
                     .PromptStyle("#71d5fb")
                     .Secret());
 
-                var choices = Enum.GetValues(typeof(WebServer))
+                var loc5 = Enum.GetValues(typeof(WebServer))
                     .Cast<WebServer>()
                     .Select(ws => (ws.loc3().Item1, ws.loc3().Item2)) 
                     .ToArray();
 
-                var selectedCountry = AnsiConsole.Prompt(
+                var loc6 = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("[[[#71d5fb]+[/]]] Select a server: ")
                         .PageSize(15)
                         .MoreChoicesText("[grey](Move up and down to reveal more servers)[/]")
-                        .AddChoices(choices.Select(choice => choice.Item1)) 
+                        .AddChoices(loc5.Select(loc7 => loc7.Item1)) 
                 );
 
-                var selectedChoice = choices.First(choice => choice.Item1 == selectedCountry);
-                dynamic login = null;
-                string server = selectedChoice.Item2;
-                if (Msptoolhome.TryGetValue(setLang, out var allmsptools))
+                var loc8 = loc5.First(loc7 => loc7.Item1 == loc6);
+                dynamic loc9 = null;
+                string server = loc8.Item2;
+                if (Msptoolhome.TryGetValue(loc1, out var loc11))
                 AnsiConsole.Status()
                     .SpinnerStyle(Spectre.Console.Style.Parse("#71d5fb"))
                     .Start("Login...", ctx =>
                     {
                         ctx.Refresh();
                         ctx.Spinner(Spinner.Known.Circle);
-                        login = AMFConn(server, "MovieStarPlanet.WebService.User.AMFUserServiceWeb.Login",
+                        loc9 = AMFConn(server, "MovieStarPlanet.WebService.User.AMFUserServiceWeb.Login",
                             new object[6]
                             {
-                                username, password, new object[] {  }, null, null, "MSP1-Standalone:XXXXXX"
+                                loc3, loc4, new object[] {  }, null, null, "MSP1-Standalone:XXXXXX"
                             });
                         Thread.Sleep(1000);
                     });
 
-                if (login == null)
+                if (loc9 == null)
                 {
                     Console.WriteLine(
                         "\n\x1b[91mFAILED\u001b[39m > \x1b[93mUnknown [Click any key to return to login]");
@@ -203,7 +203,7 @@ namespace msptool
                     Console.Clear();
                 }
 
-                if (login["loginStatus"]["status"] != "Success")
+                if (loc9["loginStatus"]["status"] != "Success")
                 {
                     Console.WriteLine(
                         "\n\x1b[91mFAILED\u001b[39m > \x1b[93mLogin failed [Click any key to return to login]");
@@ -212,12 +212,12 @@ namespace msptool
                 }
                 else
                 {
-                    loggedIn = true;
-                    int actorId = login["loginStatus"]["actor"]["ActorId"];
-                    string name = login["loginStatus"]["actor"]["Name"];
-                    string ticket = login["loginStatus"]["ticket"];
-                    string accessToken = login["loginStatus"]["nebulaLoginStatus"]["accessToken"];
-                    string profileId = login["loginStatus"]["nebulaLoginStatus"]["profileId"];
+                    loc2 = true;
+                    int actorId = loc9["loginStatus"]["actor"]["ActorId"];
+                    string name = loc9["loginStatus"]["actor"]["Name"];
+                    string ticket = loc9["loginStatus"]["ticket"];
+                    string accessToken = loc9["loginStatus"]["nebulaLoginStatus"]["accessToken"];
+                    string profileId = loc9["loginStatus"]["nebulaLoginStatus"]["profileId"];
                     var th = new JwtSecurityTokenHandler();
                     var jtoken = th.ReadJwtToken(accessToken);
                     var loginId = jtoken.Payload["loginId"].ToString();
@@ -227,18 +227,18 @@ namespace msptool
                     {
                         AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home").LeftJustified().RoundedBorder());
                         Console.Write("\n");
-                        foreach (var eachtool in allmsptools)
+                        foreach (var loc12 in loc11)
                         {
-                            AnsiConsole.Markup($"[#71d5fb]{eachtool.Key}[/]  > {eachtool.Value}\n");
+                            AnsiConsole.Markup($"[#71d5fb]{loc12.Key}[/]  > {loc12.Value}\n");
                         }
                         AnsiConsole.Write(
                             new Rule(
                                     "[slowblink][#71d5fb]lcfi & 6c0[/][/]")
                                 .RightJustified().RoundedBorder());
-                        var options = AnsiConsole.Prompt(new TextPrompt<string>("\n[[[#71d5fb]+[/]]] Pick an option: ")
+                        var loc13 = AnsiConsole.Prompt(new TextPrompt<string>("\n[[[#71d5fb]+[/]]] Pick an option: ")
                             .PromptStyle("#71d5fb"));
 
-                        switch (options)
+                        switch (loc13)
                         {
                             case "1":
                                 recycleNoneRareClothes(server, actorId, ticket);
@@ -318,17 +318,17 @@ namespace msptool
                             case "26":
                                 Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
-                                loggedIn = false;
+                                loc2 = false;
                                 break;
                             default:
                                 Console.WriteLine(
                                     "\n\u001b[91mERROR\u001b[39m > \u001b[93mChoose a option which exists !");
-                                System.Threading.Thread.Sleep(2000);
+                                Thread.Sleep(2000);
                                 Console.Clear();
                                 break;
                         }
 
-                        if (!loggedIn)
+                        if (!loc2)
                             break;
                     }
                 }
