@@ -342,7 +342,7 @@ namespace msptool
                 .LeftJustified()
                 .RoundedBorder());
             Console.Write("\n");
-            dynamic cloth = AMFConn(server,
+            dynamic loc1 = AMFConn(server,
                 "MovieStarPlanet.WebService.ActorClothes.AMFActorClothes.GetActorClothesRelMinimals",
                 new object[2]
                 {
@@ -350,18 +350,18 @@ namespace msptool
                         actorId
                 });
 
-            foreach (dynamic obj in cloth)
+            foreach (dynamic loc2 in loc1)
             {
-                object actorClothesRelId = obj["ActorClothesRelId"];
+                object loc3 = loc2["ActorClothesRelId"];
 
-                dynamic clothinfo = AMFConn(server,
+                dynamic loc4 = AMFConn(server,
                     "MovieStarPlanet.WebService.MovieStar.AMFMovieStarService.GetActorClothesRel",
-                    new object[1] { actorClothesRelId });
+                    new object[1] { loc3 });
 
-                string shop_id = clothinfo["Cloth"]["ShopId"].ToString();
-                string cloth_name = clothinfo["Cloth"]["Name"] ?? "Unknown";
+                string loc5 = loc4["Cloth"]["ShopId"].ToString();
+                string loc6 = loc4["Cloth"]["Name"] ?? "Unknown";
 
-                if (shop_id != "-100")
+                if (loc5 != "-100")
                 {
                     dynamic recycler = AMFConn(server,
                         "MovieStarPlanet.WebService.Profile.AMFProfileService.RecycleItem",
@@ -369,10 +369,10 @@ namespace msptool
                         {
                                 new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                                 actorId,
-                                actorClothesRelId,
+                                loc3,
                                 0
                         });
-                    AnsiConsole.Markup($"[[[#71d5fb]![/]]] Recycled {cloth_name}");
+                    AnsiConsole.Markup($"[[[#71d5fb]![/]]] Recycled {loc6}");
                 }
             }
 
@@ -388,7 +388,7 @@ namespace msptool
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Buy Boonie").LeftJustified()
                 .RoundedBorder());
 
-            var bonnieOptions = new (string Name, int Value)[]
+            var loc1 = new (string Name, int Value)[]
             {
                     ("Light Side Boonie", 1),
                     ("Dark Side Boonie", 2),
@@ -434,25 +434,25 @@ namespace msptool
                     ("Egmont Mag 2014", 46)
             };
 
-            var selectedBoonie = AnsiConsole.Prompt(
+            var loc2 = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("[[[#71d5fb]+[/]]] Select a boonie: ")
                     .PageSize(10)
-                    .AddChoices(bonnieOptions.Select(choice => choice.Name))
+                    .AddChoices(loc1.Select(loc3 => loc3.Name))
             );
 
-            var selectedChoice = bonnieOptions.First(choice => choice.Name == selectedBoonie);
+            var loc4 = loc1.First(loc3 => loc3.Name == loc2);
 
 
-            dynamic boonie = AMFConn(server,
+            dynamic loc5 = AMFConn(server,
                 "MovieStarPlanet.WebService.Pets.AMFPetService.BuyClickItem",
                 new object[3]
                 {
                         new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                         actorId,
-                        selectedChoice.Value
+                        loc4.Value
                 });
-            if (boonie["SkinSWF"] != "femaleskin" && boonie["SkinSWF"] != "maleskin")
+            if (loc5["SkinSWF"] != "femaleskin" && loc5["SkinSWF"] != "maleskin")
             {
                 AnsiConsole.Markup(
                     "\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
@@ -475,23 +475,23 @@ namespace msptool
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Buy Animations").LeftJustified()
                 .RoundedBorder());
             Console.Write("\n");
-            int animationId = AnsiConsole.Prompt(
+            int loc1 = AnsiConsole.Prompt(
                 new TextPrompt<int>("[[[#71d5fb]+[/]]] Enter AnimationId: ")
                     .PromptStyle("#71d5fb"));
 
-            dynamic animation = AMFConn(server,
+            dynamic loc2 = AMFConn(server,
                 "MovieStarPlanet.WebService.Spending.AMFSpendingService.BuyAnimation",
                 new object[3]
                 {
                         new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                         actorId,
-                        animationId
+                        loc1
                 });
 
-            if (animation["Code"] != 0)
+            if (loc2["Code"] != 0)
             {
                 AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]"
-                                   + (animation["Description"] ?? "Unknown") +
+                                   + (loc2["Description"] ?? "Unknown") +
                                    "[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
                 Console.Clear();
@@ -511,14 +511,14 @@ namespace msptool
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Buy Clothes").LeftJustified()
                 .RoundedBorder());
             Console.Write("\n");
-            int clothId = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] Enter ClothesId: ")
+            int loc1 = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] Enter ClothesId: ")
                 .PromptStyle("#71d5fb"));
-            string clothColor = AnsiConsole.Prompt(
+            string loc2 = AnsiConsole.Prompt(
                 new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter Color: ")
                     .PromptStyle("#71d5fb"));
             try
             {
-                dynamic cloth = AMFConn(server, "MovieStarPlanet.WebService.AMFSpendingService.BuyClothes",
+                dynamic loc3 = AMFConn(server, "MovieStarPlanet.WebService.AMFSpendingService.BuyClothes",
                     new object[4]
                     {
                         new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
@@ -527,11 +527,11 @@ namespace msptool
                         {
                             new
                             {
-                                Color = clothColor,
+                                Color = loc2,
                                 y = 0,
                                 ActorClothesRelId = 0,
                                 ActorId = actorId,
-                                ClothesId = clothId,
+                                ClothesId = loc1,
                                 IsWearing = 1,
                                 x = 0
                             },
@@ -539,10 +539,10 @@ namespace msptool
                         0
                     });
 
-                if (cloth["Code"] != 0)
+                if (loc3["Code"] != 0)
                 {
                     AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]"
-                                       + (cloth["Description"] ?? "Unknown") +
+                                       + (loc3["Description"] ?? "Unknown") +
                                        "[/] [[Click any key to return to Home]][/]");
                     Console.ReadKey();
                     Console.Clear();
@@ -569,10 +569,10 @@ namespace msptool
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Buy Nose").LeftJustified()
                 .RoundedBorder());
             Console.Write("\n");
-            int noseId = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] Enter NoseId: ")
+            int loc1 = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] Enter NoseId: ")
                 .PromptStyle("#71d5fb"));
 
-            dynamic nose = AMFConn(server,
+            dynamic loc2 = AMFConn(server,
                 "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
                 new object[3]
                 {
@@ -586,13 +586,13 @@ namespace msptool
                                 Type = 4,
                                 IsWearing = true,
                                 InventoryId = 0,
-                                ItemId = noseId,
+                                ItemId = loc1,
                                 Colors = "",
 
                             }
                         }
                 });
-            if (nose[0]["InventoryId"] == 0)
+            if (loc2[0]["InventoryId"] == 0)
             {
                 AnsiConsole.Markup(
                     "\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
@@ -614,13 +614,13 @@ namespace msptool
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Buy Lips").LeftJustified()
                 .RoundedBorder());
             Console.Write("\n");
-            int lipsId = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] Enter LipsId: ")
+            int loc1 = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] Enter LipsId: ")
                 .PromptStyle("#71d5fb"));
-            string lipsColor = AnsiConsole.Prompt(
+            string loc2 = AnsiConsole.Prompt(
                 new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter Color: ")
                     .PromptStyle("#71d5fb"));
 
-            dynamic lips = AMFConn(server,
+            dynamic loc3 = AMFConn(server,
                 "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
                 new object[3]
                 {
@@ -634,13 +634,13 @@ namespace msptool
                                 Type = 3,
                                 IsWearing = true,
                                 InventoryId = 0,
-                                ItemId = lipsId,
-                                Colors = lipsColor,
+                                ItemId = loc1,
+                                Colors = loc2,
 
                             }
                         }
                 });
-            if (lips[0]["InventoryId"] == 0)
+            if (loc3[0]["InventoryId"] == 0)
             {
                 AnsiConsole.Markup(
                     "\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
