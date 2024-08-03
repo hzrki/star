@@ -1517,37 +1517,37 @@ namespace msptool
         static async Task MSP2_Login()
         {
             Console.Clear();
-            bool loggedIn2 = false;
+            bool loc1 = false;
 
-            while (!loggedIn2)
+            while (!loc1)
             {
                 AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Login MSP2").LeftJustified());
                 Console.Write("\n");
-                var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
+                var loc2 = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
                     .PromptStyle("#71d5fb"));
 
-                var password = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter password: ")
+                var loc3 = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter password: ")
                     .PromptStyle("#71d5fb")
                     .Secret());
 
-                var choices = Enum.GetValues(typeof(WebServer))
+                var loc4 = Enum.GetValues(typeof(WebServer))
                     .Cast<WebServer>()
                     .Select(ws => (ws.loc3().Item1, ws.loc3().Item2)) 
                     .ToArray();
 
-                var selectedCountry = AnsiConsole.Prompt(
+                var loc5 = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("[[[#71d5fb]+[/]]] Select a server: ")
                         .PageSize(15)
                         .MoreChoicesText("[grey](Move up and down to reveal more servers)[/]")
-                        .AddChoices(choices.Select(choice => choice.Item1)) 
+                        .AddChoices(loc4.Select(aloc1 => aloc1.Item1)) 
                 );
 
-                var server = choices.First(choice => choice.Item1 == selectedCountry).Item2;
-                var region = new[] { "US", "CA", "AU", "NZ" }.Contains(server) ? "us" : "eu";
+                var loc6 = loc4.First(aloc1 => aloc1.Item1 == loc5).Item2;
+                var loc7 = new[] { "US", "CA", "AU", "NZ" }.Contains(loc6) ? "us" : "eu";
 
-                string accessToken = null;
-                string profileId = null;
+                string loc8 = null;
+                string loc9 = null;
 
                 AnsiConsole.Status()
                     .SpinnerStyle(Spectre.Console.Style.Parse("#71d5fb"))
@@ -1556,64 +1556,64 @@ namespace msptool
                         ctx.Refresh();
                         ctx.Spinner(Spinner.Known.Circle);
 
-                        var tep = $"https://{region}-secure.mspapis.com/loginidentity/connect/token";
+                        var loc10 = $"https://{loc7}-secure.mspapis.com/loginidentity/connect/token";
 
-                        using (var msptclient = new WebClient())
+                        using (var loc11 = new WebClient())
                         {
-                            var val = new NameValueCollection
+                            var loc12 = new NameValueCollection
                             {
                                 ["client_id"] = "unity.client",
                                 ["client_secret"] = "secret",
                                 ["grant_type"] = "password",
                                 ["scope"] = "openid nebula offline_access",
-                                ["username"] = $"{server}|{username}",
-                                ["password"] = password,
+                                ["username"] = $"{loc6}|{loc2}",
+                                ["password"] = loc3,
                                 ["acr_values"] = "gameId:j68d"
                             };
 
-                            var resp = msptclient.UploadValues(tep, val);
-                            var resp1 = Encoding.Default.GetString(resp);
-                            dynamic resp2 = JsonConvert.DeserializeObject(resp1);
+                            var loc13 = loc11.UploadValues(loc10, loc12);
+                            var loc14 = Encoding.Default.GetString(loc13);
+                            dynamic loc15 = JsonConvert.DeserializeObject(loc14);
 
 
-                            var accessToken_first = resp2["access_token"].ToString();
-                            var refreshToken = resp2["refresh_token"].ToString();
+                            var loc16 = loc15["access_token"].ToString();
+                            var loc17 = loc15["refresh_token"].ToString();
 
-                            var th = new JwtSecurityTokenHandler();
-                            var jtoken = th.ReadJwtToken(accessToken_first);
-                            var loginId = jtoken.Payload["loginId"].ToString();
+                            var loc18 = new JwtSecurityTokenHandler();
+                            var loc19 = loc18.ReadJwtToken(loc16);
+                            var loc20 = loc19.Payload["loginId"].ToString();
 
-                            string pid =
-                                $"https://{region}.mspapis.com/profileidentity/v1/logins/{loginId}/profiles?&pageSize=100&page=1&filter=region:{server}";
-                            msptclient.Headers.Add(HttpRequestHeader.Authorization,
-                                "Bearer " + accessToken_first);
-                            string resp3 = msptclient.DownloadString(pid);
+                            string loc21 =
+                                $"https://{loc7}.mspapis.com/profileidentity/v1/logins/{loc20}/profiles?&pageSize=100&page=1&filter=region:{loc6}";
+                            loc11.Headers.Add(HttpRequestHeader.Authorization,
+                                "Bearer " + loc16);
+                            string loc22 = loc11.DownloadString(loc21);
 
-                            profileId = JArray.Parse(resp3)[0]["id"].ToString();
+                            loc9 = JArray.Parse(loc22)[0]["id"].ToString();
 
-                            var val2 = new NameValueCollection
+                            var loc23 = new NameValueCollection
                             {
                                 ["grant_type"] = "refresh_token",
-                                ["refresh_token"] = refreshToken,
-                                ["acr_values"] = $"gameId:j68d profileId:{profileId}"
+                                ["refresh_token"] = loc17,
+                                ["acr_values"] = $"gameId:j68d profileId:{loc9}"
                             };
 
-                            msptclient.Headers.Remove(HttpRequestHeader.Authorization);
-                            msptclient.Headers.Add(HttpRequestHeader.Authorization,
+                            loc11.Headers.Remove(HttpRequestHeader.Authorization);
+                            loc11.Headers.Add(HttpRequestHeader.Authorization,
                                 "Basic dW5pdHkuY2xpZW50OnNlY3JldA==");
-                            var resp4 = msptclient.UploadValues(tep, val2);
+                            var loc24 = loc11.UploadValues(loc10, loc23);
 
-                            var resp5 = Encoding.Default.GetString(resp4);
-                            dynamic resp6 = JsonConvert.DeserializeObject(resp5);
+                            var loc25 = Encoding.Default.GetString(loc24);
+                            dynamic loc26 = JsonConvert.DeserializeObject(loc25);
 
-                            accessToken = resp6["access_token"].ToString();
+                            loc8 = loc26["access_token"].ToString();
 
                             Console.Clear();
                         }
                     });
                 while (true)
                 {
-                    loggedIn2 = true;
+                    loc1 = true;
                     Console.Clear();
                     AnsiConsole.Write(
                         new Rule("[#71d5fb]MSPTOOL[/] ・ Home").LeftJustified().RoundedBorder());
@@ -1633,19 +1633,19 @@ namespace msptool
                     switch (options)
                     {
                         case "1":
-                            moodChanger(region, accessToken, profileId);
+                            moodChanger(loc7, loc8, loc9);
                             Thread.Sleep(2000);
                             break;
                         case "2":
-                            genderChanger(region, accessToken, profileId);
+                            genderChanger(loc7, loc8, loc9);
                             Thread.Sleep(2000);
                             break;
                         case "3":
-                            deleteRoom(region, accessToken, profileId);
+                            deleteRoom(loc7, loc8, loc9);
                             Thread.Sleep(2000);
                             break;
                         case "4":
-                            loggedIn2 = false;
+                            loc1 = false;
                             break;
                         default:
                             Console.WriteLine(
@@ -1655,7 +1655,7 @@ namespace msptool
                             break;
                     }
 
-                    if (!loggedIn2)
+                    if (!loc1)
                         break;
                 };
             }
