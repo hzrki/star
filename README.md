@@ -91,10 +91,7 @@ Just check the Requirements and install em and ur good to go, aint hard.
    git clone https://github.com/lcfidev/star.git
    ```
 3. Install Requirements
-   * StarService
-   * Newtonsoft.Json
-   * Spectre.Console
-   * Optional : Costura.fody
+   * Ide automatically downloads them
      
 5. Build in Visual Studio / Jetbrains Rider or Visual Studio Mac
 
