@@ -662,13 +662,13 @@ namespace msptool
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Buy Eyes").LeftJustified()
                 .RoundedBorder());
             Console.Write("\n");
-            int eyeId = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] Enter EyeId: ")
+            int loc1 = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] Enter EyeId: ")
                 .PromptStyle("#71d5fb"));
-            string eyeColor = AnsiConsole.Prompt(
+            string loc2 = AnsiConsole.Prompt(
                 new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter Color: ")
                     .PromptStyle("#71d5fb"));
 
-            dynamic eyes = AMFConn(server,
+            dynamic loc3 = AMFConn(server,
                 "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
                 new object[3]
                 {
@@ -680,15 +680,15 @@ namespace msptool
                             {
                                 InventoryId = 0,
                                 IsOwned = false,
-                                ItemId = eyeId,
-                                Colors = eyeColor,
+                                ItemId = loc1,
+                                Colors = loc2,
                                 Type = 1,
                                 IsWearing = true
 
                             }
                         }
                 });
-            if (eyes[0]["InventoryId"] == 0)
+            if (loc3[0]["InventoryId"] == 0)
             {
                 AnsiConsole.Markup(
                     "\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
@@ -710,11 +710,11 @@ namespace msptool
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ RareSkin").LeftJustified()
                 .RoundedBorder());
             Console.Write("\n");
-            string skincolor = AnsiConsole.Prompt(
+            string loc1 = AnsiConsole.Prompt(
                 new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter Color: ")
                     .PromptStyle("#71d5fb"));
 
-            dynamic skin = AMFConn(server,
+            dynamic loc2 = AMFConn(server,
                 "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
                 new object[3]
                 {
@@ -727,13 +727,13 @@ namespace msptool
                                 InventoryId = 0,
                                 Type = 5,
                                 ItemId = -1,
-                                Colors = skincolor,
+                                Colors = loc1,
                                 IsWearing = true
 
                             }
                         }
                 });
-            if (skin[0]["InventoryId"] == 0)
+            if (loc2[0]["InventoryId"] == 0)
             {
                 AnsiConsole.Markup(
                     "\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
@@ -754,10 +754,10 @@ namespace msptool
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Status").LeftJustified()
                 .RoundedBorder());
             Console.Write("\n");
-            string statustxt = AnsiConsole.Prompt(
+            string loc1 = AnsiConsole.Prompt(
                 new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter Status: ")
                     .PromptStyle("#71d5fb"));
-            var colorOptions = new (string Name, int Value)[]
+            var loc2 = new (string Name, int Value)[]
             {
                     ("Black", 0),
                     ("Red", 13369344),
@@ -770,16 +770,16 @@ namespace msptool
                     ("Gray", 11187123)
             };
 
-            var selectedColor = AnsiConsole.Prompt(
+            var loc3 = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("[[[#71d5fb]+[/]]] Select a color: ")
                     .PageSize(10)
-                    .AddChoices(colorOptions.Select(choice => choice.Name))
+                    .AddChoices(loc2.Select(loc4 => loc4.Name))
             );
 
-            var selectedChoice = colorOptions.First(choice => choice.Name == selectedColor);
+            var loc5 = loc2.First(loc4 => loc4.Name == loc3);
 
-            dynamic status = AMFConn(server,
+            dynamic loc6 = AMFConn(server,
                 "MovieStarPlanet.WebService.ActorService.AMFActorServiceForWeb.SetMoodWithModerationCall",
                 new object[5]
                 {
@@ -787,7 +787,7 @@ namespace msptool
                         new
                         {
                             Likes = 0,
-                            TextLine = statustxt,
+                            TextLine = loc1,
                             TextLineLastFiltered = (object)null,
                             ActorId = actorId,
                             WallPostId = 0,
@@ -801,12 +801,12 @@ namespace msptool
                             TextLineWhitelisted = ""
                         },
                         name,
-                        selectedChoice.Value,
+                        loc5.Value,
                         false
                 });
-            if (status["FilterTextResult"]["IsMessageOk"])
+            if (loc6["FilterTextResult"]["IsMessageOk"])
             {
-                if (status["FilterTextResult"]["UnrestrictedPolicy"]["HasFilteredParts"])
+                if (loc6["FilterTextResult"]["UnrestrictedPolicy"]["HasFilteredParts"])
                 {
                     AnsiConsole.Markup(
                         "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Mood Set But Censored![/] [[Click any key to return to Home]][/]");
@@ -837,28 +837,28 @@ namespace msptool
                 .RoundedBorder());
             Console.Write("\n");
 
-            List<int> anchorCharacterList = new List<int>
+            List<int> loc1 = new List<int>
                 { 273, 276, 277, 341, 418, 419, 420, 421, 83417, 83423, 83427, 83424 };
 
-            foreach (int anchorId in anchorCharacterList)
+            foreach (int loc2 in loc1)
             {
-                dynamic anchor = AMFConn(server,
+                dynamic loc3 = AMFConn(server,
                     "MovieStarPlanet.WebService.AnchorCharacter.AMFAnchorCharacterService.RequestFriendship",
                     new object[2]
                     {
                         new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                        anchorId
+                        loc2
                     });
-                if (anchor["Code"] != 0)
+                if (loc3["Code"] != 0)
                 {
                     AnsiConsole.Markup(
-                        $"\n[#fa1414]FAILED[/] > [#f7b136][underline]{anchor["Description"] ?? "Unknown"}[/][/]"
+                        $"\n[#fa1414]FAILED[/] > [#f7b136][underline]{loc3["Description"] ?? "Unknown"}[/][/]"
                     );
                 }
                 else
                 {
                     AnsiConsole.Markup(
-                        $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Anchor {anchorId} has been added!![/][/]"
+                        $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Anchor {loc2} has been added!![/][/]"
                     );
                 }
             }
@@ -876,10 +876,10 @@ namespace msptool
                 .RoundedBorder());
             Console.Write("\n");
 
-            List<int> mspDefaults = new List<int>
+            List<int> loc1 = new List<int>
                     { 3, 4, 414 };
 
-            foreach (int defaultId in mspDefaults)
+            foreach (int loc2 in loc1)
             {
                 dynamic mspdefaults = AMFConn(server,
                     "MovieStarPlanet.WebService.ActorService.AMFActorServiceForWeb.BlockActor",
@@ -887,9 +887,9 @@ namespace msptool
                     {
                             new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                             actorId,
-                            defaultId
+                            loc2
                     });
-                Console.WriteLine($"Blocked: {defaultId}");
+                Console.WriteLine($"Blocked: {loc2}");
 
             }
         }
