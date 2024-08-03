@@ -4,11 +4,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Spectre.Console;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Net;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
@@ -25,11 +27,12 @@ namespace msptool
 {
     internal class Program
     {
-        private static readonly string currentVersion = "1.6.1";
+        private static readonly string vloc2 = "1.6.2";
 
-        private static readonly string checkVersion =
+        private static readonly string vloc3 =
             "https://raw.githubusercontent.com/lcfidev/star/main/msptool/version.txt";
-        static void Main()
+        
+        static async Task Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
             Console.InputEncoding = Encoding.UTF8;
@@ -87,18 +90,14 @@ namespace msptool
 
         Console.Clear();
 
-            if (!isCurrentVersion())
+            if (!vloc1())
             {
-                HttpClient client = new HttpClient();
-                string latestVersion = client.GetStringAsync(checkVersion).Result;
+                HttpClient loc1 = new HttpClient();
+                string vloc4 = loc1.GetStringAsync(vloc3).Result;
                 AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Update").LeftJustified());
                 Console.Write("\n");
-                AnsiConsole.Markup(
-                    $"[#71d5fb]Go on and download last release[/] ・ [link=https://github.com/lcfidev/star/releases/tag/v{latestVersion}]github.com/lcfidev/star/releases/tag/v{latestVersion}[/]");
-                Console.ReadKey();
                 while (true)
                 {
-                    Console.Write("\x1b[94mSTAR\x1b[39m ・ Update\n\n");
                     Console.WriteLine("[\x1b[95m!\u001b[39m] \u001b[93mAn update was found !\n");
                     Console.WriteLine("\u001b[94m1\u001b[39m > Install new update");
                     Console.WriteLine("\u001b[94m2\u001b[39m > Update manually\n");
@@ -107,7 +106,7 @@ namespace msptool
                     switch (options)
                     {
                         case "1":
-                            Console.Write("Soon");
+                            await InstallUpdate(vloc4);
                             return;
                         case "2":
                             Console.WriteLine(
@@ -1822,23 +1821,38 @@ namespace msptool
 
             }
         }
-
-
-        static bool isCurrentVersion()
+        static bool vloc1()
         {
-            using (HttpClient client = new HttpClient())
+            using (HttpClient loc1 = new HttpClient())
             {
-                try
-                {
-                    string latestVersion = client.GetStringAsync(checkVersion).Result;
-                    return currentVersion.Trim() == latestVersion.Trim();
-                }
-                catch (Exception ex)
-                {
-                    return true;
-                }
-
+                string loc2 = loc1.GetStringAsync(vloc3).Result;
+                return vloc3.Trim() == loc2.Trim();
             }
+        }
+
+        private static async Task InstallUpdate(string latestVersion)
+        {
+            string loc1 = XIU(latestVersion);
+            string loc2 = $"https://github.com/lcfidev/star/releases/download/v{loc1}/msptool.exe";
+            string loc3 = string.Format(loc2, loc1);
+            string loc4 = Path.Combine(Path.GetTempPath(), "msptool.exe");
+            string loc5 = Process.GetCurrentProcess().MainModule.FileName;
+            using HttpClient loc6 = new HttpClient();
+        
+                byte[] loc7 = await loc6.GetByteArrayAsync(loc3);
+                File.WriteAllBytes(loc4, loc7);
+                File.Replace(loc4, loc5, null);
+                Process.Start(new ProcessStartInfo { FileName = loc5, UseShellExecute = true });
+                Environment.Exit(0);
+            }
+        private static string XIU(string version)
+        {
+            version = version.Replace("\r", "").Replace("\n", "");
+            foreach (char c in Path.GetInvalidFileNameChars())
+            {
+                version = version.Replace(c, '_');
+            }
+            return version.Trim(); 
         }
     }
 }
