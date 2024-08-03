@@ -1666,7 +1666,7 @@ namespace msptool
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Change Mood").LeftJustified().RoundedBorder());
 
-            var moodOptions = new (string Name, string Value)[]
+            var loc1 = new (string Name, string Value)[]
             {
                 ("Bunny", "bunny_hold"),
                 ("Ice Skating", "noshoes_skating"),
@@ -1679,37 +1679,37 @@ namespace msptool
                 ("Freezing", "xmas_2022_freezing_lsz"),
             };
 
-            var selectedMood = AnsiConsole.Prompt(
+            var loc2 = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("[[[#71d5fb]+[/]]] Select a mood: ")
                     .PageSize(10)
-                    .AddChoices(moodOptions.Select(choice => choice.Name))
+                    .AddChoices(loc1.Select(loc3 => loc3.Name))
             );
 
-            var selectedChoice = moodOptions.First(choice => choice.Name == selectedMood);
+            var loc4 = loc1.First(loc3 => loc3.Name == loc2);
 
-            using (HttpClient mt2client = new HttpClient())
+            using (HttpClient loc5 = new HttpClient())
             {
-                mt2client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                mt2client.DefaultRequestHeaders.UserAgent.ParseAdd(
+                loc5.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                loc5.DefaultRequestHeaders.UserAgent.ParseAdd(
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0");
 
-                string moodApi =
+                string loc6 =
                     $"https://{region}.mspapis.com/profileattributes/v1/profiles/{profileId}/games/j68d/attributes";
 
-                HttpResponseMessage resp = await mt2client.GetAsync(moodApi);
+                HttpResponseMessage loc7 = await loc5.GetAsync(loc6);
 
-                string resp2 = await resp.Content.ReadAsStringAsync();
-                JObject moodData = JObject.Parse(resp2);
+                string loc8 = await loc7.Content.ReadAsStringAsync();
+                JObject loc9 = JObject.Parse(loc8);
 
-                moodData["additionalData"]["Mood"] = selectedChoice.Value;
+                loc9["additionalData"]["Mood"] = loc4.Value;
 
-                string loc1 = moodData.ToString();
-                HttpContent loc2 = new StringContent(loc1);
-                loc2.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                string loc10 = loc9.ToString();
+                HttpContent loc11 = new StringContent(loc10);
+                loc11.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                HttpResponseMessage resp3 = await mt2client.PutAsync(moodApi, loc2);
-                if (resp3.IsSuccessStatusCode)
+                HttpResponseMessage loc12 = await loc5.PutAsync(loc6, loc11);
+                if (loc12.IsSuccessStatusCode)
                 {
                     AnsiConsole.Markup(
                         "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Mood changed[/] [[Auto redirect in 2 seconds]][/]");
@@ -1728,43 +1728,43 @@ namespace msptool
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Change Gender").LeftJustified().RoundedBorder());
 
-            var genderOptions = new (string Name, string Value)[]
+            var loc1 = new (string Name, string Value)[]
             {
                 ("Girl", "Girl"),
                 ("Boy", "Boy"),
             };
 
-            var selectedGender = AnsiConsole.Prompt(
+            var loc2 = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("[[[#71d5fb]+[/]]] Select a mood: ")
                     .PageSize(10)
-                    .AddChoices(genderOptions.Select(choice => choice.Name))
+                    .AddChoices(loc1.Select(loc3 => loc3.Name))
             );
 
-            var selectedChoice = genderOptions.First(choice => choice.Name == selectedGender);
+            var loc4 = loc1.First(loc3 => loc3.Name == loc2);
 
-            using (HttpClient mt2client = new HttpClient())
+            using (HttpClient loc5 = new HttpClient())
             {
-                mt2client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                mt2client.DefaultRequestHeaders.UserAgent.ParseAdd(
+                loc5.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                loc5.DefaultRequestHeaders.UserAgent.ParseAdd(
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0");
 
-                string genderApi =
+                string loc6 =
                     $"https://{region}.mspapis.com/profileattributes/v1/profiles/{profileId}/games/j68d/attributes";
 
-                HttpResponseMessage resp = await mt2client.GetAsync(genderApi);
+                HttpResponseMessage loc7 = await loc5.GetAsync(loc6);
 
-                string resp2 = await resp.Content.ReadAsStringAsync();
-                JObject genderData = JObject.Parse(resp2);
+                string loc8 = await loc7.Content.ReadAsStringAsync();
+                JObject loc9 = JObject.Parse(loc8);
 
-                genderData["additionalData"]["Gender"] = selectedChoice.Value;
+                loc9["additionalData"]["Gender"] = loc4.Value;
 
-                string loc1 = genderData.ToString();
-                HttpContent loc2 = new StringContent(loc1);
-                loc2.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                string loc10 = loc9.ToString();
+                HttpContent loc11 = new StringContent(loc10);
+                loc11.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                HttpResponseMessage resp3 = await mt2client.PutAsync(genderApi, loc2);
-                if (resp3.IsSuccessStatusCode)
+                HttpResponseMessage loc12 = await loc5.PutAsync(loc6, loc11);
+                if (loc12.IsSuccessStatusCode)
                 {
                     AnsiConsole.Markup(
                         "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Gender changed[/] [[Auto redirect in 2 seconds]][/]");
@@ -1782,33 +1782,33 @@ namespace msptool
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Delete Room").LeftJustified().RoundedBorder());
 
-            using (HttpClient mt2client = new HttpClient())
+            using (HttpClient loc1 = new HttpClient())
             {
-                mt2client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                mt2client.DefaultRequestHeaders.UserAgent.ParseAdd(
+                loc1.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                loc1.DefaultRequestHeaders.UserAgent.ParseAdd(
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0");
 
-                string roomApi =
+                string loc2 =
                     $"https://{region}.mspapis.com/profileattributes/v1/profiles/{profileId}/games/j68d/attributes";
 
-                HttpResponseMessage resp = await mt2client.GetAsync(roomApi);
+                HttpResponseMessage loc3 = await loc1.GetAsync(loc2);
 
 
-                string resp1 = await resp.Content.ReadAsStringAsync();
-                JObject roomData = JObject.Parse(resp1);
+                string loc4 = await loc3.Content.ReadAsStringAsync();
+                JObject loc5 = JObject.Parse(loc4);
 
-                if (roomData["additionalData"]?["DefaultMyHome"] != null)
+                if (loc5["additionalData"]?["DefaultMyHome"] != null)
                 {
-                    roomData["additionalData"]["DefaultMyHome"].Parent.Remove();
+                    loc5["additionalData"]["DefaultMyHome"].Parent.Remove();
                 }
 
-                string loc1 = roomData.ToString();
-                HttpContent loc2 = new StringContent(loc1);
-                loc2.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                string loc6 = loc5.ToString();
+                HttpContent loc7 = new StringContent(loc6);
+                loc7.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                HttpResponseMessage resp3 = await mt2client.PutAsync(roomApi, loc2);
+                HttpResponseMessage loc8 = await loc1.PutAsync(loc2, loc7);
 
-                if (resp3.IsSuccessStatusCode)
+                if (loc8.IsSuccessStatusCode)
                 {
                     AnsiConsole.Markup(
                         "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Room deleted[/] [[Auto redirect in 2 seconds]][/]");
