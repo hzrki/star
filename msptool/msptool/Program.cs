@@ -27,9 +27,9 @@ namespace msptool
 {
     internal class Program
     {
-        private static readonly string vloc2 = "1.6.2";
+        private static readonly string currentVersion = "1.6.2";
 
-        private static readonly string vloc3 =
+        private static readonly string checkVersion =
             "https://raw.githubusercontent.com/lcfidev/star/main/msptool/version.txt";
         
         static async Task Main(string[] args)
@@ -90,10 +90,10 @@ namespace msptool
 
         Console.Clear();
 
-            if (!vloc1())
+            if (!isCurrentVersion())
             {
-                HttpClient loc1 = new HttpClient();
-                string vloc4 = loc1.GetStringAsync(vloc3).Result;
+                HttpClient client = new HttpClient();
+                string latestVersion = client.GetStringAsync(checkVersion).Result;
                 AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Update").LeftJustified());
                 Console.Write("\n");
                 while (true)
@@ -106,7 +106,7 @@ namespace msptool
                     switch (options)
                     {
                         case "1":
-                            await InstallUpdate(vloc4);
+                            await InstallUpdate(latestVersion);
                             return;
                         case "2":
                             Console.WriteLine(
@@ -1821,12 +1821,14 @@ namespace msptool
 
             }
         }
-        static bool vloc1()
+
+
+        static bool isCurrentVersion()
         {
-            using (HttpClient loc1 = new HttpClient())
+            using (HttpClient client = new HttpClient())
             {
-                string loc2 = loc1.GetStringAsync(vloc3).Result;
-                return vloc3.Trim() == loc2.Trim();
+                string latestVersion = client.GetStringAsync(checkVersion).Result;
+                return currentVersion.Trim() == latestVersion.Trim();
             }
         }
 
