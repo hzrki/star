@@ -1144,7 +1144,7 @@ namespace msptool
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Username Checker").LeftJustified()
                 .RoundedBorder());
-            var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] username: ")
+            var loc5 = AnsiConsole.Prompt(new Spectre.Console.TextPrompt<string>("[[[#71d5fb]+[/]]] username: ")
                 .PromptStyle("#71d5fb"));
             var loc1 = new string[][]
             {
@@ -1158,20 +1158,20 @@ namespace msptool
                 {
                     var loc4 = AMFConn(server,
                         "MovieStarPlanet.WebService.AMFActorService.IsActorNameUsed",
-                        new object[] { username });
+                        new object[] { loc5 });
 
                     bool loc3 = Convert.ToBoolean(loc4);
 
                     if (loc3)
                     {
                         AnsiConsole.MarkupLine(
-                            $"[#FF0000]{server} | {username} | Not available[/]");
+                            $"[#FF0000]{server} | {loc5} | Not available[/]");
                     }
                     else
                     
                     {
                         AnsiConsole.MarkupLine(
-                            $"[#00FF00]{server} | {username} | available[/]");
+                            $"[#00FF00]{server} | {loc5} | available[/]");
                     }
                 }
             }
@@ -1185,12 +1185,12 @@ namespace msptool
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Clothes Extractor").LeftJustified()
                 .RoundedBorder());
-            var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] username: ")
+            var loc5 = AnsiConsole.Prompt(new Spectre.Console.TextPrompt<string>("[[[#71d5fb]+[/]]] username: ")
                 .PromptStyle("#71d5fb"));
 
             dynamic loc1 = AMFConn(server,
                 "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorIdFromName",
-                new object[1] { username });
+                new object[1] { loc5 });
 
             if (loc1 == -1)
             {
@@ -1201,56 +1201,56 @@ namespace msptool
             }
             else
             {
-                double ceactorId = loc1;
+                double loc6 = loc1;
 
                 dynamic loc2 = AMFConn(server,
                     "MovieStarPlanet.WebService.ActorClothes.AMFActorClothes.GetActorClothesRelMinimals",
                     new object[2]
                     {
                         new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                        ceactorId,
+                        loc6,
                     });
 
                 foreach (var loc3 in loc2)
                 {
-                    int ActorClothesRelId = Convert.ToInt32(loc3["ActorClothesRelId"]);
+                    int loc7 = Convert.ToInt32(loc3["ActorClothesRelId"]);
                     
                     dynamic loc4 = AMFConn(server,
                         "MovieStarPlanet.WebService.MovieStar.AMFMovieStarService.GetActorClothesRel",
                         new object[1]
-                        { ActorClothesRelId });
+                        { loc7 });
                     
-                    string clothName = loc4["Cloth"]["Name"] ?? "Unknown";
-                    int clothId = loc4["ClothesId"];
-                    string color = loc4["Color"].ToString();
-                    string shopId = loc4["Cloth"]["ShopId"].ToString();
-                    int isVip = loc4["Cloth"]["Vip"];
-                    int isDiamondItem = loc4["Cloth"]["DiamondsPrice"];
+                    string loc8 = loc4["Cloth"]["Name"] ?? "Unknown";
+                    int loc9 = loc4["ClothesId"];
+                    string loc10 = loc4["Color"].ToString();
+                    string loc11 = loc4["Cloth"]["ShopId"].ToString();
+                    int loc12 = loc4["Cloth"]["Vip"];
+                    int loc13 = loc4["Cloth"]["DiamondsPrice"];
                     
-                    string isDiamond = isDiamondItem != 0 ? "Yes" : "No";
-                    string IsVip = isVip != 0 ? "Yes" : "No";
-                    string isRare = shopId != "-100" ? "Yes" : "No";
+                    string loc15 = loc13 != 0 ? "Yes" : "No";
+                    string loc14 = loc12 != 0 ? "Yes" : "No";
+                    string loc16 = loc11 != "-100" ? "Yes" : "No";
                     
-                    AnsiConsole.MarkupLine($"[#71d5fb]ActorClothesRelId:[/] {ActorClothesRelId}");
-                    AnsiConsole.MarkupLine($"[#71d5fb]ClothesName:[/] {clothName}");
-                    AnsiConsole.MarkupLine($"[#71d5fb]ClothesId:[/] {clothId}");
-                    if (!string.IsNullOrEmpty(color))
+                    AnsiConsole.MarkupLine($"[#71d5fb]ActorClothesRelId:[/] {loc7}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]ClothesName:[/] {loc8}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]ClothesId:[/] {loc9}");
+                    if (!string.IsNullOrEmpty(loc10))
                     {
-                        AnsiConsole.MarkupLine($"[#71d5fb]Colors:[/] {color}");
+                        AnsiConsole.MarkupLine($"[#71d5fb]Colors:[/] {loc10}");
                     }
                     else
                     {
                         AnsiConsole.MarkupLine("[#71d5fb]Colors:[/] None");
                     }
         
-                    AnsiConsole.MarkupLine($"[#71d5fb]IsRareItem:[/] {isRare}");
-                    AnsiConsole.MarkupLine($"[#71d5fb]IsVipItem:[/] {IsVip}");
-                    AnsiConsole.MarkupLine($"[#71d5fb]IsDiamondItem:[/] {isDiamond}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]IsRareItem:[/] {loc16}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]IsVipItem:[/] {loc14}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]IsDiamondItem:[/] {loc15}");
                     AnsiConsole.MarkupLine("");
 
                 }
             }
-            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all {username} clothes :)[/] [[Click any key to return to Home]][/]");
+            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all {loc5} clothes :)[/] [[Click any key to return to Home]][/]");
             Console.ReadKey();
             Console.Clear();  
         }
@@ -1260,12 +1260,12 @@ namespace msptool
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Username To ActorId").LeftJustified()
                 .RoundedBorder());
-            var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] username: ")
+            var loc2 = AnsiConsole.Prompt(new Spectre.Console.TextPrompt<string>("[[[#71d5fb]+[/]]] username: ")
                 .PromptStyle("#71d5fb"));
 
             dynamic loc1 = AMFConn(server,
                 "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorIdFromName",
-                new object[1] { username });
+                new object[1] { loc2 });
 
             if (loc1 == -1)
             {
@@ -1276,9 +1276,9 @@ namespace msptool
             }
             else
             {
-                double actorId = loc1;
+                double loc3 = loc1;
                 
-                AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]ActorId: {actorId} | Username: {username} :)[/] [[Click any key to return to Home]][/]");
+                AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]ActorId: {loc3} | Username: {loc2} :)[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
                 Console.Clear();  
             }
@@ -1289,16 +1289,16 @@ namespace msptool
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ ActorId to Username").LeftJustified()
                 .RoundedBorder());
-            var ActorId = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] actorid: ")
+            int loc1 = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] actorid: ")
                 .PromptStyle("#71d5fb"));
 
             dynamic loc5 = AMFConn(server,
                 "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorNameFromId",
                 new object[1]
-                    { ActorId });
+                    { loc1 });
 
-            string username = loc5;
-            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Username: {username} | ActorId: {ActorId}  :)[/] [[Click any key to return to Home]][/]");
+            string loc2 = loc5;
+            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Username: {loc2} | ActorId: {loc1}  :)[/] [[Click any key to return to Home]][/]");
             Console.ReadKey();
             Console.Clear();  
         }
@@ -1308,51 +1308,51 @@ namespace msptool
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Item Tracker").LeftJustified()
                 .RoundedBorder());
-            var ActorClothesRelId = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] ActorClothesRelId: ")
+            int loc1 = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] ActorClothesRelId: ")
                 .PromptStyle("#71d5fb"));
             
             dynamic loc4 = AMFConn(server,
                         "MovieStarPlanet.WebService.MovieStar.AMFMovieStarService.GetActorClothesRel",
                         new object[1]
-                        { ActorClothesRelId });
+                        { loc1 });
                     
-            int actorId = loc4["ActorId"];
+            int loc2 = loc4["ActorId"];
             
             dynamic loc5 = AMFConn(server,
                 "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorNameFromId",
                 new object[1]
-                    { actorId });
+                    { loc2 });
             
-            string username = loc5;
+            string loc3 = loc5;
                 
-            string clothName = loc4["Cloth"]["Name"] ?? "Unknown";
-            int clothId = loc4["ClothesId"];
-            string color = loc4["Color"].ToString();
-            string shopId = loc4["Cloth"]["ShopId"].ToString();
-            int isVip = loc4["Cloth"]["Vip"];
-            int isDiamondItem = loc4["Cloth"]["DiamondsPrice"];
+            string loc6 = loc4["Cloth"]["Name"] ?? "Unknown";
+            int loc7 = loc4["ClothesId"];
+            string loc8 = loc4["Color"].ToString();
+            string loc9 = loc4["Cloth"]["ShopId"].ToString();
+            int loc10 = loc4["Cloth"]["Vip"];
+            int loc11 = loc4["Cloth"]["DiamondsPrice"];
                     
-            string isDiamond = isDiamondItem != 0 ? "Yes" : "No";
-            string IsVip = isVip != 0 ? "Yes" : "No";
-            string isRare = shopId != "-100" ? "Yes" : "No";
+            string loc12 = loc11 != 0 ? "Yes" : "No";
+            string loc13 = loc10 != 0 ? "Yes" : "No";
+            string loc14 = loc9 != "-100" ? "Yes" : "No";
                     
-            AnsiConsole.MarkupLine($"[#71d5fb]ActorClothesRelId:[/] {ActorClothesRelId}");
-            AnsiConsole.MarkupLine($"[#71d5fb]ClothesName:[/] {clothName}");
-            AnsiConsole.MarkupLine($"[#71d5fb]ClothesId:[/] {clothId}");
-            if (!string.IsNullOrEmpty(color))
+            AnsiConsole.MarkupLine($"[#71d5fb]ActorClothesRelId:[/] {loc1}");
+            AnsiConsole.MarkupLine($"[#71d5fb]ClothesName:[/] {loc6}");
+            AnsiConsole.MarkupLine($"[#71d5fb]ClothesId:[/] {loc7}");
+            if (!string.IsNullOrEmpty(loc8))
             {
-                AnsiConsole.MarkupLine($"[#71d5fb]Colors:[/] {color}");
+                AnsiConsole.MarkupLine($"[#71d5fb]Colors:[/] {loc8}");
             }
             else
             {
                 AnsiConsole.MarkupLine("[#71d5fb]Colors:[/] None");
             }
         
-            AnsiConsole.MarkupLine($"[#71d5fb]IsRareItem:[/] {isRare}");
-            AnsiConsole.MarkupLine($"[#71d5fb]IsVipItem:[/] {IsVip}");
-            AnsiConsole.MarkupLine($"[#71d5fb]IsDiamondItem:[/] {isDiamond}");
+            AnsiConsole.MarkupLine($"[#71d5fb]IsRareItem:[/] {loc14}");
+            AnsiConsole.MarkupLine($"[#71d5fb]IsVipItem:[/] {loc13}");
+            AnsiConsole.MarkupLine($"[#71d5fb]IsDiamondItem:[/] {loc12}");
             AnsiConsole.MarkupLine("");
-            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Item tracked to {username}  :)[/] [[Click any key to return to Home]][/]");
+            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Item tracked to {loc3}  :)[/] [[Click any key to return to Home]][/]");
             Console.ReadKey();
             Console.Clear();  
 
@@ -1364,43 +1364,43 @@ namespace msptool
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ RoomChanger").LeftJustified().RoundedBorder());
             Console.Write("\n");
             AnsiConsole.Markup("[slowblink][[[#c70000]?![/]]] Use it at your own risk, we are not responsible for your misdeeds.[/]\n");
-            string urlImage = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter image url: ")
+            string loc1 = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter image url: ")
                                           .PromptStyle("#71d5fb"));
-            System.Net.WebClient webClient = new System.Net.WebClient();
-            byte[] array = webClient.DownloadData(urlImage);
+            WebClient loc2 = new WebClient();
+            byte[] loc3 = loc2.DownloadData(loc1);
 
-            dynamic room = AMFConn(server,
+            dynamic loc4 = AMFConn(server,
                 "MovieStarPlanet.WebService.Snapshots.AMFGenericSnapshotService.CreateSnapshot",
                 new object[5]
                 {
                     new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                     actorId,
                     "room",
-                    array,
+                    loc3,
                     "jpg"
                 });
 
-            dynamic roomProfile = AMFConn(server,
+            dynamic loc5 = AMFConn(server,
                 "MovieStarPlanet.WebService.Snapshots.AMFGenericSnapshotService.CreateSnapshot",
                 new object[5]
                 {
                     new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                     actorId,
                     "roomProfile",
-                    array,
+                    loc3,
                     "jpg"
                 });
-            dynamic roomMedium = AMFConn(server,
+            dynamic loc6 = AMFConn(server,
                 "MovieStarPlanet.WebService.Snapshots.AMFGenericSnapshotService.CreateSnapshot",
                 new object[5]
                 {
                     new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                     actorId,
                     "roomMedium",
-                    array,
+                    loc3,
                     "jpg"
                 });
-            if (room && roomProfile && roomMedium)
+            if (loc4 && loc5 && loc6)
             {
                 AnsiConsole.Markup("\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Room changed[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
@@ -1419,12 +1419,12 @@ namespace msptool
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Animation Extractor").LeftJustified()
                 .RoundedBorder());
-            var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] username: ")
+            var loc4 = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] username: ")
                 .PromptStyle("#71d5fb"));
 
             dynamic loc1 = AMFConn(server,
                 "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorIdFromName",
-                new object[1] { username });
+                new object[1] { loc4 });
 
             if (loc1 == -1)
             {
@@ -1435,36 +1435,36 @@ namespace msptool
             }
             else
             {
-                double ceactorId = loc1;
+                double loc12 = loc1;
 
                 dynamic loc2 = AMFConn(server,
                     "MovieStarPlanet.WebService.Media.AMFMediaService.GetMyAnimations",
                     new object[2]
                     {
                         new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                        ceactorId,
+                        loc12,
                     });
 
                     foreach (var loc3 in loc2)
                 {
-                    string animationName = loc3["Animation"]["Name"] ?? "Unknown";
-                    int animationId = loc3["Animation"]["AnimationId"] ?? -1; 
-                    int actorAnimationRelid = loc3["ActorAnimationRelId"] ?? -1; 
-                    int isRare = loc3["Animation"]["Deleted"];
-                    int? isVip = loc3["Animation"]["Vip"] as int?;
+                    string loc5 = loc3["Animation"]["Name"] ?? "Unknown";
+                    int loc6 = loc3["Animation"]["AnimationId"] ?? -1; 
+                    int loc7 = loc3["ActorAnimationRelId"] ?? -1; 
+                    int loc8 = loc3["Animation"]["Deleted"];
+                    int? loc9 = loc3["Animation"]["Vip"] as int?;
                     
-                    string IsVip = isVip.HasValue ? isVip.Value != 0 ? "Yes" : "No" : "None";
-                    string IsRare = isRare != 0 ? "Yes" : "No";
+                    string loc10 = loc9.HasValue ? loc9.Value != 0 ? "Yes" : "No" : "None";
+                    string loc11 = loc8 != 0 ? "Yes" : "No";
 
-                    AnsiConsole.MarkupLine($"[#71d5fb]Name:[/] {animationName}");
-                    AnsiConsole.MarkupLine($"[#71d5fb]AnimationId:[/] {animationId}");
-                    AnsiConsole.MarkupLine($"[#71d5fb]ActorAnimationRelId:[/] {actorAnimationRelid}");
-                    AnsiConsole.MarkupLine($"[#71d5fb]IsRareItem:[/] {IsRare}");
-                    AnsiConsole.MarkupLine($"[#71d5fb]IsVipItem:[/] {IsVip}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]Name:[/] {loc5}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]AnimationId:[/] {loc6}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]ActorAnimationRelId:[/] {loc7}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]IsRareItem:[/] {loc11}");
+                    AnsiConsole.MarkupLine($"[#71d5fb]IsVipItem:[/] {loc10}");
                     AnsiConsole.MarkupLine("");
                 }
             }
-            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all {username} animations :)[/] [[Click any key to return to Home]][/]");
+            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all {loc4} animations :)[/] [[Click any key to return to Home]][/]");
             Console.ReadKey();
             Console.Clear();  
         }
@@ -1475,33 +1475,33 @@ namespace msptool
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Icon Changer").LeftJustified().RoundedBorder());
             Console.Write("\n");
             AnsiConsole.Markup("[slowblink][[[#c70000]?![/]]] Use it at your own risk, we are not responsible for your misdeeds.[/]\n");
-            string urlImage = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter image url: ")
+            string loc1 = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter image url: ")
                                           .PromptStyle("#71d5fb"));
-            System.Net.WebClient webClient = new System.Net.WebClient();
-            byte[] array = webClient.DownloadData(urlImage);
+            WebClient loc2 = new WebClient();
+            byte[] loc3 = loc2.DownloadData(loc1);
 
-            dynamic moviestar = AMFConn(server,
+            dynamic loc4 = AMFConn(server,
                 "MovieStarPlanet.WebService.Snapshots.AMFGenericSnapshotService.CreateSnapshot",
                 new object[5]
                 {
                     new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                     actorId,
                     "moviestar",
-                    array,
+                    loc3,
                     "jpg"
                 });
 
-            dynamic fullSizeMoviestar = AMFConn(server,
+            dynamic loc5 = AMFConn(server,
                 "MovieStarPlanet.WebService.Snapshots.AMFGenericSnapshotService.CreateSnapshot",
                 new object[5]
                 {
                     new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
                     actorId,
                     "fullSizeMoviestar",
-                    array,
+                    loc3,
                     "jpg"
                 });
-            if (moviestar && fullSizeMoviestar)
+            if (loc4 && loc5)
             {
                 AnsiConsole.Markup("\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Icon changed[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
