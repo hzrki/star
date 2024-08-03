@@ -94,7 +94,7 @@ namespace msptool
                 AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Update").LeftJustified());
                 Console.Write("\n");
                 AnsiConsole.Markup(
-                    $"[#71d5fb]Go on and download last release[/] ・ [link=https://github.com/lcfidev/star/releases/tag/v{latestVersion}]github.com/l3c1d/star/releases/tag/v{latestVersion}[/]");
+                    $"[#71d5fb]Go on and download last release[/] ・ [link=https://github.com/lcfidev/star/releases/tag/v{latestVersion}]github.com/lcfidev/star/releases/tag/v{latestVersion}[/]");
                 Console.ReadKey();
                 while (true)
                 {
@@ -111,7 +111,7 @@ namespace msptool
                             return;
                         case "2":
                             Console.WriteLine(
-                                "\n\x1b[95mUPDATE\u001b[39m > \x1b[93mGo on https://github.com/l3c1d/star [Click any key to close]");
+                                "\n\x1b[95mUPDATE\u001b[39m > \x1b[93mGo on https://github.com/lcfidev/star [Click any key to close]");
                             Console.ReadKey();
                             return;
                         default:
