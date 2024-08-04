@@ -1840,11 +1840,11 @@ namespace msptool
             string loc2 = string.Empty;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                loc2 = string.Format($"https://github.com/lcfidev/star/releases/download/v{loc1}/msptool.exe", loc1);
+                loc2 = string.Format($"https://github.com/lcfidev/star/releases/download/{loc1}/msptool.exe", loc1);
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                loc2 = string.Format($"https://github.com/lcfidev/star/releases/download/v{loc1}/msptool_macos_arm64.zip", loc1); 
+                loc2 = string.Format($"https://github.com/lcfidev/star/releases/download/{loc1}/msptool_macos_arm64.zip", loc1); 
             }
             string loc3 = string.Format(loc2, loc1); 
             string loc4 = Path.Combine(Path.GetTempPath(), "msptool");
@@ -1864,7 +1864,7 @@ namespace msptool
             {
                 version = version.Replace(c, '_');
             }
-            return version.Trim(); 
+            return "v" + version.Trim(); 
         }
     }
 }
