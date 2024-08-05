@@ -1559,7 +1559,7 @@ namespace msptool
                 .RoundedBorder());
 
             int loc13 = AnsiConsole.Prompt(
-                new TextPrompt<int>("[[[#71d5fb]+[/]]] Amount of bots: ").PromptStyle("#71d5fb"));
+                new Spectre.Console.TextPrompt<int>("[[[#71d5fb]+[/]]] Amount of bots: ").PromptStyle("#71d5fb"));
 
             for (int i = 0; i < loc13; i++)
             {
@@ -1589,6 +1589,87 @@ namespace msptool
                     }));
                 JObject loc9 = JObject.Parse(loc12);
                 bool loc10 = (bool)loc9["data"]["createLoginProfile"]["success"];
+                dynamic loc15 = AMFConn(server, "MovieStarPlanet.WebService.User.AMFUserServiceWeb.Login",
+                    new object[6]
+                    {
+                        loc2, loc3, new object[] { }, null, null, "MSP1-Standalone:XXXXXX"
+                    });
+                if (loc15["loginStatus"]["status"] != "ThirdPartyCreated")
+                    Console.WriteLine($"not validated with msp1 {loc2}");
+                else
+                {
+                    Console.WriteLine($"validating with msp1 {loc2}");
+                }
+
+                WebClient loc18 = new WebClient();
+                var loc16 =
+                    loc18.DownloadData($"https://snapshots.mspcdns.com/v1/MSP/{server}/snapshot/fullSizeMoviestar/4.jpg");
+                var loc17 =
+                    loc18.DownloadData($"https://snapshots.mspcdns.com/v1/MSP/{server}/snapshot/moviestar/4.jpg");
+                dynamic loc19 = AMFConn(server, "MovieStarPlanet.WebService.AMFActorService.ThirdPartySaveAvatar", new object[] 
+                { 
+                    new 
+                    { 
+                        Clothes = new object[] 
+                        { 
+                            new 
+                            {
+                                ActorClothesRelId = -10, 
+                                ActorId = -1, 
+                                ClothesId = 18671, 
+                                IsWearing = 1, 
+                                y = 0, 
+                                Color = 0, 
+                                x = 0 
+                            }, 
+                            new 
+                            { 
+                                ActorClothesRelId = -14, 
+                                ActorId = -1, 
+                                ClothesId = 22252, 
+                                IsWearing = 1, 
+                                y = 0, 
+                                Color = "0,0,0", 
+                                x = 0 
+                            }, 
+                            new 
+                            { 
+                                ActorClothesRelId = -15, 
+                                ActorId = -1, 
+                                ClothesId = 19121, 
+                                IsWearing = 1, 
+                                y = 0, 
+                                Color = "0x000000,0xffffff,0x000000", 
+                                x = 0 
+                            }, 
+                            new 
+                            { 
+                                ActorClothesRelId = -16, 
+                                ActorId = -1, 
+                                ClothesId = 18931, 
+                                IsWearing = 1, 
+                                y = 0, 
+                                Color = "0xFFFCF7,0xF5F6FF", 
+                                x = 0 
+                            } 
+                        }, 
+                        MouthColors = "skincolor,0xB67676", 
+                        MouthId = 35, 
+                        NoseId = 28, 
+                        InvitedByActorId = -1, 
+                        ChosenActorName = loc2, 
+                        ChosenPassword = loc3, 
+                        SkinIsMale = true, 
+                        EyeColors = "0x0,0x000000", 
+                        EyeId = 36, 
+                        SkinColor = "14195824" 
+                    }, 
+                    loc17, 
+                    loc16, 
+                    loc2, 
+                    loc3 
+                });
+
                 if (loc10)
                 {
                     AnsiConsole.Markup(
