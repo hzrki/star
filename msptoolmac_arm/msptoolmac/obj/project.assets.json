@@ -119,6 +119,38 @@
           }
         }
       },
+      "protobuf-net/3.2.30": {
+        "type": "package",
+        "dependencies": {
+          "protobuf-net.Core": "3.2.30"
+        },
+        "compile": {
+          "lib/net6.0/protobuf-net.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/protobuf-net.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "protobuf-net.Core/3.2.30": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections.Immutable": "7.0.0"
+        },
+        "compile": {
+          "lib/net6.0/protobuf-net.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/protobuf-net.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Spectre.Console/0.49.1": {
         "type": "package",
         "compile": {
@@ -159,6 +191,22 @@
         },
         "runtime": {
           "lib/net7.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Collections.Immutable/7.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/System.Collections.Immutable.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/System.Collections.Immutable.dll": {
             "related": ".xml"
           }
         },
@@ -279,6 +327,19 @@
           "runtimes/win/lib/net7.0/System.Windows.Extensions.dll": {
             "assetType": "runtime",
             "rid": "win"
+          }
+        }
+      },
+      "WebSocketSharp-netstandard/1.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/websocket-sharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/websocket-sharp.dll": {
+            "related": ".xml"
           }
         }
       }
@@ -480,6 +541,46 @@
         "packageIcon.png"
       ]
     },
+    "protobuf-net/3.2.30": {
+      "sha512": "C/UTlmxEJHAHpqm8xQK1UyJKaIynVCSNG4mVrbLgnZ7ccH28nN49O8iMJvKEodTgVbnimvy+3mIiAdW6mATwnw==",
+      "type": "package",
+      "path": "protobuf-net/3.2.30",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net462/protobuf-net.dll",
+        "lib/net462/protobuf-net.xml",
+        "lib/net6.0/protobuf-net.dll",
+        "lib/net6.0/protobuf-net.xml",
+        "lib/netstandard2.0/protobuf-net.dll",
+        "lib/netstandard2.0/protobuf-net.xml",
+        "lib/netstandard2.1/protobuf-net.dll",
+        "lib/netstandard2.1/protobuf-net.xml",
+        "protobuf-net.3.2.30.nupkg.sha512",
+        "protobuf-net.nuspec",
+        "protobuf-net.png"
+      ]
+    },
+    "protobuf-net.Core/3.2.30": {
+      "sha512": "v2ZxxYrz+X212ukSx+uqkLuPu414bvmSAnTyf+PBUKR9ENJxO4P/csorA/27456MCp1JNoMssDj/f91RDiwBfQ==",
+      "type": "package",
+      "path": "protobuf-net.core/3.2.30",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net462/protobuf-net.Core.dll",
+        "lib/net462/protobuf-net.Core.xml",
+        "lib/net6.0/protobuf-net.Core.dll",
+        "lib/net6.0/protobuf-net.Core.xml",
+        "lib/netstandard2.0/protobuf-net.Core.dll",
+        "lib/netstandard2.0/protobuf-net.Core.xml",
+        "lib/netstandard2.1/protobuf-net.Core.dll",
+        "lib/netstandard2.1/protobuf-net.Core.xml",
+        "protobuf-net.core.3.2.30.nupkg.sha512",
+        "protobuf-net.core.nuspec",
+        "protobuf-net.png"
+      ]
+    },
     "Spectre.Console/0.49.1": {
       "sha512": "USV+pdu49OJ3nCjxNuw1K9Zw/c1HCBbwbjXZp0EOn6wM99tFdAtN34KEBZUMyRuJuXlUMDqhd8Yq9obW2MslYA==",
       "type": "package",
@@ -544,6 +645,34 @@
         "lib/netstandard2.0/System.CodeDom.xml",
         "system.codedom.8.0.0.nupkg.sha512",
         "system.codedom.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Collections.Immutable/7.0.0": {
+      "sha512": "dQPcs0U1IKnBdRDBkrCTi1FoajSTBzLcVTpjO4MBCMC7f4pDOIPzgBoX8JjG7X6uZRJ8EBxsi8+DR1JuwjnzOQ==",
+      "type": "package",
+      "path": "system.collections.immutable/7.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "README.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Collections.Immutable.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Collections.Immutable.targets",
+        "lib/net462/System.Collections.Immutable.dll",
+        "lib/net462/System.Collections.Immutable.xml",
+        "lib/net6.0/System.Collections.Immutable.dll",
+        "lib/net6.0/System.Collections.Immutable.xml",
+        "lib/net7.0/System.Collections.Immutable.dll",
+        "lib/net7.0/System.Collections.Immutable.xml",
+        "lib/netstandard2.0/System.Collections.Immutable.dll",
+        "lib/netstandard2.0/System.Collections.Immutable.xml",
+        "system.collections.immutable.7.0.0.nupkg.sha512",
+        "system.collections.immutable.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
@@ -731,6 +860,23 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "WebSocketSharp-netstandard/1.0.1": {
+      "sha512": "knoinAv31vbdxXdypnzN2MPX5hyntVLWceq6OdWRXkr9zzqp/RWbxSuLFGbkW8De1061URgNAN43BUTlgMx1CA==",
+      "type": "package",
+      "path": "websocketsharp-netstandard/1.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net35/websocket-sharp.dll",
+        "lib/net35/websocket-sharp.xml",
+        "lib/net45/websocket-sharp.dll",
+        "lib/net45/websocket-sharp.xml",
+        "lib/netstandard2.0/websocket-sharp.dll",
+        "lib/netstandard2.0/websocket-sharp.xml",
+        "websocketsharp-netstandard.1.0.1.nupkg.sha512",
+        "websocketsharp-netstandard.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -740,7 +886,9 @@
       "Newtonsoft.Json >= 13.0.3",
       "Spectre.Console >= 0.49.1",
       "StarService >= 1.2.1",
-      "System.IdentityModel.Tokens.Jwt >= 8.0.1"
+      "System.IdentityModel.Tokens.Jwt >= 8.0.1",
+      "WebSocketSharp-netstandard >= 1.0.1",
+      "protobuf-net >= 3.2.30"
     ]
   },
   "packageFolders": {
@@ -803,6 +951,14 @@
           "System.IdentityModel.Tokens.Jwt": {
             "target": "Package",
             "version": "[8.0.1, )"
+          },
+          "WebSocketSharp-netstandard": {
+            "target": "Package",
+            "version": "[1.0.1, )"
+          },
+          "protobuf-net": {
+            "target": "Package",
+            "version": "[3.2.30, )"
           }
         },
         "imports": [
