@@ -1600,6 +1600,8 @@ namespace msptool
                     Console.WriteLine($"not validated with msp1 {loc2}");
                 else
                 {
+                    int loc27 = loc15["loginStatus"]["actor"]["ActorId"];
+                    string loc28 = loc15["loginStatus"]["ticket"];
                     string loc25 = loc15["loginStatus"]["nebulaLoginStatus"]["accessToken"];
                     string loc26 = loc15["loginStatus"]["nebulaLoginStatus"]["profileId"];
                     Console.WriteLine($"attempting to validate with msp1 {loc2}");
@@ -1685,6 +1687,16 @@ namespace msptool
                     loc23.Send(
                         $"42[\"10\",{{\"messageType\":10,\"messageContent\":{{\"version\":3,\"applicationId\":\"APPLICATION_WEB\",\"country\":\"{server}\",\"username\":\"{loc26}\",\"access_token\":\"{loc25}\"}}}}]");
 
+                    dynamic loc24 = AMFConn(server,
+                        "MovieStarPlanet.WebService.Awarding.AMFAwardingService.claimDailyAward",
+                        new object[4]
+                        {
+                            new TicketHeader { anyAttribute = null, Ticket = actor(loc28) },
+                            "wheel",
+                            120,
+                            loc27
+                        });
+                    
                     if (loc10)
                     {
                         AnsiConsole.Markup(
