@@ -99,7 +99,8 @@ namespace msptool
                 { 23, "Oda Küçük Resim Değiştirici" },
                 { 24, "Animasyon Çıkarıcı" },
                 { 25, "Simge Değiştirici" },
-                { 26, "Çıkış Yap" }
+                { 26, "Bot yaratıcı" },
+                { 27, "Çıkış Yap" }
             },
             ["German"] = new Dictionary<int, string>
             {
