@@ -190,7 +190,7 @@ namespace msptool
                 { 23, "Kamer Thumbnail Wijzig" },
                 { 24, "Animatie Extractor" },
                 { 25, "Pictogramwisselaar" },
-                { 26, "Botin generaattori" },
+                { 26, "Botgenerator" },
                 { 27, "Uitloggen" }
             },
             ["Finnish"] = new Dictionary<int, string>
@@ -220,7 +220,8 @@ namespace msptool
                 { 23, "Huoneen pikkukuva vaihtaja" },
                 { 24, "Animaation extractor" },
                 { 25, "Ikonin Vaihtaja" },
-                { 26, "Kirjaudu ulos" }
+                { 26, "Botin generaattori" },
+                { 27, "Kirjaudu ulos" }
             },
             ["Norwegian"] = new Dictionary<int, string>
             {
@@ -309,7 +310,7 @@ namespace msptool
                 { 23, "Zmiana miniatury pokoju" },
                 { 24, "Ekstraktor animacji" },
                 { 25, "Zmiana Ikony Profilu" },
-                { 26, "a" },
+                { 26, "Generator botów" },
                 { 27, "Wyloguj się" }
             },
             ["Spanish"] = new Dictionary<int, string>
