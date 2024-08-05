@@ -13,6 +13,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Net.WebSockets;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using Newtonsoft.Json.Linq;
@@ -24,7 +25,8 @@ using static StarService.Utility.ChecksumCalculator;
 using static StarService.Utility.SignatureCalculator;
 using static msptool.localisation;
 using Rule = Spectre.Console.Rule;
-using WebClient = System.Net.WebClient;
+using WebSocketSharp;
+using WebSocket = WebSocketSharp.WebSocket;
 
 namespace msptool
 {
@@ -1598,96 +1600,110 @@ namespace msptool
                     Console.WriteLine($"not validated with msp1 {loc2}");
                 else
                 {
-                    Console.WriteLine($"validating with msp1 {loc2}");
-                }
-
-                WebClient loc18 = new WebClient();
-                var loc16 =
-                    loc18.DownloadData($"https://snapshots.mspcdns.com/v1/MSP/{server}/snapshot/fullSizeMoviestar/4.jpg");
-                var loc17 =
-                    loc18.DownloadData($"https://snapshots.mspcdns.com/v1/MSP/{server}/snapshot/moviestar/4.jpg");
-                dynamic loc19 = AMFConn(server, "MovieStarPlanet.WebService.AMFActorService.ThirdPartySaveAvatar", new object[] 
-                { 
-                    new 
-                    { 
-                        Clothes = new object[] 
-                        { 
-                            new 
+                    string loc25 = loc15["loginStatus"]["nebulaLoginStatus"]["accessToken"];
+                    string loc26 = loc15["loginStatus"]["nebulaLoginStatus"]["profileId"];
+                    Console.WriteLine($"attempting to validate with msp1 {loc2}");
+                    
+                    WebClient loc18 = new WebClient();
+                    var loc16 =
+                        loc18.DownloadData(
+                            $"https://snapshots.mspcdns.com/v1/MSP/{server}/snapshot/fullSizeMoviestar/4.jpg");
+                    var loc17 =
+                        loc18.DownloadData($"https://snapshots.mspcdns.com/v1/MSP/{server}/snapshot/moviestar/4.jpg");
+                    dynamic loc19 = AMFConn(server, "MovieStarPlanet.WebService.AMFActorService.ThirdPartySaveAvatar",
+                        new object[]
+                        {
+                            new
                             {
-                                ActorClothesRelId = -10, 
-                                ActorId = -1, 
-                                ClothesId = 18671, 
-                                IsWearing = 1, 
-                                y = 0, 
-                                Color = 0, 
-                                x = 0 
-                            }, 
-                            new 
-                            { 
-                                ActorClothesRelId = -14, 
-                                ActorId = -1, 
-                                ClothesId = 22252, 
-                                IsWearing = 1, 
-                                y = 0, 
-                                Color = "0,0,0", 
-                                x = 0 
-                            }, 
-                            new 
-                            { 
-                                ActorClothesRelId = -15, 
-                                ActorId = -1, 
-                                ClothesId = 19121, 
-                                IsWearing = 1, 
-                                y = 0, 
-                                Color = "0x000000,0xffffff,0x000000", 
-                                x = 0 
-                            }, 
-                            new 
-                            { 
-                                ActorClothesRelId = -16, 
-                                ActorId = -1, 
-                                ClothesId = 18931, 
-                                IsWearing = 1, 
-                                y = 0, 
-                                Color = "0xFFFCF7,0xF5F6FF", 
-                                x = 0 
-                            } 
-                        }, 
-                        MouthColors = "skincolor,0xB67676", 
-                        MouthId = 35, 
-                        NoseId = 28, 
-                        InvitedByActorId = -1, 
-                        ChosenActorName = loc2, 
-                        ChosenPassword = loc3, 
-                        SkinIsMale = true, 
-                        EyeColors = "0x0,0x000000", 
-                        EyeId = 36, 
-                        SkinColor = "14195824" 
-                    }, 
-                    loc17, 
-                    loc16, 
-                    loc2, 
-                    loc3 
-                });
+                                Clothes = new object[]
+                                {
+                                    new
+                                    {
+                                        ActorClothesRelId = -10,
+                                        ActorId = -1,
+                                        ClothesId = 18671,
+                                        IsWearing = 1,
+                                        y = 0,
+                                        Color = 0,
+                                        x = 0
+                                    },
+                                    new
+                                    {
+                                        ActorClothesRelId = -14,
+                                        ActorId = -1,
+                                        ClothesId = 22252,
+                                        IsWearing = 1,
+                                        y = 0,
+                                        Color = "0,0,0",
+                                        x = 0
+                                    },
+                                    new
+                                    {
+                                        ActorClothesRelId = -15,
+                                        ActorId = -1,
+                                        ClothesId = 19121,
+                                        IsWearing = 1,
+                                        y = 0,
+                                        Color = "0x000000,0xffffff,0x000000",
+                                        x = 0
+                                    },
+                                    new
+                                    {
+                                        ActorClothesRelId = -16,
+                                        ActorId = -1,
+                                        ClothesId = 18931,
+                                        IsWearing = 1,
+                                        y = 0,
+                                        Color = "0xFFFCF7,0xF5F6FF",
+                                        x = 0
+                                    }
+                                },
+                                MouthColors = "skincolor,0xB67676",
+                                MouthId = 35,
+                                NoseId = 28,
+                                InvitedByActorId = -1,
+                                ChosenActorName = loc2,
+                                ChosenPassword = loc3,
+                                SkinIsMale = true,
+                                EyeColors = "0x0,0x000000",
+                                EyeId = 36,
+                                SkinColor = "14195824"
+                            },
+                            loc17,
+                            loc16,
+                            loc2,
+                            loc3
+                        });
 
-                if (loc10)
-                {
-                    AnsiConsole.Markup(
-                        $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]{loc2}[/][/]");
-                    string loc11 = $"bots-{server}.txt";
-                    File.AppendAllText(loc11, loc2 + Environment.NewLine);
+                    var loc20 = new WebClient { Proxy = null };
+                    var loc21 = server == "US"
+                        ? "https://presence-us.mspapis.com/getServer"
+                        : "https://presence.mspapis.com/getServer";
+                    var loc22 = loc20.DownloadString(loc21).Replace('-', '.');
+                    var loc23 = new WebSocket($"ws://{loc22}:10843/{loc22.Replace('.', '-')}/?transport=websocket");
+                    loc23.Connect();
+                    loc23.Send(
+                        $"42[\"10\",{{\"messageType\":10,\"messageContent\":{{\"version\":3,\"applicationId\":\"APPLICATION_WEB\",\"country\":\"{server}\",\"username\":\"{loc26}\",\"access_token\":\"{loc25}\"}}}}]");
+
+                    if (loc10)
+                    {
+                        AnsiConsole.Markup(
+                            $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]{loc2}[/][/]");
+                        string loc11 = $"bots-{server}.txt";
+                        File.AppendAllText(loc11, loc2 + Environment.NewLine);
+                    }
+                    else
+                    {
+                        AnsiConsole.Markup(
+                            $"\n[#fa1414]FAILED[/] > [#f7b136][underline]{loc2}[/][/]");
+                    }
                 }
-                else
-                {
-                    AnsiConsole.Markup(
-                        $"\n[#fa1414]FAILED[/] > [#f7b136][underline]{loc2}[/][/]");
-                }
+
+                AnsiConsole.MarkupLine(
+                    "\n[#71d5fb][/] > [#f7b136][underline]created all bots :)[/] [[Click any key to return to Home]][/]");
+                Console.ReadKey();
+                Console.Clear();
             }
-
-            AnsiConsole.MarkupLine(
-                "\n[#71d5fb][/] > [#f7b136][underline]created all bots :)[/] [[Click any key to return to Home]][/]");
-            Console.ReadKey();
-            Console.Clear();
         }
 
         static async Task MSP2_Login()
