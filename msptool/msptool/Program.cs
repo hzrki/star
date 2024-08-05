@@ -1687,15 +1687,8 @@ namespace msptool
                     loc23.Send(
                         $"42[\"10\",{{\"messageType\":10,\"messageContent\":{{\"version\":3,\"applicationId\":\"APPLICATION_WEB\",\"country\":\"{server}\",\"username\":\"{loc26}\",\"access_token\":\"{loc25}\"}}}}]");
 
-                    dynamic loc24 = AMFConn(server,
-                        "MovieStarPlanet.WebService.Awarding.AMFAwardingService.claimDailyAward",
-                        new object[4]
-                        {
-                            new TicketHeader { anyAttribute = null, Ticket = actor(loc28) },
-                            "wheel",
-                            120,
-                            loc27
-                        });
+                    wheelspins(server, loc27, loc28);
+                    lisaHack(server, loc27, loc28);
                     
                     if (loc10)
                     {
