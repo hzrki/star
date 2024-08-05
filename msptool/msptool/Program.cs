@@ -1695,7 +1695,7 @@ namespace msptool
                         AnsiConsole.Markup(
                             $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]{loc2}:{loc3}[/][/]");
                         string loc11 = $"bots-{server}.txt";
-                        File.AppendAllText(loc11, loc2 + Environment.NewLine);
+                        File.AppendAllText(loc11, loc2 + " | " + loc3 + Environment.NewLine);
                     }
                     else
                     {
