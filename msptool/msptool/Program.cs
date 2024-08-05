@@ -32,7 +32,7 @@ namespace msptool
 {
     internal class Program
     {
-        private static readonly string vloc1 = "1.6.3";
+        private static readonly string vloc1 = "1.6.4";
 
         private static readonly string vloc3 =
             "https://raw.githubusercontent.com/lcfidev/star/main/msptool/version.txt";
@@ -1055,7 +1055,7 @@ namespace msptool
             if (loc1)
             {
                 AnsiConsole.Markup(
-                    "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Stars are out your account has been levelled and has starcoins : )[/] [[Click any key to return to Home]][/]");
+                    "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Stars are out your account has been levelled and has starcoins : )[/] [[Auto redirect in 2 seconds]][/]");
                 Thread.Sleep(500);
                 Console.Clear();
             }
@@ -1693,14 +1693,14 @@ namespace msptool
                     if (loc10)
                     {
                         AnsiConsole.Markup(
-                            $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]{loc2}[/][/]");
+                            $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]{loc2}:{loc3}[/][/]");
                         string loc11 = $"bots-{server}.txt";
                         File.AppendAllText(loc11, loc2 + Environment.NewLine);
                     }
                     else
                     {
                         AnsiConsole.Markup(
-                            $"\n[#fa1414]FAILED[/] > [#f7b136][underline]{loc2}:{loc3}[/][/]");
+                            $"\n[#fa1414]FAILED[/] > [#f7b136][underline]{loc2}[/][/]");
                     }
                 }
             }
