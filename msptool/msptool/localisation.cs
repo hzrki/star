@@ -70,7 +70,8 @@ namespace msptool
                 { 23, "Changeur de miniature de salle" },
                 { 24, "Extracteur d'animations" },
                 { 25, "Changeur d'Icône" },
-                { 26, "Déconnexion" }
+                { 26, "a" },
+                { 27, "Déconnexion" }
             },
             ["Turkish"] = new Dictionary<int, string>
             {
@@ -129,7 +130,8 @@ namespace msptool
                 { 23, "Raum-Thumbnail wechseln" },
                 { 24, "Animations-Extractor" },
                 { 25, "Icon-Wechsler" },
-                { 26, "Abmelden" }
+                { 26, "a" },
+                { 27, "Abmelden" }
             },
             ["Swedish"] = new Dictionary<int, string>
             {
@@ -158,7 +160,8 @@ namespace msptool
                 { 23, "Rumstumnageländrare" },
                 { 24, "Animationsutvinare" },
                 { 25, "Ikonbytare" },
-                { 26, "Logga ut" }
+                { 26, "Botgenerator" },
+                { 27, "Logga ut" }
             },
             ["Dutch"] = new Dictionary<int, string>
             {
@@ -187,7 +190,8 @@ namespace msptool
                 { 23, "Kamer Thumbnail Wijzig" },
                 { 24, "Animatie Extractor" },
                 { 25, "Pictogramwisselaar" },
-                { 26, "Uitloggen" }
+                { 26, "Botin generaattori" },
+                { 27, "Uitloggen" }
             },
             ["Finnish"] = new Dictionary<int, string>
             {
@@ -245,7 +249,8 @@ namespace msptool
                 { 23, "Rom Miniatyr Endrer" },
                 { 24, "Animasjon Extractor" },
                 { 25, "Ikonbytter" },
-                { 26, "Logg ut" }
+                { 26, "Botgenerator" },
+                { 27, "Logg ut" }
             },
             ["Danish"] = new Dictionary<int, string>
             {
@@ -274,7 +279,8 @@ namespace msptool
                 { 23, "Rum Thumbnail Skifter" },
                 { 24, "Animations Extractor" },
                 { 25, "Ikonudskifter" },
-                { 26, "Log ud" }
+                { 26, "Botgenerator" },
+                { 27, "Log ud" }
             },
             ["Polish"] = new Dictionary<int, string>
             {
@@ -303,7 +309,8 @@ namespace msptool
                 { 23, "Zmiana miniatury pokoju" },
                 { 24, "Ekstraktor animacji" },
                 { 25, "Zmiana Ikony Profilu" },
-                { 26, "Wyloguj się" }
+                { 26, "a" },
+                { 27, "Wyloguj się" }
             },
             ["Spanish"] = new Dictionary<int, string>
             {
@@ -332,7 +339,8 @@ namespace msptool
                 { 23, "Cambiar miniatura de sala" },
                 { 24, "Extractor de animaciones" },
                 { 25, "Cambiar Icono" },
-                { 26, "Cerrar sesión" }
+                { 26, "Generador de Bots" },
+                { 27, "Cerrar sesión" }
             }
         };
     }
