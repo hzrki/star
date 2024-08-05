@@ -1609,9 +1609,9 @@ namespace msptool
                     WebClient loc18 = new WebClient();
                     var loc16 =
                         loc18.DownloadData(
-                            $"https://snapshots.mspcdns.com/v1/MSP/{server}/snapshot/fullSizeMoviestar/4.jpg");
+                            $"https://snapshots.mspcdns.com/v1/MSP/GB/snapshot/fullSizeMoviestar/1.jpg");
                     var loc17 =
-                        loc18.DownloadData($"https://snapshots.mspcdns.com/v1/MSP/{server}/snapshot/moviestar/4.jpg");
+                        loc18.DownloadData($"https://snapshots.mspcdns.com/v1/MSP/GB/snapshot/moviestar/4.jpg");
                     dynamic loc19 = AMFConn(server, "MovieStarPlanet.WebService.AMFActorService.ThirdPartySaveAvatar",
                         new object[]
                         {
@@ -1703,12 +1703,11 @@ namespace msptool
                             $"\n[#fa1414]FAILED[/] > [#f7b136][underline]{loc2}[/][/]");
                     }
                 }
-
-                AnsiConsole.MarkupLine(
-                    "\n[#71d5fb][/] > [#f7b136][underline]created all bots :)[/] [[Click any key to return to Home]][/]");
-                Console.ReadKey();
-                Console.Clear();
             }
+            AnsiConsole.MarkupLine(
+                "\n[#71d5fb][/] > [#f7b136][underline]created all bots :)[/] [[Click any key to return to Home]][/]");
+            Console.ReadKey();
+            Console.Clear();
         }
 
         static async Task MSP2_Login()

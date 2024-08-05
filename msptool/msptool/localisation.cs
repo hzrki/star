@@ -310,7 +310,7 @@ namespace msptool
                 { 23, "Zmiana miniatury pokoju" },
                 { 24, "Ekstraktor animacji" },
                 { 25, "Zmiana Ikony Profilu" },
-                { 26, "Generator botów" },
+                { 26, "Generator Botów" },
                 { 27, "Wyloguj się" }
             },
             ["Spanish"] = new Dictionary<int, string>
