@@ -40,7 +40,7 @@ namespace msptool
                 { 23, "Room Thumbnail Changer" },
                 { 24, "Animation Extractor" },
                 { 25, "Icon Changer" },
-                { 26, "Bot Generator" },
+                { 26, "Bot Generator (beta)" },
                 { 27, "Logout" }
             },
             ["French"] = new Dictionary<int, string>
