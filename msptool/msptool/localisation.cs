@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
+using ProtoBuf;
 
 namespace msptool
 {
@@ -33,7 +40,8 @@ namespace msptool
                 { 23, "Room Thumbnail Changer" },
                 { 24, "Animation Extractor" },
                 { 25, "Icon Changer" },
-                { 26, "Logout" }
+                { 26, "Bot Generator" },
+                { 27, "Logout" }
             },
             ["French"] = new Dictionary<int, string>
             {
@@ -328,4 +336,6 @@ namespace msptool
         };
     }
 }
+
+
                     

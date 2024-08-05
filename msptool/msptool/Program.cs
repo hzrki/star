@@ -14,7 +14,9 @@ using System.IO;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using Newtonsoft.Json.Linq;
+using ProtoBuf;
 using StarService.Enum;
 using StarService.Utility;
 using static StarService.Utility.AMFCall;
@@ -32,12 +34,12 @@ namespace msptool
 
         private static readonly string vloc3 =
             "https://raw.githubusercontent.com/lcfidev/star/main/msptool/version.txt";
-        
+
         static async Task Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
             Console.InputEncoding = Encoding.UTF8;
-            
+
             var spt1 = @"
                                                                                    
                                                    .=+**+-.                        
@@ -72,24 +74,24 @@ namespace msptool
                                                                                    
 ";
 
-        AnsiConsole.Clear();
-        AnsiConsole.WriteLine(spt1);
-        AnsiConsole.MarkupLine("[#71d5fb]Star Project by lcfi & 6c0[/]");
-        AnsiConsole.WriteLine();
+            AnsiConsole.Clear();
+            AnsiConsole.WriteLine(spt1);
+            AnsiConsole.MarkupLine("[#71d5fb]Star Project by lcfi & 6c0[/]");
+            AnsiConsole.WriteLine();
 
-        AnsiConsole.Status()
-            .Spinner(Spinner.Known.Star)             
-            .SpinnerStyle(Style.Parse("#71d5fb")) 
-            .Start("Loading...", ctx =>
-            {
-                for (int i = 0; i < 100; i++)
+            AnsiConsole.Status()
+                .Spinner(Spinner.Known.Star)
+                .SpinnerStyle(Style.Parse("#71d5fb"))
+                .Start("Loading...", ctx =>
                 {
-                    Thread.Sleep(50);
-                    ctx.Refresh(); 
-                }
-            });
+                    for (int i = 0; i < 100; i++)
+                    {
+                        Thread.Sleep(50);
+                        ctx.Refresh();
+                    }
+                });
 
-        Console.Clear();
+            Console.Clear();
 
             if (!vloc2())
             {
@@ -122,6 +124,7 @@ namespace msptool
                     }
                 }
             }
+
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Choose").LeftJustified());
             Console.Write("\n");
 
@@ -149,7 +152,11 @@ namespace msptool
                 new SelectionPrompt<string>()
                     .Title("[[[#71d5fb]+[/]]] Select your language")
                     .PageSize(11)
-                    .AddChoices(new[] { "English", "French", "Turkish", "German", "Polish", "Swedish", "Dutch", "Finnish", "Norwegian", "Danish", "Spanish" })
+                    .AddChoices(new[]
+                    {
+                        "English", "French", "Turkish", "German", "Polish", "Swedish", "Dutch", "Finnish", "Norwegian",
+                        "Danish", "Spanish"
+                    })
             );
             Console.Clear();
             bool loc2 = false;
@@ -167,7 +174,7 @@ namespace msptool
 
                 var loc5 = Enum.GetValues(typeof(WebServer))
                     .Cast<WebServer>()
-                    .Select(ws => (ws.loc3().Item1, ws.loc3().Item2)) 
+                    .Select(ws => (ws.loc3().Item1, ws.loc3().Item2))
                     .ToArray();
 
                 var loc6 = AnsiConsole.Prompt(
@@ -175,26 +182,26 @@ namespace msptool
                         .Title("[[[#71d5fb]+[/]]] Select a server: ")
                         .PageSize(15)
                         .MoreChoicesText("[grey](Move up and down to reveal more servers)[/]")
-                        .AddChoices(loc5.Select(loc7 => loc7.Item1)) 
+                        .AddChoices(loc5.Select(loc7 => loc7.Item1))
                 );
 
                 var loc8 = loc5.First(loc7 => loc7.Item1 == loc6);
                 dynamic loc9 = null;
                 string server = loc8.Item2;
                 if (Msptoolhome.TryGetValue(loc1, out var loc11))
-                AnsiConsole.Status()
-                    .SpinnerStyle(Spectre.Console.Style.Parse("#71d5fb"))
-                    .Start("Login...", ctx =>
-                    {
-                        ctx.Refresh();
-                        ctx.Spinner(Spinner.Known.Circle);
-                        loc9 = AMFConn(server, "MovieStarPlanet.WebService.User.AMFUserServiceWeb.Login",
-                            new object[6]
-                            {
-                                loc3, loc4, new object[] {  }, null, null, "MSP1-Standalone:XXXXXX"
-                            });
-                        Thread.Sleep(1000);
-                    });
+                    AnsiConsole.Status()
+                        .SpinnerStyle(Spectre.Console.Style.Parse("#71d5fb"))
+                        .Start("Login...", ctx =>
+                        {
+                            ctx.Refresh();
+                            ctx.Spinner(Spinner.Known.Circle);
+                            loc9 = AMFConn(server, "MovieStarPlanet.WebService.User.AMFUserServiceWeb.Login",
+                                new object[6]
+                                {
+                                    loc3, loc4, new object[] { }, null, null, "MSP1-Standalone:XXXXXX"
+                                });
+                            Thread.Sleep(1000);
+                        });
 
                 if (loc9 == null)
                 {
@@ -222,6 +229,11 @@ namespace msptool
                     var th = new JwtSecurityTokenHandler();
                     var jtoken = th.ReadJwtToken(accessToken);
                     var loginId = jtoken.Payload["loginId"].ToString();
+                    string loc15 = loc9["loginStatus"]["actorLocale"][0];
+                    string culture = loc15.Replace('_', '-');
+
+                    Console.Write(culture);
+
                     Console.Clear();
 
                     while (true)
@@ -232,6 +244,7 @@ namespace msptool
                         {
                             AnsiConsole.Markup($"[#71d5fb]{loc12.Key}[/]  > {loc12.Value}\n");
                         }
+
                         AnsiConsole.Write(
                             new Rule(
                                     "[slowblink][#71d5fb]lcfi & 6c0[/][/]")
@@ -290,7 +303,7 @@ namespace msptool
                                 automatedPixeller(server, ticket);
                                 break;
                             case "17":
-                                query(server, actorId, ticket);
+                                mspquery(server, actorId, ticket);
                                 break;
                             case "18":
                                 usernameChecker();
@@ -317,6 +330,9 @@ namespace msptool
                                 iconChanger(server, actorId, ticket);
                                 break;
                             case "26":
+                                botGenerator(server, culture);
+                                break;
+                            case "27":
                                 Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                 Console.Clear();
                                 loc2 = false;
@@ -347,8 +363,8 @@ namespace msptool
                 "MovieStarPlanet.WebService.ActorClothes.AMFActorClothes.GetActorClothesRelMinimals",
                 new object[2]
                 {
-                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                        actorId
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId
                 });
 
             foreach (dynamic loc2 in loc1)
@@ -368,10 +384,10 @@ namespace msptool
                         "MovieStarPlanet.WebService.Profile.AMFProfileService.RecycleItem",
                         new object[4]
                         {
-                                new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                                actorId,
-                                loc3,
-                                0
+                            new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                            actorId,
+                            loc3,
+                            0
                         });
                     AnsiConsole.Markup($"[[[#71d5fb]![/]]] Recycled {loc6}");
                 }
@@ -391,48 +407,48 @@ namespace msptool
 
             var loc1 = new (string Name, int Value)[]
             {
-                    ("Light Side Boonie", 1),
-                    ("Dark Side Boonie", 2),
-                    ("VIP Boonie", 3),
-                    ("FOX", 4),
-                    ("DOG", 5),
-                    ("PLANT", 6),
-                    ("DRAGON", 7),
-                    ("Metat Eater", 8),
-                    ("Xmas Boonie", 9),
-                    ("Valentine Boonie", 10),
-                    ("Diamond Boonie", 11),
-                    ("Easter Bunny", 12),
-                    ("Diamond Squirrel", 13),
-                    ("Poodle", 14),
-                    ("Summer Boonie", 15),
-                    ("Gamer Bunny", 16),
-                    ("Brad Pet", 17),
-                    ("Magazine Pet", 18),
-                    ("Puppy", 19),
-                    ("Halloween Boonie", 20),
-                    ("Space Boonie", 21),
-                    ("Xmax Boonie 2012", 22),
-                    ("New Years Boonie 2012", 23),
-                    ("Elements 2013 Boonie", 24),
-                    ("Valentines 2013 Boonie", 25),
-                    ("Australia 2013 Boonie", 26),
-                    ("EgmontMagazine1Boonie", 27),
-                    ("Easter 2013 Boonie", 29),
-                    ("Tutti Frutti 2013 Boonie", 30),
-                    ("Birthday 2013 Boonie", 31),
-                    ("Mexican 2013 Boonie", 32),
-                    ("Fastfood 2013 Boonie", 33),
-                    ("Rio 2013 Boonie", 34),
-                    ("Night Sky 2013 Boonie", 35),
-                    ("Wonderland Boonie", 37),
-                    ("Robots 2013", 38),
-                    ("Halloween 2013", 39),
-                    ("Winter Wonderland 2013", 40),
-                    ("Christmas 2013", 41),
-                    ("New Year 2013", 42),
-                    ("Egmont Mag 10", 43),
-                    ("Egmont Mag 2014", 46)
+                ("Light Side Boonie", 1),
+                ("Dark Side Boonie", 2),
+                ("VIP Boonie", 3),
+                ("FOX", 4),
+                ("DOG", 5),
+                ("PLANT", 6),
+                ("DRAGON", 7),
+                ("Metat Eater", 8),
+                ("Xmas Boonie", 9),
+                ("Valentine Boonie", 10),
+                ("Diamond Boonie", 11),
+                ("Easter Bunny", 12),
+                ("Diamond Squirrel", 13),
+                ("Poodle", 14),
+                ("Summer Boonie", 15),
+                ("Gamer Bunny", 16),
+                ("Brad Pet", 17),
+                ("Magazine Pet", 18),
+                ("Puppy", 19),
+                ("Halloween Boonie", 20),
+                ("Space Boonie", 21),
+                ("Xmax Boonie 2012", 22),
+                ("New Years Boonie 2012", 23),
+                ("Elements 2013 Boonie", 24),
+                ("Valentines 2013 Boonie", 25),
+                ("Australia 2013 Boonie", 26),
+                ("EgmontMagazine1Boonie", 27),
+                ("Easter 2013 Boonie", 29),
+                ("Tutti Frutti 2013 Boonie", 30),
+                ("Birthday 2013 Boonie", 31),
+                ("Mexican 2013 Boonie", 32),
+                ("Fastfood 2013 Boonie", 33),
+                ("Rio 2013 Boonie", 34),
+                ("Night Sky 2013 Boonie", 35),
+                ("Wonderland Boonie", 37),
+                ("Robots 2013", 38),
+                ("Halloween 2013", 39),
+                ("Winter Wonderland 2013", 40),
+                ("Christmas 2013", 41),
+                ("New Year 2013", 42),
+                ("Egmont Mag 10", 43),
+                ("Egmont Mag 2014", 46)
             };
 
             var loc2 = AnsiConsole.Prompt(
@@ -449,9 +465,9 @@ namespace msptool
                 "MovieStarPlanet.WebService.Pets.AMFPetService.BuyClickItem",
                 new object[3]
                 {
-                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                        actorId,
-                        loc4.Value
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    loc4.Value
                 });
             if (loc5["SkinSWF"] != "femaleskin" && loc5["SkinSWF"] != "maleskin")
             {
@@ -484,9 +500,9 @@ namespace msptool
                 "MovieStarPlanet.WebService.Spending.AMFSpendingService.BuyAnimation",
                 new object[3]
                 {
-                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                        actorId,
-                        loc1
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    loc1
                 });
 
             if (loc2["Code"] != 0)
@@ -557,9 +573,10 @@ namespace msptool
             catch (Exception)
             {
                 AnsiConsole.Markup("\n[#fa1414]FAILED[/] > Hidden or Deleted [#f7b136][underline]"
-                                   + 
+                                   +
                                    "[/] [[Click any key to return to Home]][/]");
             }
+
             Console.ReadKey();
             Console.Clear();
         }
@@ -577,21 +594,21 @@ namespace msptool
                 "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
                 new object[3]
                 {
-                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                        actorId,
-                        new object[]
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    new object[]
+                    {
+                        new
                         {
-                            new
-                            {
-                                IsOwned = false,
-                                Type = 4,
-                                IsWearing = true,
-                                InventoryId = 0,
-                                ItemId = loc1,
-                                Colors = "",
+                            IsOwned = false,
+                            Type = 4,
+                            IsWearing = true,
+                            InventoryId = 0,
+                            ItemId = loc1,
+                            Colors = "",
 
-                            }
                         }
+                    }
                 });
             if (loc2[0]["InventoryId"] == 0)
             {
@@ -625,21 +642,21 @@ namespace msptool
                 "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
                 new object[3]
                 {
-                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                        actorId,
-                        new object[]
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    new object[]
+                    {
+                        new
                         {
-                            new
-                            {
-                                IsOwned = false,
-                                Type = 3,
-                                IsWearing = true,
-                                InventoryId = 0,
-                                ItemId = loc1,
-                                Colors = loc2,
+                            IsOwned = false,
+                            Type = 3,
+                            IsWearing = true,
+                            InventoryId = 0,
+                            ItemId = loc1,
+                            Colors = loc2,
 
-                            }
                         }
+                    }
                 });
             if (loc3[0]["InventoryId"] == 0)
             {
@@ -673,21 +690,21 @@ namespace msptool
                 "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
                 new object[3]
                 {
-                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                        actorId,
-                        new object[]
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    new object[]
+                    {
+                        new
                         {
-                            new
-                            {
-                                InventoryId = 0,
-                                IsOwned = false,
-                                ItemId = loc1,
-                                Colors = loc2,
-                                Type = 1,
-                                IsWearing = true
+                            InventoryId = 0,
+                            IsOwned = false,
+                            ItemId = loc1,
+                            Colors = loc2,
+                            Type = 1,
+                            IsWearing = true
 
-                            }
                         }
+                    }
                 });
             if (loc3[0]["InventoryId"] == 0)
             {
@@ -719,20 +736,20 @@ namespace msptool
                 "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
                 new object[3]
                 {
-                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                        actorId,
-                        new object[]
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    new object[]
+                    {
+                        new
                         {
-                            new
-                            {
-                                InventoryId = 0,
-                                Type = 5,
-                                ItemId = -1,
-                                Colors = loc1,
-                                IsWearing = true
+                            InventoryId = 0,
+                            Type = 5,
+                            ItemId = -1,
+                            Colors = loc1,
+                            IsWearing = true
 
-                            }
                         }
+                    }
                 });
             if (loc2[0]["InventoryId"] == 0)
             {
@@ -749,6 +766,7 @@ namespace msptool
                 Console.Clear();
             }
         }
+
         static void customStatus(string server, string name, int actorId, string ticket)
         {
             Console.Clear();
@@ -760,15 +778,15 @@ namespace msptool
                     .PromptStyle("#71d5fb"));
             var loc2 = new (string Name, int Value)[]
             {
-                    ("Black", 0),
-                    ("Red", 13369344),
-                    ("Purple", 6684774),
-                    ("Light Purple", 6710988),
-                    ("Pink", 13369446),
-                    ("Green", 3368448),
-                    ("Orange", 16737792),
-                    ("Blue", 39372),
-                    ("Gray", 11187123)
+                ("Black", 0),
+                ("Red", 13369344),
+                ("Purple", 6684774),
+                ("Light Purple", 6710988),
+                ("Pink", 13369446),
+                ("Green", 3368448),
+                ("Orange", 16737792),
+                ("Blue", 39372),
+                ("Gray", 11187123)
             };
 
             var loc3 = AnsiConsole.Prompt(
@@ -784,26 +802,26 @@ namespace msptool
                 "MovieStarPlanet.WebService.ActorService.AMFActorServiceForWeb.SetMoodWithModerationCall",
                 new object[5]
                 {
-                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                        new
-                        {
-                            Likes = 0,
-                            TextLine = loc1,
-                            TextLineLastFiltered = (object)null,
-                            ActorId = actorId,
-                            WallPostId = 0,
-                            TextLineBlacklisted = "",
-                            WallPostLinks = (object)null,
-                            FigureAnimation = "Girl Pose",
-                            FaceAnimation = "neutral",
-                            MouthAnimation = "none",
-                            SpeechLine = false,
-                            IsBrag = false,
-                            TextLineWhitelisted = ""
-                        },
-                        name,
-                        loc5.Value,
-                        false
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    new
+                    {
+                        Likes = 0,
+                        TextLine = loc1,
+                        TextLineLastFiltered = (object)null,
+                        ActorId = actorId,
+                        WallPostId = 0,
+                        TextLineBlacklisted = "",
+                        WallPostLinks = (object)null,
+                        FigureAnimation = "Girl Pose",
+                        FaceAnimation = "neutral",
+                        MouthAnimation = "none",
+                        SpeechLine = false,
+                        IsBrag = false,
+                        TextLineWhitelisted = ""
+                    },
+                    name,
+                    loc5.Value,
+                    false
                 });
             if (loc6["FilterTextResult"]["IsMessageOk"])
             {
@@ -863,6 +881,7 @@ namespace msptool
                     );
                 }
             }
+
             AnsiConsole.Markup(
                 "\n[#71d5fb][/] > [#f7b136][underline]Click any key to return to Home[/][/]"
             );
@@ -878,7 +897,7 @@ namespace msptool
             Console.Write("\n");
 
             List<int> loc1 = new List<int>
-                    { 3, 4, 414 };
+                { 3, 4, 414 };
 
             foreach (int loc2 in loc1)
             {
@@ -886,9 +905,9 @@ namespace msptool
                     "MovieStarPlanet.WebService.ActorService.AMFActorServiceForWeb.BlockActor",
                     new object[3]
                     {
-                            new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                            actorId,
-                            loc2
+                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                        actorId,
+                        loc2
                     });
                 Console.WriteLine($"Blocked: {loc2}");
 
@@ -900,7 +919,7 @@ namespace msptool
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Status").LeftJustified()
                 .RoundedBorder());
-            
+
             Console.Write("\n");
             int loc1 = AnsiConsole.Prompt(
                 new TextPrompt<int>("[[[#71d5fb]+[/]]] Enter Item relid: ")
@@ -910,10 +929,10 @@ namespace msptool
                 "MovieStarPlanet.WebService.Profile.AMFProfileService.RecycleItem",
                 new object[4]
                 {
-                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                        actorId,
-                        loc1,
-                        0
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    loc1,
+                    0
                 });
         }
 
@@ -940,10 +959,10 @@ namespace msptool
                     "MovieStarPlanet.WebService.Awarding.AMFAwardingService.claimDailyAward",
                     new object[4]
                     {
-                            new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                            awardType,
-                            awardVal,
-                            actorId
+                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                        awardType,
+                        awardVal,
+                        actorId
                     });
                 Console.WriteLine("Spinning Wheels...");
                 Console.Clear();
@@ -967,15 +986,15 @@ namespace msptool
                 "MovieStarPlanet.WebService.Gifts.AMFGiftsService+Version2.AddItemToWishlist",
                 new object[3]
                 {
-                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
-                        new object[]
-                        {
-                            loc1
-                        },
-                        new object[]
-                        {
-                            loc2
-                        }
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    new object[]
+                    {
+                        loc1
+                    },
+                    new object[]
+                    {
+                        loc2
+                    }
                 });
             if (loc3 != 0)
             {
@@ -988,7 +1007,7 @@ namespace msptool
                     "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]An cloth have been added in your wishlist[/] [[Click any key to return to Home]][/]");
             }
         }
-        
+
 
         static void lisaHack(string server, int actorId, string ticket)
         {
@@ -1033,13 +1052,14 @@ namespace msptool
 
             if (loc1)
             {
-                AnsiConsole.Markup("\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Stars are out your account has been levelled and has starcoins : )[/] [[Click any key to return to Home]][/]");
+                AnsiConsole.Markup(
+                    "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Stars are out your account has been levelled and has starcoins : )[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
                 Console.Clear();
             }
         }
 
-        static void query(string server, int actorId, string ticket)
+        static void mspquery(string server, int actorId, string ticket)
         {
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Msp Query").LeftJustified()
@@ -1085,47 +1105,49 @@ namespace msptool
                             loc3
                         }
                     });
-                
-                    string loc7 = loc6[0]["NebulaProfileId"];
-                    double loc8 = loc6[0]["ActorId"];
-                    string loc9 = loc6[0]["Name"];
-                    int loc10 = loc6[0]["Level"];
-                    double loc11 = loc6[0]["Fame"];
-                    int loc12 = loc6[0]["Money"];
-                    int loc13 = loc6[0]["Diamonds"];
-                    string loc14 = loc6[0]["SkinColor"];
-                    int loc15 = loc6[0]["EyeId"];
-                    string loc16 = loc6[0]["EyeColors"];
-                    int loc17 = loc6[0]["NoseId"];
-                    int loc18 = loc6[0]["MouthId"];
-                    string loc19 = loc6[0]["MouthColors"];
-                    DateTime loc20 = loc6[0]["MembershipTimeoutDate"];
-                    DateTime loc21 = loc6[0]["LastLogin"];
 
-                    AnsiConsole.MarkupLine("[bold white]Profile Information[/]");
-                    AnsiConsole.MarkupLine($"[bold blue]NebulaProfileId:[/] {loc7}");
-                    AnsiConsole.MarkupLine($"[bold blue]ActorId:[/] {loc8}");
-                    AnsiConsole.MarkupLine($"[bold blue]Name:[/] {loc9}");
-                    AnsiConsole.MarkupLine($"[bold blue]Level:[/] {loc10}");
-                    AnsiConsole.MarkupLine($"[bold blue]Fame:[/] {loc11}");
-                    AnsiConsole.MarkupLine($"[bold blue]Money:[/] {loc12}");
-                    AnsiConsole.MarkupLine($"[bold blue]Diamonds:[/] {loc13}");
-                    AnsiConsole.MarkupLine($"[bold blue]SkinColor:[/] {loc14}");
-                    AnsiConsole.MarkupLine($"[bold blue]EyeId:[/] {loc15}");
-                    AnsiConsole.MarkupLine($"[bold blue]EyeColors:[/] {loc16}");
-                    AnsiConsole.MarkupLine($"[bold blue]NoseId:[/] {loc17}");
-                    AnsiConsole.MarkupLine($"[bold blue]MouthId:[/] {loc18}");
-                    AnsiConsole.MarkupLine($"[bold blue]MouthColors:[/] {loc19}");
-                    AnsiConsole.MarkupLine($"[bold blue]Created:[/] {loc5}");
-                    AnsiConsole.MarkupLine($"[bold blue]MembershipTimeoutDate:[/] {loc20}");
-                    AnsiConsole.MarkupLine($"[bold blue]LastLogin:[/] {loc21}");
-                    
-                    AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Queried {loc9} :)[/] [[Click any key to return to Home]][/]");
-                    Console.ReadKey();
-                    Console.Clear();               }
+                string loc7 = loc6[0]["NebulaProfileId"];
+                double loc8 = loc6[0]["ActorId"];
+                string loc9 = loc6[0]["Name"];
+                int loc10 = loc6[0]["Level"];
+                double loc11 = loc6[0]["Fame"];
+                int loc12 = loc6[0]["Money"];
+                int loc13 = loc6[0]["Diamonds"];
+                string loc14 = loc6[0]["SkinColor"];
+                int loc15 = loc6[0]["EyeId"];
+                string loc16 = loc6[0]["EyeColors"];
+                int loc17 = loc6[0]["NoseId"];
+                int loc18 = loc6[0]["MouthId"];
+                string loc19 = loc6[0]["MouthColors"];
+                DateTime loc20 = loc6[0]["MembershipTimeoutDate"];
+                DateTime loc21 = loc6[0]["LastLogin"];
+
+                AnsiConsole.MarkupLine("[bold white]Profile Information[/]");
+                AnsiConsole.MarkupLine($"[bold blue]NebulaProfileId:[/] {loc7}");
+                AnsiConsole.MarkupLine($"[bold blue]ActorId:[/] {loc8}");
+                AnsiConsole.MarkupLine($"[bold blue]Name:[/] {loc9}");
+                AnsiConsole.MarkupLine($"[bold blue]Level:[/] {loc10}");
+                AnsiConsole.MarkupLine($"[bold blue]Fame:[/] {loc11}");
+                AnsiConsole.MarkupLine($"[bold blue]Money:[/] {loc12}");
+                AnsiConsole.MarkupLine($"[bold blue]Diamonds:[/] {loc13}");
+                AnsiConsole.MarkupLine($"[bold blue]SkinColor:[/] {loc14}");
+                AnsiConsole.MarkupLine($"[bold blue]EyeId:[/] {loc15}");
+                AnsiConsole.MarkupLine($"[bold blue]EyeColors:[/] {loc16}");
+                AnsiConsole.MarkupLine($"[bold blue]NoseId:[/] {loc17}");
+                AnsiConsole.MarkupLine($"[bold blue]MouthId:[/] {loc18}");
+                AnsiConsole.MarkupLine($"[bold blue]MouthColors:[/] {loc19}");
+                AnsiConsole.MarkupLine($"[bold blue]Created:[/] {loc5}");
+                AnsiConsole.MarkupLine($"[bold blue]MembershipTimeoutDate:[/] {loc20}");
+                AnsiConsole.MarkupLine($"[bold blue]LastLogin:[/] {loc21}");
+
+                AnsiConsole.MarkupLine(
+                    $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Queried {loc9} :)[/] [[Click any key to return to Home]][/]");
+                Console.ReadKey();
+                Console.Clear();
             }
+        }
 
-            static void automatedPixeller(string server, string ticket)
+        static void automatedPixeller(string server, string ticket)
         {
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Automated Pixeller").LeftJustified()
@@ -1134,7 +1156,7 @@ namespace msptool
             var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] username: ")
                 .PromptStyle("#71d5fb"));
             AnsiConsole.MarkupLine($"[#71d5fb]Coming next update : )[/]");
-            
+
             Console.ReadKey();
             Console.Clear();
         }
@@ -1168,16 +1190,18 @@ namespace msptool
                             $"[#FF0000]{server} | {loc5} | Not available[/]");
                     }
                     else
-                    
+
                     {
                         AnsiConsole.MarkupLine(
                             $"[#00FF00]{server} | {loc5} | available[/]");
                     }
                 }
             }
-            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all servers for username :)[/] [[Click any key to return to Home]][/]");
+
+            AnsiConsole.MarkupLine(
+                $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all servers for username :)[/] [[Click any key to return to Home]][/]");
             Console.ReadKey();
-            Console.Clear();  
+            Console.Clear();
         }
 
         static void clothesExtractor(string server, string ticket)
@@ -1214,23 +1238,23 @@ namespace msptool
                 foreach (var loc3 in loc2)
                 {
                     int loc7 = Convert.ToInt32(loc3["ActorClothesRelId"]);
-                    
+
                     dynamic loc4 = AMFConn(server,
                         "MovieStarPlanet.WebService.MovieStar.AMFMovieStarService.GetActorClothesRel",
                         new object[1]
-                        { loc7 });
-                    
+                            { loc7 });
+
                     string loc8 = loc4["Cloth"]["Name"] ?? "Unknown";
                     int loc9 = loc4["ClothesId"];
                     string loc10 = loc4["Color"].ToString();
                     string loc11 = loc4["Cloth"]["ShopId"].ToString();
                     int loc12 = loc4["Cloth"]["Vip"];
                     int loc13 = loc4["Cloth"]["DiamondsPrice"];
-                    
+
                     string loc15 = loc13 != 0 ? "Yes" : "No";
                     string loc14 = loc12 != 0 ? "Yes" : "No";
                     string loc16 = loc11 != "-100" ? "Yes" : "No";
-                    
+
                     AnsiConsole.MarkupLine($"[#71d5fb]ActorClothesRelId:[/] {loc7}");
                     AnsiConsole.MarkupLine($"[#71d5fb]ClothesName:[/] {loc8}");
                     AnsiConsole.MarkupLine($"[#71d5fb]ClothesId:[/] {loc9}");
@@ -1242,7 +1266,7 @@ namespace msptool
                     {
                         AnsiConsole.MarkupLine("[#71d5fb]Colors:[/] None");
                     }
-        
+
                     AnsiConsole.MarkupLine($"[#71d5fb]IsRareItem:[/] {loc16}");
                     AnsiConsole.MarkupLine($"[#71d5fb]IsVipItem:[/] {loc14}");
                     AnsiConsole.MarkupLine($"[#71d5fb]IsDiamondItem:[/] {loc15}");
@@ -1250,9 +1274,11 @@ namespace msptool
 
                 }
             }
-            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all {loc5} clothes :)[/] [[Click any key to return to Home]][/]");
+
+            AnsiConsole.MarkupLine(
+                $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all {loc5} clothes :)[/] [[Click any key to return to Home]][/]");
             Console.ReadKey();
-            Console.Clear();  
+            Console.Clear();
         }
 
         static void usernameToActorid(string server)
@@ -1277,10 +1303,11 @@ namespace msptool
             else
             {
                 double loc3 = loc1;
-                
-                AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]ActorId: {loc3} | Username: {loc2} :)[/] [[Click any key to return to Home]][/]");
+
+                AnsiConsole.MarkupLine(
+                    $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]ActorId: {loc3} | Username: {loc2} :)[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
-                Console.Clear();  
+                Console.Clear();
             }
         }
 
@@ -1298,9 +1325,10 @@ namespace msptool
                     { loc1 });
 
             string loc2 = loc5;
-            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Username: {loc2} | ActorId: {loc1}  :)[/] [[Click any key to return to Home]][/]");
+            AnsiConsole.MarkupLine(
+                $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Username: {loc2} | ActorId: {loc1}  :)[/] [[Click any key to return to Home]][/]");
             Console.ReadKey();
-            Console.Clear();  
+            Console.Clear();
         }
 
         static void itemTracker(string server)
@@ -1310,32 +1338,32 @@ namespace msptool
                 .RoundedBorder());
             int loc1 = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] ActorClothesRelId: ")
                 .PromptStyle("#71d5fb"));
-            
+
             dynamic loc4 = AMFConn(server,
-                        "MovieStarPlanet.WebService.MovieStar.AMFMovieStarService.GetActorClothesRel",
-                        new object[1]
-                        { loc1 });
-                    
+                "MovieStarPlanet.WebService.MovieStar.AMFMovieStarService.GetActorClothesRel",
+                new object[1]
+                    { loc1 });
+
             int loc2 = loc4["ActorId"];
-            
+
             dynamic loc5 = AMFConn(server,
                 "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorNameFromId",
                 new object[1]
                     { loc2 });
-            
+
             string loc3 = loc5;
-                
+
             string loc6 = loc4["Cloth"]["Name"] ?? "Unknown";
             int loc7 = loc4["ClothesId"];
             string loc8 = loc4["Color"].ToString();
             string loc9 = loc4["Cloth"]["ShopId"].ToString();
             int loc10 = loc4["Cloth"]["Vip"];
             int loc11 = loc4["Cloth"]["DiamondsPrice"];
-                    
+
             string loc12 = loc11 != 0 ? "Yes" : "No";
             string loc13 = loc10 != 0 ? "Yes" : "No";
             string loc14 = loc9 != "-100" ? "Yes" : "No";
-                    
+
             AnsiConsole.MarkupLine($"[#71d5fb]ActorClothesRelId:[/] {loc1}");
             AnsiConsole.MarkupLine($"[#71d5fb]ClothesName:[/] {loc6}");
             AnsiConsole.MarkupLine($"[#71d5fb]ClothesId:[/] {loc7}");
@@ -1347,25 +1375,27 @@ namespace msptool
             {
                 AnsiConsole.MarkupLine("[#71d5fb]Colors:[/] None");
             }
-        
+
             AnsiConsole.MarkupLine($"[#71d5fb]IsRareItem:[/] {loc14}");
             AnsiConsole.MarkupLine($"[#71d5fb]IsVipItem:[/] {loc13}");
             AnsiConsole.MarkupLine($"[#71d5fb]IsDiamondItem:[/] {loc12}");
             AnsiConsole.MarkupLine("");
-            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Item tracked to {loc3}  :)[/] [[Click any key to return to Home]][/]");
+            AnsiConsole.MarkupLine(
+                $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Item tracked to {loc3}  :)[/] [[Click any key to return to Home]][/]");
             Console.ReadKey();
-            Console.Clear();  
+            Console.Clear();
 
         }
-        
-          static void roomChanger(string server, int actorId, string ticket)
+
+        static void roomChanger(string server, int actorId, string ticket)
         {
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ RoomChanger").LeftJustified().RoundedBorder());
             Console.Write("\n");
-            AnsiConsole.Markup("[slowblink][[[#c70000]?![/]]] Use it at your own risk, we are not responsible for your misdeeds.[/]\n");
+            AnsiConsole.Markup(
+                "[slowblink][[[#c70000]?![/]]] Use it at your own risk, we are not responsible for your misdeeds.[/]\n");
             string loc1 = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter image url: ")
-                                          .PromptStyle("#71d5fb"));
+                .PromptStyle("#71d5fb"));
             WebClient loc2 = new WebClient();
             byte[] loc3 = loc2.DownloadData(loc1);
 
@@ -1402,13 +1432,15 @@ namespace msptool
                 });
             if (loc4 && loc5 && loc6)
             {
-                AnsiConsole.Markup("\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Room changed[/] [[Click any key to return to Home]][/]");
+                AnsiConsole.Markup(
+                    "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Room changed[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
                 Console.Clear();
             }
             else
             {
-                AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
+                AnsiConsole.Markup(
+                    "\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
                 Console.Clear();
             }
@@ -1445,14 +1477,14 @@ namespace msptool
                         loc12,
                     });
 
-                    foreach (var loc3 in loc2)
+                foreach (var loc3 in loc2)
                 {
                     string loc5 = loc3["Animation"]["Name"] ?? "Unknown";
-                    int loc6 = loc3["Animation"]["AnimationId"] ?? -1; 
-                    int loc7 = loc3["ActorAnimationRelId"] ?? -1; 
+                    int loc6 = loc3["Animation"]["AnimationId"] ?? -1;
+                    int loc7 = loc3["ActorAnimationRelId"] ?? -1;
                     int loc8 = loc3["Animation"]["Deleted"];
                     int? loc9 = loc3["Animation"]["Vip"] as int?;
-                    
+
                     string loc10 = loc9.HasValue ? loc9.Value != 0 ? "Yes" : "No" : "None";
                     string loc11 = loc8 != 0 ? "Yes" : "No";
 
@@ -1464,19 +1496,22 @@ namespace msptool
                     AnsiConsole.MarkupLine("");
                 }
             }
-            AnsiConsole.MarkupLine($"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all {loc4} animations :)[/] [[Click any key to return to Home]][/]");
+
+            AnsiConsole.MarkupLine(
+                $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all {loc4} animations :)[/] [[Click any key to return to Home]][/]");
             Console.ReadKey();
-            Console.Clear();  
+            Console.Clear();
         }
-        
-          static void iconChanger(string server, int actorId, string ticket)
+
+        static void iconChanger(string server, int actorId, string ticket)
         {
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Icon Changer").LeftJustified().RoundedBorder());
             Console.Write("\n");
-            AnsiConsole.Markup("[slowblink][[[#c70000]?![/]]] Use it at your own risk, we are not responsible for your misdeeds.[/]\n");
+            AnsiConsole.Markup(
+                "[slowblink][[[#c70000]?![/]]] Use it at your own risk, we are not responsible for your misdeeds.[/]\n");
             string loc1 = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Enter image url: ")
-                                          .PromptStyle("#71d5fb"));
+                .PromptStyle("#71d5fb"));
             WebClient loc2 = new WebClient();
             byte[] loc3 = loc2.DownloadData(loc1);
 
@@ -1503,16 +1538,75 @@ namespace msptool
                 });
             if (loc4 && loc5)
             {
-                AnsiConsole.Markup("\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Icon changed[/] [[Click any key to return to Home]][/]");
+                AnsiConsole.Markup(
+                    "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Icon changed[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
                 Console.Clear();
             }
             else
             {
-                AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
+                AnsiConsole.Markup(
+                    "\n[#fa1414]FAILED[/] > [#f7b136][underline]Unknown[/] [[Click any key to return to Home]][/]");
                 Console.ReadKey();
                 Console.Clear();
             }
+        }
+
+        static void botGenerator(string server, string culture)
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Bot Generator").LeftJustified()
+                .RoundedBorder());
+
+            int loc13 = AnsiConsole.Prompt(
+                new TextPrompt<int>("[[[#71d5fb]+[/]]] Amount of bots: ").PromptStyle("#71d5fb"));
+
+            for (int i = 0; i < loc13; i++)
+            {
+                string loc1 = CaptchaV3();
+                WebClient loc5 = new WebClient();
+                string loc6 = loc5.DownloadString("https://" + ((server.ToUpper() == "US") ? "us" : "eu") +
+                                                  $".mspapis.com/profileidentity/v1/profiles/names/suggestions/?&gameId=5ooi&culture={culture}");
+                System.Collections.Generic.List<string> loc7 = JsonConvert.DeserializeObject<List<string>>(loc6);
+                string loc2 = string.Join("", loc7);
+                string loc3 = "hasumsp123";
+                string loc4 = BitConverter
+                    .ToString(new HMACSHA256(Encoding.UTF8.GetBytes("7jA7^kAZSHtjxDAa")).ComputeHash(
+                        Encoding.UTF8.GetBytes("5ooi" + server + loc3 + loc2 + "false"))).Replace("-", "").ToLower();
+                WebClient loc8 = new WebClient();
+                loc8.Headers[HttpRequestHeader.ContentType] = "application/json";
+                string loc12 = loc8.UploadString(
+                    "https://" + ((server.ToUpper() == "US") ? "us" : "eu") + ".mspapis.com/edgelogins/graphql/graphql",
+                    JsonConvert.SerializeObject(new
+                    {
+                        query =
+                            "mutation create ($loginName: String!, $password: String!, $gameId: String!, $isGuest: Boolean!, $countryCode: Region!, $checksum: String!, $recaptchaV3Token: String ){createLoginProfile(input: { name: $loginName, password: $password, gameId: $gameId, region: $countryCode, isGuest: $isGuest }, verify: {checksum: $checksum, recaptchaV3Token: $recaptchaV3Token } ) {success,loginProfile {loginId,loginName,profileId,profileName,isGuest},error}}",
+                        variables = "{\"checksum\": \"" + loc4 + "\", \"loginName\": \"" + loc2 +
+                                    "\", \"password\": \"" + loc3 +
+                                    "\", \"gameId\": \"5ooi\", \"isGuest\": false, \"countryCode\": \"" +
+                                    server.ToUpper() + "\", \"recaptchaV3Token\": \"" + loc1 + "\"}",
+                        operationName = ""
+                    }));
+                JObject loc9 = JObject.Parse(loc12);
+                bool loc10 = (bool)loc9["data"]["createLoginProfile"]["success"];
+                if (loc10)
+                {
+                    AnsiConsole.Markup(
+                        $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]{loc2}[/][/]");
+                    string loc11 = $"bots-{server}.txt";
+                    File.AppendAllText(loc11, loc2 + Environment.NewLine);
+                }
+                else
+                {
+                    AnsiConsole.Markup(
+                        $"\n[#fa1414]FAILED[/] > [#f7b136][underline]{loc2}[/][/]");
+                }
+            }
+
+            AnsiConsole.MarkupLine(
+                "\n[#71d5fb][/] > [#f7b136][underline]created all bots :)[/] [[Click any key to return to Home]][/]");
+            Console.ReadKey();
+            Console.Clear();
         }
 
         static async Task MSP2_Login()
@@ -1533,7 +1627,7 @@ namespace msptool
 
                 var loc4 = Enum.GetValues(typeof(WebServer))
                     .Cast<WebServer>()
-                    .Select(ws => (ws.loc3().Item1, ws.loc3().Item2)) 
+                    .Select(ws => (ws.loc3().Item1, ws.loc3().Item2))
                     .ToArray();
 
                 var loc5 = AnsiConsole.Prompt(
@@ -1541,7 +1635,7 @@ namespace msptool
                         .Title("[[[#71d5fb]+[/]]] Select a server: ")
                         .PageSize(15)
                         .MoreChoicesText("[grey](Move up and down to reveal more servers)[/]")
-                        .AddChoices(loc4.Select(aloc1 => aloc1.Item1)) 
+                        .AddChoices(loc4.Select(aloc1 => aloc1.Item1))
                 );
 
                 var loc6 = loc4.First(aloc1 => aloc1.Item1 == loc5).Item2;
@@ -1590,7 +1684,7 @@ namespace msptool
                                 "Bearer " + loc16);
                             string loc22 = loc11.DownloadString(loc21);
 
-                            loc9 = JArray.Parse(loc22)[0]["id"].ToString();
+                            var loc9 = JArray.Parse(loc22)[0]["id"].ToString();
 
                             var loc23 = new NameValueCollection
                             {
@@ -1658,7 +1752,9 @@ namespace msptool
 
                     if (!loc1)
                         break;
-                };
+                }
+
+                ;
             }
         }
 
@@ -1823,7 +1919,6 @@ namespace msptool
             }
         }
 
-
         static bool vloc2()
         {
             using (HttpClient loc1 = new HttpClient())
@@ -1836,7 +1931,7 @@ namespace msptool
         private static async Task InstallUpdate(string latestVersion)
         {
             string loc1 = XIU(latestVersion);
-            
+
             string loc2 = string.Empty;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
@@ -1844,19 +1939,22 @@ namespace msptool
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                loc2 = string.Format($"https://github.com/lcfidev/star/releases/download/{loc1}/msptool_macos_arm64.zip", loc1); 
+                loc2 = string.Format(
+                    $"https://github.com/lcfidev/star/releases/download/{loc1}/msptool_macos_arm64.zip", loc1);
             }
-            string loc3 = string.Format(loc2, loc1); 
+
+            string loc3 = string.Format(loc2, loc1);
             string loc4 = Path.Combine(Path.GetTempPath(), "msptool");
             string loc5 = Process.GetCurrentProcess().MainModule.FileName;
             using HttpClient loc6 = new HttpClient();
-        
-                byte[] loc7 = await loc6.GetByteArrayAsync(loc3);
-                File.WriteAllBytes(loc4, loc7);
-                File.Replace(loc4, loc5, null);
-                Process.Start(new ProcessStartInfo { FileName = loc5, UseShellExecute = true });
-                Environment.Exit(0);
-            }
+
+            byte[] loc7 = await loc6.GetByteArrayAsync(loc3);
+            File.WriteAllBytes(loc4, loc7);
+            File.Replace(loc4, loc5, null);
+            Process.Start(new ProcessStartInfo { FileName = loc5, UseShellExecute = true });
+            Environment.Exit(0);
+        }
+
         private static string XIU(string version)
         {
             version = version.Replace("\r", "").Replace("\n", "");
@@ -1864,7 +1962,62 @@ namespace msptool
             {
                 version = version.Replace(c, '_');
             }
-            return "v" + version.Trim(); 
+
+            return "v" + version.Trim();
+        }
+
+        [ProtoContract(SkipConstructor = true)]
+        internal class ProtobufData
+        {
+            [ProtoMember(1)] public string A { get; set; }
+
+            [ProtoMember(2)] public string B { get; set; }
+
+            [ProtoMember(4)] public string C { get; set; }
+
+            [ProtoMember(5)] public string D { get; set; }
+
+            [ProtoMember(6)] public string E { get; set; }
+
+            [ProtoMember(8)] public string F { get; set; }
+
+            [ProtoMember(14)] public string G { get; set; }
+
+            [ProtoMember(16)] public string H { get; set; }
+        }
+
+        public static string CaptchaV3()
+        {
+            try
+            {
+                WebClient loc1 = new WebClient();
+                MemoryStream loc2 = new MemoryStream();
+                string loc3 = loc1.DownloadString(
+                    "https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LcxuOsUAAAAAI2IYDfxOvAZrwRg2T1E7sJq96eg&co=aHR0cHM6Ly93d3cubW92aWVzdGFycGxhbmV0LmNvbTo0NDM.&hl=fr&v=vP4jQKq0YJFzU6e21-BGy3GP&size=invisible&cb=oul7f799qkr6");
+                Serializer.Serialize<ProtobufData>((Stream)loc2, new ProtobufData
+                {
+                    A = "qljbK_DTcvY1PzbR7IG69z1r",
+                    B = loc3.Split(new string[1] { "value=" }, StringSplitOptions.None)[1].TrimStart('"').Split('"')[0],
+                    C =
+                        "!7Oqg6u8KAAQeF6g9bQEHDwLHaMPdyY7ouljPgQLRkFk2F1_itEwRVMtNNtAClz4c9AJDkWZ0NDXld44MdB1GiLK3E3ykbGIqxFYsRce3-5wFxCJ8MDLUgEO21E4ZdXE05UJAytb9NZWAzdh9D0hVUfS1xCqJ5LGAEuAqvx6GwI76CT8bWF2EAtnEIeuK7YdFYVMCMfkwroua67Hs0vQXjCp3aC9aOL1dsjdH5QG5FjvX7bUyFWxm0du9GvS-O4ZD5ABvfNxd4GW9GfPWlSy2TKIx0eaPPvb4cGxFwHSbDpCvkENiej4PZw8d4oXCitcFzK2QbmbV5WlikvzC2GRRhyIYC2FNm1leYH1ZzwHBRXim1YA0JswO2-lBZ-Hk3Fo-q1LL6ZAIM3FoMwk5ZIUUhhady-Mp4HfP3ZW4vaZELKq6tbH0cNt-LXItIv7obnR5g865bfiI3ghOuJMPlEbdZBt5RG5j1gSoTMaOIgKXDjBrHfLdaK-L9uz6P6RegHy9aaTFWOJF092IwxB_7fdLqQtbOWYCmPrio2TDMGsnz8Q0AuhtZjBrqrHm3sNdXKJHj-ThNAmCdSeZN2dYtIuk9YbnqKdqxq6TQvH5F1yVQ23EKIK-Si27ovMKZd_TRqXYOcg-XtMhxr4VL2QUI55RZcjzs7bhl8NPFneQHffJhn7PPUn36UKEhMIJGHh4YRpVGeT8cRDZSMEbCsoXSQUvH1kOyTjJgnrC9eKYMU018jtMELoU4diIwVkJHKYidbvT134CAPBZM0trcy8KCkOjhJYbl9PQft2ELyoCHJ-YHnKnm_YPfSycArIdWh4q4FVz4IC_EZM-cdGvk4TH92f4iBOUINOioeEP9MS7TjyRT9p6KH0Jotojc2V0N7fmlcthcBqe3F9ll85q-tC4V1R0Ek3-K1quSfodSmbe8bAXdLRMYrGqa1RXh0G0H_aAbXeh7La7wZL1xOUnnAA03e9-8Q2jo_oE0ixGjMFUHqqfBN8qqNeWpOHzUZQJRtP1vb8r9g0F4S6j4MXL5rBnGsPcXQ",
+                    D = "217035401",
+                    E = "q",
+                    F = "login_create",
+                    G = "6LcxuOsUAAAAAI2IYDfxOvAZrwRg2T1E7sJq96eg",
+                    H =
+                        "0Z0HWX9hanGDpYuQm6nPsbrB0_Xb4OrJL-njLPMhV1E4SmxSW2JwlniBiJq8oquywObI0djrDPL4AxE3GSIpO11DSFNhh2lyeYutk5ijsde5wsmOsZdVbAYUBZBFu5JHZZftrBJP4dAWHI3oJijiGOpUdqiKdFrcXqDikP347jBSQCMIdrl_USexjxVLOa-I1znnWgclLsj4CiwSGyIwVjhBSFp8YmtygKaIkZiqzLK7wtD22OHo-x0DCBMhRykyOP4hKxEO0QMo5yGjTaPhBsknfQe0-xWX3dwpI3k8KhfN3757-cfSVFXf_e9xo73b1fSN0JW4wpj_MPacxsQCMFZsamUeYSZJUyz3LW8R45DLIV_eB5k-yPsdOyEz5SvtEBn_pTNhf5mXnk-SV3qD2eg6IN8MflyGXKpcpnyGyAo4XmSGdSZpLlFa_Je0eqjG4NLZltmewcsiLuETLU9ZU_1ABSgxi5nL0oy9uA40Dhi-VC40cbvqDBY0JtQa3AMIT3kvNRM4bpEalTKVSwVLafNk2uCy4QcRFzHPEdb6AAYbln_2hzlrhaOhnFWYXYCKPDZ_qdv2EBYsxgjN8PtExhBCXHp0iyxzNFthR4R6qMbg3uWW2Z7By7Hu4RM1UzlL_UAFKDHQApymWBGsHiRi3M5ovtCKwSJH0gAeKEJQUlRiWFp1HmEmSVNg50T3mUPFQ1Dq4Td56-4f6bdB_6GLZh-x9IJbxpdJe527obBlqLrcwsvSl7rAptEyXIMIRxlTITLs-rjLTZtcl4EXrLfYirjW8QLppumu0dvBZvEjRWNJWA1QFTvF_Bonpme2CKI0ZsD-hIp5BskmRE3oGjRSTFp0doSGjIM0ezxjabc0grDW3P7tnuHwFfgBC8zz-ZwFSC2cNniBQ3GrrZvBx7HL2eiFyI2wutTmaM48v1CDSM9ZcmFXgX6AoqSW3O8Rxx3ezeNmC0FbAigKK-msTT_1xxFDaXNxc32fka-6V5pfgohmX-7r8v0aDOJsLvC3UJ7E5qhzWNq8v0xSgJ7EutC-zOLU8u2e4abJ02I26Rs1V1VcBUgNMDnUBVOBn7m3wm-ywObI0didwMps9zhyhKrBFqSyzHbxmtVrsX9hMyCzAYbNI8XHiT9pf3lj6YOxNEoT6aPWS23AakwNl56kGgPWVMb4OixmtGqQ_v0GIJp8nlS6oMdI3nWLVKNUn7UesQPcz0lcBWNt833rhSsVy4pUTaxCfEpnfk_WCHqMikg-2BJEaekKAL5AUqQSaSI0xzDWvFKoV10C1SuRH7jzRLOlWsn7MSQBh8ID6X-OL8obmj9Np6Ir3XP6E-6QieQWgDIcPdAfAOcAanwieQpktsC2_Ms8zlSCwNNRT5SfCSudN6nz4WPFa91H6aulZAXLzkRpyFVcMnABkGpMebQ2JAnUwkPp3EHsamTmqO78dqTG3FMo0llu_Vrk1ol3AWsdS8TXaWv0103--ReF5BG3xVe50-VTnkQtcEakJagWNC28mpfKtD8IZkTKRI4FQrDHBSZUlql3RIK9o30TtbfBSwE7TS-5r4nLZiN9k_ZDtZxZp-lj5dAuXApL4nxiI_6wVkSqxOJkNoi1-Q54iow2jRqNZ1DnKSrY72mjBOr5N0l2vR9FKuHzhPfd65EXuSuyMCZPwURSX-3Ilox-HLWsptvWUDogUkDl8MrNEqDqOVM0pylHeHMJZnR_VYeAmvCq1TMha2nn7U_Z49oEFR9lyBofleB5vIGD3fRqFGIPliQCpKbQolBCdMJgzoyTOIswwoTrUOtpMwk28NLtd8GfJQvJi0zHybNdt3HPYWPp80HEBVfKPDJgkoACh_6QjrDSQDpMPfRKcGrgFkzueQY07tky0MbderFnlaOBn5UPyQ_Fsz1m0Vc1i5WHqauOC3HLdQMxT2V3Zh9iJ0pQBiwmIH48YliiH6nb_hgCEMYIzfD7CWdUvt0DNOc9Byzu9O_JowW3Hd9JN1kPPd8Nj5GwGf99l75jalACiCJX8dQeNIojyoRCFG5cxm_t9HMIsvkGlIqUoyje5Q7ZA6SukSsc8r0myaO5XzXH-YOOK1XkGT95p5nvtae9vI4cqY-eY-bEHojdk8Hf-fASr_K32uCHPMZcw0BeaINFk4xKeKq4urDGxNbRhsmOsbtJi0zbCSdBQzn3Of8iKD18HYxaEEK8foiGfBKo5vUC1HcQevz7CNLMQ1SWrUpsMmB-nKqhTpFWeYMlr2X3ZXvhH9mfZiQ6UB47xd-po9W_-b_id-oXrf_2oDocGpy6rFb4ctA26JK8QgAyVFZ4cxxjJEtQ_qF_FXuts7z24dP1Bvln5bN16A0wMadKGBZraffNlAaMOjh-JN4Evs_t_DYMmkhO5LZFDqRCmS7MZumPNReM912OvO7U28EnaTtJP9FTSdumNCnL_lOV2_VnzlP1h_oIWeyCRHaHzjh6dDWz4fweEDbMEtf7ALqZemyurDpojqCutVaYxrjKuX6hq03_yZMVqCoD5YwZpGX3_ksxY32XpZRNkFV4BjxqONaoRlj2yTLgGvTHISoIOlR2aHKEfqCelK9Um1yDibthTAFQFRftpCnnJZ-BTzW8OaBF89obidCKpDIgptxWJLopCkRCbQ8AnyfqGDZMZmkGSQ4xO50HMaqdr0kvLac5IAFPDZuBW11_ahRFpGJr3Vuxq_nn6hiRk2GTrcfR5H3AhaiyOOpFLrhikTI8ulDa-Pc473Wi9WMUn3GzHVdlK008AY_Z403Hag-5c4UsWatFe81cNoBd9B4UEpBKV86f7ihi-M7k3mSy1MrNWtjejEck5r1THUb9JuS3yUM4002PPVdBXwH7LV8Ne0EkYatZtFXnfcQBlKH8ejiuND2Ludfx6A6n6q_S2F7wtsy_aMJEWzDi0PcNrxmjsP_NKyzLtKLQ7wkDDb_E"
+                });
+                loc1 = new WebClient();
+                loc1.Headers[HttpRequestHeader.ContentType] = "application/x-protobuffer";
+                return Encoding.Default
+                    .GetString(loc1.UploadData(
+                        "https://www.google.com/recaptcha/api2/reload?k=6LcxuOsUAAAAAI2IYDfxOvAZrwRg2T1E7sJq96eg",
+                        loc2.ToArray())).Split(',')[1].Replace("\"", "");
+            }
+            catch
+            {
+                return "Error";
+            }
         }
     }
 }
