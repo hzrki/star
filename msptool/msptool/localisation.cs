@@ -224,9 +224,9 @@ namespace msptool
                 { 24, "Listaa kaikki animaatiot" },
                 { 25, "Pikkukuvan vaihtaja" },
                 { 26, "Bottigeneraattori" },
-                { 27, "" },
-                { 28, "" },
-                { 29, "" },
+                { 27, "Tavaroiden Glitchaus (lahjalla)" },
+                { 28, "Automaattinen nimikirjoitusten antaja (vain VIP)" },
+                { 29, "starFame - Famen Farmaus" },
                 { 30, "Kirjaudu ulos" }
             },
             ["Norwegian"] = new Dictionary<int, string>
