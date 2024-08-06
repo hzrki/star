@@ -73,8 +73,11 @@ namespace msptool
                 { 23, "Changeur de miniature de salle" },
                 { 24, "Extracteur d'animations" },
                 { 25, "Changeur d'Icône" },
-                { 26, "a" },
-                { 27, "Déconnexion" }
+                { 26, "Générateur de Bot (bêta)" },
+                { 27, "Glitcher d'Article (donateur)" },
+                { 28, "Autographeur Automatique (VIP Seulement)" },
+                { 29, "starFame - Cultivateur de Célébrité" },
+                { 30, "Déconnexion" }
             },
             ["Turkish"] = new Dictionary<int, string>
             {
@@ -104,7 +107,10 @@ namespace msptool
                 { 24, "Animasyon Çıkarıcı" },
                 { 25, "Simge Değiştirici" },
                 { 26, "Bot yaratıcı" },
-                { 27, "Çıkış Yap" }
+                { 27, "Öğe Glitcher (hediyeci)" },
+                { 28, "Otomatik Otografçı (Yalnızca VIP)" },
+                { 29, "starFame - Şöhret Çiftçisi" },
+                { 30, "Çıkış Yap" }
             },
             ["German"] = new Dictionary<int, string>
             {
@@ -133,8 +139,11 @@ namespace msptool
                 { 23, "Raum-Thumbnail wechseln" },
                 { 24, "Animations-Extractor" },
                 { 25, "Icon-Wechsler" },
-                { 26, "a" },
-                { 27, "Abmelden" }
+                { 26, "Bot-Generator (Beta)" },
+                { 27, "Artikel-Glitcher (Schenker)" },
+                { 28, "Automatischer Autografierer (nur VIP)" },
+                { 29, "starFame - Ruhm-Farmer" },
+                { 30, "Abmelden" }
             },
             ["Swedish"] = new Dictionary<int, string>
             {
@@ -163,8 +172,11 @@ namespace msptool
                 { 23, "Rumstumnageländrare" },
                 { 24, "Animationsutvinare" },
                 { 25, "Ikonbytare" },
-                { 26, "Botgenerator" },
-                { 27, "Logga ut" }
+                { 26, "Botgenerator (beta)" },
+                { 27, "Objektglitcher (givare)" },
+                { 28, "Automatiserad Autograf (endast VIP)" },
+                { 29, "starFame - Berömmelseodlare" },
+                { 30, "Logga ut" }
             },
             ["Dutch"] = new Dictionary<int, string>
             {
@@ -193,8 +205,11 @@ namespace msptool
                 { 23, "Kamer Thumbnail Wijzig" },
                 { 24, "Animatie Extractor" },
                 { 25, "Pictogramwisselaar" },
-                { 26, "Botgenerator" },
-                { 27, "Uitloggen" }
+                { 26, "Bot Generator (bèta)" },
+                { 27, "Item Glitcher (gever)" },
+                { 28, "Geautomatiseerde Autograaf (alleen VIP)" },
+                { 29, "starFame - Roem Kweker" },
+                { 30, "Uitloggen" }
             },
             ["Finnish"] = new Dictionary<int, string>
             {
@@ -256,8 +271,11 @@ namespace msptool
                 { 23, "Rom Miniatyr Endrer" },
                 { 24, "Animasjon Extractor" },
                 { 25, "Ikonbytter" },
-                { 26, "Botgenerator" },
-                { 27, "Logg ut" }
+                { 26, "Bot Generator (beta)" },
+                { 27, "Element Glitcher (giver)" },
+                { 28, "Automatisk Autograf (kun VIP)" },
+                { 29, "starFame - Berømmelsesbonde" },
+                { 30, "Logg ut" }
             },
             ["Danish"] = new Dictionary<int, string>
             {
@@ -286,8 +304,11 @@ namespace msptool
                 { 23, "Rum Thumbnail Skifter" },
                 { 24, "Animations Extractor" },
                 { 25, "Ikonudskifter" },
-                { 26, "Botgenerator" },
-                { 27, "Log ud" }
+                { 26, "Bot Generator (beta)" },
+                { 27, "Element Glitcher (giver)" },
+                { 28, "Automatiseret Autograf (kun VIP)" },
+                { 29, "starFame - Berømmelsesbonde" },
+                { 30, "Log ud" }
             },
             ["Polish"] = new Dictionary<int, string>
             {
@@ -349,8 +370,11 @@ namespace msptool
                 { 23, "Cambiar miniatura de sala" },
                 { 24, "Extractor de animaciones" },
                 { 25, "Cambiar Icono" },
-                { 26, "Generador de Bots" },
-                { 27, "Cerrar sesión" }
+                { 26, "Generador de Bots (beta)" },
+                { 27, "Glitcher de Artículos (donante)" },
+                { 28, "Autógrafo Automatizado (solo VIP)" },
+                { 29, "starFame - Cultivador de Fama" },
+                { 30, "Cerrar sesión" }
             }
         };
     }

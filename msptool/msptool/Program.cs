@@ -164,7 +164,7 @@ namespace msptool
             Console.Clear();
             bool loc2 = false;
             var l2msp = login2();
-            AnsiConsole.WriteLine($"Accounts found: {l2msp.Count}");
+            //AnsiConsole.WriteLine($"Accounts found: {l2msp.Count}");
 
             if (l2msp.Count > 0)
             {
