@@ -1273,12 +1273,21 @@ namespace msptool
                     AnsiConsole.MarkupLine($"[#71d5fb]IsVipItem:[/] {loc14}");
                     AnsiConsole.MarkupLine($"[#71d5fb]IsDiamondItem:[/] {loc15}");
                     AnsiConsole.MarkupLine("");
+                    string loc17 = $"{server}-{loc5}-clothes.txt";
+                    string loc18 = $"ActorClothesRelId: {loc7}{Environment.NewLine}" +
+                                           $"ClothesName: {loc8}{Environment.NewLine}" +
+                                           $"ClothesId: {loc9}{Environment.NewLine}" +
+                                           $"Colors: {(string.IsNullOrEmpty(loc10) ? "None" : loc10)}{Environment.NewLine}" +
+                                           $"IsRareItem: {loc16}{Environment.NewLine}" +
+                                           $"IsVipItem: {loc14}{Environment.NewLine}" +
+                                           $"IsDiamondItem: {loc15}{Environment.NewLine}{Environment.NewLine}";
 
+                    File.AppendAllText(loc17, loc18);
                 }
             }
 
             AnsiConsole.MarkupLine(
-                $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all {loc5} clothes :)[/] [[Click any key to return to Home]][/]");
+                $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all clothes and extracted to {server}-{loc5}-clothes.txt  :)[/] [[Click any key to return to Home]][/]");
             Console.ReadKey();
             Console.Clear();
         }
