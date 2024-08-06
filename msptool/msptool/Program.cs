@@ -364,6 +364,9 @@ namespace msptool
                                     sfAutomatedFarmer();
                                     break;
                                 case "30":
+                                    passwordChanger(server, ticket, actorId, loc4);
+                                    break;
+                                case "31":
                                     Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                     Console.Clear();
                                     loc2 = false;
@@ -1947,6 +1950,30 @@ namespace msptool
                 .RoundedBorder());
             AnsiConsole.Markup(
                 $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Coming soon![/] [[Click any key to return to Home]][/]");
+            Console.ReadKey();
+            Console.Clear();
+        }
+        static void passwordChanger(string server, string ticket, int actorId, string password)
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Password Changer").LeftJustified()
+                .RoundedBorder());
+            
+            var newPassword = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] new password: ")
+                .PromptStyle("#71d5fb"));
+            
+            dynamic loc4 = AMFConn(server,
+                "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.ChangePasswordNew",
+                new object[4]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId,
+                    password,
+                    newPassword
+                });
+            
+            AnsiConsole.Markup(
+                $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]password changed![/] [[Click any key to return to Home]][/]");
             Console.ReadKey();
             Console.Clear();
         }

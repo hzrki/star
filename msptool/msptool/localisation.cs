@@ -44,7 +44,8 @@ namespace msptool
                 { 27, "Item Glitcher (gifter)" },
                 { 28, "Automated Autographer (VIP Only)" },
                 { 29, "starFame - Fame Farmer" },
-                { 30, "Logout" }
+                { 30, "Password Changer" },
+                { 31, "Logout" }
             },
             ["French"] = new Dictionary<int, string>
             {
