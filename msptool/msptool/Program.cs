@@ -1765,7 +1765,7 @@ namespace msptool
                                     ChosenPassword = loc3,
                                     SkinIsMale = true,
                                     EyeColors = "0x0,0x000000",
-                                    EyeId = 36,
+                                    EyeId = 6,
                                     SkinColor = "14195824"
                                 },
                                 loc17,
