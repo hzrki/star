@@ -35,10 +35,9 @@
   <a href="https://github.com/lcfidev/star">
   </a>
 
-  <h3 align="center">MSP & MSP2 2 Extension</h3>
+  <h3 align="center">MSP & MSP2 Extension</h3>
 
   <p align="center">
-    An awesome Tool to simplify your MSP & MSP2 Experience
     <br />
     <a href="https://github.com/lcfidev/star/tree/main/msptool"><strong>Explore the docs »</strong></a>
     <br />
