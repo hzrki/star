@@ -361,6 +361,9 @@ namespace msptool
                                     automatedAutographer(server, ticket, actorId, accessToken, profileId);
                                     break;
                                 case "29":
+                                    sfAutomatedFarmer();
+                                    break;
+                                case "30":
                                     Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                     Console.Clear();
                                     loc2 = false;
@@ -1937,6 +1940,17 @@ namespace msptool
             Console.ReadKey();
             Console.Clear();
         }
+        static void sfAutomatedFarmer()
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ starFame - Fame Farmer").LeftJustified()
+                .RoundedBorder());
+            AnsiConsole.Markup(
+                $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Coming soon![/] [[Click any key to return to Home]][/]");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
 
         static async Task MSP2_Login()
         {
