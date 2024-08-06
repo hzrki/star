@@ -41,7 +41,10 @@ namespace msptool
                 { 24, "Animation Extractor" },
                 { 25, "Icon Changer" },
                 { 26, "Bot Generator (beta)" },
-                { 27, "Logout" }
+                { 27, "Item Glitcher (gifter)" },
+                { 28, "Automated Autographer (VIP Only)" },
+                { 29, "starFame - Fame Farmer" },
+                { 30, "Logout" }
             },
             ["French"] = new Dictionary<int, string>
             {

@@ -26,6 +26,7 @@ using static StarService.Utility.SignatureCalculator;
 using static msptool.localisation;
 using Rule = Spectre.Console.Rule;
 using WebSocketSharp;
+using WebClient = System.Net.WebClient;
 using WebSocket = WebSocketSharp.WebSocket;
 
 namespace msptool
@@ -183,12 +184,14 @@ namespace msptool
 
                     AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Login MSP").LeftJustified());
                     Console.Write("\n");
-                    var loc3 = AnsiConsole.Prompt(new Spectre.Console.TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
-                        .PromptStyle("#71d5fb"));
+                    var loc3 = AnsiConsole.Prompt(
+                        new Spectre.Console.TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
+                            .PromptStyle("#71d5fb"));
 
-                    var loc4 = AnsiConsole.Prompt(new Spectre.Console.TextPrompt<string>("[[[#71d5fb]+[/]]] Enter password: ")
-                        .PromptStyle("#71d5fb")
-                        .Secret());
+                    var loc4 = AnsiConsole.Prompt(
+                        new Spectre.Console.TextPrompt<string>("[[[#71d5fb]+[/]]] Enter password: ")
+                            .PromptStyle("#71d5fb")
+                            .Secret());
 
                     var loc5 = Enum.GetValues(typeof(WebServer))
                         .Cast<WebServer>()
@@ -352,6 +355,9 @@ namespace msptool
                                     botGenerator(server, culture);
                                     break;
                                 case "27":
+                                    itemGlitcher(server, ticket, actorId, accessToken, profileId);
+                                    break;
+                                case "28":
                                     Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                     Console.Clear();
                                     loc2 = false;
@@ -1120,8 +1126,9 @@ namespace msptool
                 Console.Clear();
                 AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Msp Query").LeftJustified()
                     .RoundedBorder());
-                var loc1 = AnsiConsole.Prompt(new Spectre.Console.TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
-                    .PromptStyle("#71d5fb"));
+                var loc1 = AnsiConsole.Prompt(
+                    new Spectre.Console.TextPrompt<string>("[[[#71d5fb]+[/]]] Enter username: ")
+                        .PromptStyle("#71d5fb"));
 
 
                 dynamic loc2 = AMFConn(server,
@@ -1788,6 +1795,73 @@ namespace msptool
                 Console.ReadKey();
                 Console.Clear();
             }
+        }
+
+        static void itemGlitcher(string server, string ticket, int actorId, string accessToken, string profileId)
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Item Glitcher").LeftJustified()
+                .RoundedBorder());
+            var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] username: ")
+                .PromptStyle("#71d5fb"));
+            var relid = AnsiConsole.Prompt(new TextPrompt<int>("[[[#71d5fb]+[/]]] relid: ")
+                .PromptStyle("#71d5fb"));
+
+            dynamic loc1 = AMFConn(server,
+                "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorIdFromName",
+                new object[1] { username });
+
+            if (loc1 == -1)
+            {
+                Console.WriteLine(
+                    "\n\x1b[91mFAILED\u001b[39m > \x1b[93mThe account doesn't exist or has been deleted [Click any key to return to login]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                double friendActorId = loc1;
+
+                var loc20 = new WebClient { Proxy = null };
+                var loc21 = server == "US"
+                    ? "https://presence-us.mspapis.com/getServer"
+                    : "https://presence.mspapis.com/getServer";
+                var loc22 = loc20.DownloadString(loc21).Replace('-', '.');
+                var loc23 = new WebSocket($"ws://{loc22}:10843/{loc22.Replace('.', '-')}/?transport=websocket");
+                loc23.Connect();
+                loc23.Send(
+                    $"42[\"10\",{{\"messageType\":10,\"messageContent\":{{\"version\":3,\"applicationId\":\"APPLICATION_WEB\",\"country\":\"{server}\",\"username\":\"{profileId}\",\"access_token\":\"{accessToken}\"}}}}]");
+
+                dynamic loc4 = AMFConn(server,
+                    "MovieStarPlanet.WebService.Gifts.AMFGiftsService+Version2.GiveGiftOfCategory",
+                    new object[7]
+                    {
+                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                        actorId,
+                        friendActorId,
+                        relid,
+                        0,
+                        1,
+                        "Gift_item_5.swf"
+                    });
+
+                if (loc4["Code"] != 0)
+                {
+                    AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]"
+                                       + (loc4["Description"] ?? "Unknown") +
+                                       "[/] [[Click any key to return to Home]][/]");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else
+                {
+                    AnsiConsole.Markup(
+                        $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Gifted item to {username}![/] [[Click any key to return to Home]][/]");
+                }
+            }
+
+            Console.ReadKey();
+            Console.Clear();
         }
 
         static async Task MSP2_Login()
