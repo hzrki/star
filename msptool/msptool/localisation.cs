@@ -317,7 +317,10 @@ namespace msptool
                 { 24, "Ekstraktor animacji" },
                 { 25, "Zmiana Ikony Profilu" },
                 { 26, "Generator Botów" },
-                { 27, "Wyloguj się" }
+                { 27, "Gliczowanie przedmiotów (gifter)" },
+                { 28, "Automatyczne autografowanie (Tylko VIP)" },
+                { 29, "starFame - Farma Fame'u" },
+                { 30, "Wyloguj się" }
             },
             ["Spanish"] = new Dictionary<int, string>
             {
