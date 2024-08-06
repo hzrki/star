@@ -33,7 +33,7 @@ namespace msptool
 {
     internal class Program
     {
-        private static readonly string vloc1 = "1.6.5";
+        private static readonly string vloc1 = "1.6.6";
 
         private static readonly string vloc3 =
             "https://raw.githubusercontent.com/lcfidev/star/main/msptool/version.txt";
