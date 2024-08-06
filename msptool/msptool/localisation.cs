@@ -45,7 +45,8 @@ namespace msptool
                 { 28, "Automated Autographer (VIP Only)" },
                 { 29, "starFame - Fame Farmer" },
                 { 30, "Password Changer" },
-                { 31, "Logout" }
+                { 31, "Friend Requester" },
+                { 32, "Logout" }
             },
             ["French"] = new Dictionary<int, string>
             {
@@ -78,7 +79,9 @@ namespace msptool
                 { 27, "Glitcher d'Article (donateur)" },
                 { 28, "Autographeur Automatique (VIP Seulement)" },
                 { 29, "starFame - Cultivateur de Célébrité" },
-                { 30, "Déconnexion" }
+                { 30, "Password Changer" },
+                { 31, "Friend Requester" },
+                { 32, "Déconnexion" }
             },
             ["Turkish"] = new Dictionary<int, string>
             {
@@ -111,7 +114,9 @@ namespace msptool
                 { 27, "Öğe Glitcher (hediyeci)" },
                 { 28, "Otomatik Otografçı (Yalnızca VIP)" },
                 { 29, "starFame - Şöhret Çiftçisi" },
-                { 30, "Çıkış Yap" }
+                { 30, "Password Changer" },
+                { 31, "Friend Requester" },
+                { 32, "Çıkış Yap" }
             },
             ["German"] = new Dictionary<int, string>
             {
@@ -144,7 +149,9 @@ namespace msptool
                 { 27, "Artikel-Glitcher (Schenker)" },
                 { 28, "Automatischer Autografierer (nur VIP)" },
                 { 29, "starFame - Ruhm-Farmer" },
-                { 30, "Abmelden" }
+                { 30, "Password Changer" },
+                { 31, "Friend Requester" },
+                { 32, "Abmelden" }
             },
             ["Swedish"] = new Dictionary<int, string>
             {
@@ -177,7 +184,9 @@ namespace msptool
                 { 27, "Objektglitcher (givare)" },
                 { 28, "Automatiserad Autograf (endast VIP)" },
                 { 29, "starFame - Berömmelseodlare" },
-                { 30, "Logga ut" }
+                { 30, "Password Changer" },
+                { 31, "Friend Requester" },
+                { 32, "Logga ut" }
             },
             ["Dutch"] = new Dictionary<int, string>
             {
@@ -210,7 +219,9 @@ namespace msptool
                 { 27, "Item Glitcher (gever)" },
                 { 28, "Geautomatiseerde Autograaf (alleen VIP)" },
                 { 29, "starFame - Roem Kweker" },
-                { 30, "Uitloggen" }
+                { 30, "Password Changer" },
+                { 31, "Friend Requester" },
+                { 32, "Uitloggen" }
             },
             ["Finnish"] = new Dictionary<int, string>
             {
@@ -243,7 +254,9 @@ namespace msptool
                 { 27, "Tavaroiden Glitchaus (lahjalla)" },
                 { 28, "Automaattinen nimikirjoitusten antaja (vain VIP)" },
                 { 29, "starFame - Famen Farmaus" },
-                { 30, "Kirjaudu ulos" }
+                { 30, "Password Changer" },
+                { 31, "Friend Requester" },
+                { 32, "Kirjaudu ulos" }
             },
             ["Norwegian"] = new Dictionary<int, string>
             {
@@ -276,7 +289,9 @@ namespace msptool
                 { 27, "Element Glitcher (giver)" },
                 { 28, "Automatisk Autograf (kun VIP)" },
                 { 29, "starFame - Berømmelsesbonde" },
-                { 30, "Logg ut" }
+                { 30, "Password Changer" },
+                { 31, "Friend Requester" },
+                { 32, "Logg ut" }
             },
             ["Danish"] = new Dictionary<int, string>
             {
@@ -309,7 +324,9 @@ namespace msptool
                 { 27, "Element Glitcher (giver)" },
                 { 28, "Automatiseret Autograf (kun VIP)" },
                 { 29, "starFame - Berømmelsesbonde" },
-                { 30, "Log ud" }
+                { 30, "Password Changer" },
+                { 31, "Friend Requester" },
+                { 32, "Log ud" }
             },
             ["Polish"] = new Dictionary<int, string>
             {
@@ -342,7 +359,9 @@ namespace msptool
                 { 27, "Gliczowanie przedmiotów (gifter)" },
                 { 28, "Automatyczne autografowanie (Tylko VIP)" },
                 { 29, "starFame - Farma Fame'u" },
-                { 30, "Wyloguj się" }
+                { 30, "Password Changer" },
+                { 31, "Friend Requester" },
+                { 32, "Wyloguj się" }
             },
             ["Spanish"] = new Dictionary<int, string>
             {
@@ -375,7 +394,9 @@ namespace msptool
                 { 27, "Glitcher de Artículos (donante)" },
                 { 28, "Autógrafo Automatizado (solo VIP)" },
                 { 29, "starFame - Cultivador de Fama" },
-                { 30, "Cerrar sesión" }
+                { 30, "Password Changer" },
+                { 31, "Friend Requester" },
+                { 32, "Cerrar sesión" }
             }
         };
     }

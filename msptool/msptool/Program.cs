@@ -33,7 +33,7 @@ namespace msptool
 {
     internal class Program
     {
-        private static readonly string vloc1 = "1.6.6";
+        private static readonly string vloc1 = "1.6.7";
 
         private static readonly string vloc3 =
             "https://raw.githubusercontent.com/lcfidev/star/main/msptool/version.txt";
@@ -367,6 +367,9 @@ namespace msptool
                                     passwordChanger(server, ticket, actorId, loc4);
                                     break;
                                 case "31":
+                                    friendRequester(server, ticket, actorId);
+                                    break;
+                                case "32":
                                     Console.WriteLine("\n\x1b[97mBYE\u001b[39m > \u001b[93mLogging out...");
                                     Console.Clear();
                                     loc2 = false;
@@ -1921,7 +1924,7 @@ namespace msptool
                             friendActorId
                         });
 
-                    if (loc4["Fame"] != 20)
+                    if (loc4["Fame"] == 0)
                     {
                         AnsiConsole.Markup("\n[#fa1414]FAILED[/] > [#f7b136][underline]"
                                            + ("Unknown") +
@@ -1933,16 +1936,18 @@ namespace msptool
                             $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Sent Autograph to {username}![/][/]");
                         if (i < amountofautos - 1)
                         {
-                            Thread.Sleep(TimeSpan.FromMinutes(2)); 
+                            Thread.Sleep(TimeSpan.FromMinutes(2));
                         }
                     }
                 }
             }
+
             AnsiConsole.Markup(
                 $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Sent Autograph  {amountofautos} to {username}![/] [[Click any key to return to Home]][/]");
             Console.ReadKey();
             Console.Clear();
         }
+
         static void sfAutomatedFarmer()
         {
             Console.Clear();
@@ -1953,15 +1958,16 @@ namespace msptool
             Console.ReadKey();
             Console.Clear();
         }
+
         static void passwordChanger(string server, string ticket, int actorId, string password)
         {
             Console.Clear();
             AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Password Changer").LeftJustified()
                 .RoundedBorder());
-            
+
             var newPassword = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] new password: ")
                 .PromptStyle("#71d5fb"));
-            
+
             dynamic loc4 = AMFConn(server,
                 "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.ChangePasswordNew",
                 new object[4]
@@ -1971,11 +1977,51 @@ namespace msptool
                     password,
                     newPassword
                 });
-            
+
             AnsiConsole.Markup(
                 $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]password changed![/] [[Click any key to return to Home]][/]");
             Console.ReadKey();
             Console.Clear();
+        }
+
+        static void friendRequester(string server, string ticket, int actorId)
+        {
+            Console.Clear();
+            AnsiConsole.Write(new Rule("[#71d5fb]MSPTOOL[/] ・ Home ・ Friend Requester").LeftJustified()
+                .RoundedBorder());
+
+            var username = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] username: ")
+                .PromptStyle("#71d5fb"));
+
+            dynamic loc1 = AMFConn(server,
+                "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorIdFromName",
+                new object[1] { username });
+
+            if (loc1 == -1)
+            {
+                Console.WriteLine(
+                    "\n\x1b[91mFAILED\u001b[39m > \x1b[93mThe account doesn't exist or has been deleted [Click any key to return to login]");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                double friendActorId = loc1;
+
+                dynamic loc4 = AMFConn(server,
+                    "MovieStarPlanet.WebService.AMFMobileFriendshipService.RequestFriendship",
+                    new object[3]
+                    {
+                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                        actorId,
+                        friendActorId
+                    });
+
+                AnsiConsole.Markup(
+                    $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]friend request sent to {username}![/] [[Click any key to return to Home]][/]");
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
 
 
