@@ -1505,11 +1505,19 @@ namespace msptool
                     AnsiConsole.MarkupLine($"[#71d5fb]IsRareItem:[/] {loc11}");
                     AnsiConsole.MarkupLine($"[#71d5fb]IsVipItem:[/] {loc10}");
                     AnsiConsole.MarkupLine("");
+                    string loc13 = $"{server}-{loc4}-animations.txt";
+                    string loc14 = $"Name: {loc5}{Environment.NewLine}" +
+                                   $"AnimationId: {loc6}{Environment.NewLine}" +
+                                   $"ActorAnimationRelId: {loc7}{Environment.NewLine}" +
+                                   $"IsRareItem: {loc11}{Environment.NewLine}" +
+                                   $"IsVipItem: {loc10}{Environment.NewLine}{Environment.NewLine}"; 
+
+                    File.AppendAllText(loc13, loc14);
                 }
             }
 
             AnsiConsole.MarkupLine(
-                $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all {loc4} animations :)[/] [[Click any key to return to Home]][/]");
+                $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]checked all animations and extracted to {server}-{loc4}-animations.txt  :)[/] [[Click any key to return to Home]][/]");
             Console.ReadKey();
             Console.Clear();
         }
