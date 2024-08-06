@@ -1020,6 +1020,31 @@ namespace msptool
             AnsiConsole.Markup(
                 "[slowblink][[[#c70000]?![/]]] Use it at your own risk, we are not responsible for your misdeeds.[/]\n");
 
+            wheelspins(server, actorId, ticket);
+            dynamic loc5 = AMFConn(server,
+                "MovieStarPlanet.WebService.Awarding.AMFAwardingService.RequestIntroductionAward",
+                new object[2]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId
+                });
+            dynamic loc6 = AMFConn(server,
+                "MovieStarPlanet.WebService.AMFAwardService.RequestIntroductionAward",
+                new object[2]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    actorId
+                });
+            dynamic loc7 = AMFConn(server,
+                "MovieStarPlanet.WebService.AMFAwardService.claimDailyAward",
+                new object[4]
+                {
+                    new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                    "firstRetentionSC",
+                    300,
+                    actorId
+                });
+
             bool loc1 = false;
 
             for (int i = 0; i < 100; i++)
@@ -1052,12 +1077,24 @@ namespace msptool
                 }
             }
 
-            if (loc1)
+            for (int i = 0; i < 3; i++)
             {
-                AnsiConsole.Markup(
-                    "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Stars are out your account has been levelled and has starcoins : )[/] [[Auto redirect in 2 seconds]][/]");
-                Thread.Sleep(500);
-                Console.Clear();
+                dynamic loc8 = AMFConn(server,
+                    "MovieStarPlanet.WebService.Achievement.AMFAchievementWebService.ClaimReward",
+                    new object[3]
+                    {
+                        new TicketHeader { anyAttribute = null, Ticket = actor(ticket) },
+                        "LUCKY_YOU",
+                        actorId
+                    });
+
+                if (loc1)
+                {
+                    AnsiConsole.Markup(
+                        "\n[#06c70c]SUCCESS[/] > [#f7b136][underline]Stars are out your account has been levelled and has starcoins : )[/] [[Auto redirect in 2 seconds]][/]");
+                    Thread.Sleep(500);
+                    Console.Clear();
+                }
             }
         }
 
@@ -1580,6 +1617,9 @@ namespace msptool
             int loc13 = AnsiConsole.Prompt(
                 new Spectre.Console.TextPrompt<int>("[[[#71d5fb]+[/]]] Amount of bots: ").PromptStyle("#71d5fb"));
 
+            string loc29 = AnsiConsole.Prompt(new TextPrompt<string>("[[[#71d5fb]+[/]]] Pass for bots: ")
+                .PromptStyle("#71d5fb"));
+            
             for (int i = 0; i < loc13; i++)
             {
                 string loc1 = CaptchaV3();
@@ -1588,7 +1628,7 @@ namespace msptool
                                                   $".mspapis.com/profileidentity/v1/profiles/names/suggestions/?&gameId=5ooi&culture={culture}");
                 System.Collections.Generic.List<string> loc7 = JsonConvert.DeserializeObject<List<string>>(loc6);
                 string loc2 = string.Join("", loc7);
-                string loc3 = "hasumsp123";
+                string loc3 = loc29;
                 string loc4 = BitConverter
                     .ToString(new HMACSHA256(Encoding.UTF8.GetBytes("7jA7^kAZSHtjxDAa")).ComputeHash(
                         Encoding.UTF8.GetBytes("5ooi" + server + loc3 + loc2 + "false"))).Replace("-", "").ToLower();
@@ -1712,7 +1752,7 @@ namespace msptool
                         AnsiConsole.Markup(
                             $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]{loc2}:{loc3}[/][/]");
                         string loc11 = $"bots-{server}.txt";
-                        File.AppendAllText(loc11, loc2 + " | " + loc3 + Environment.NewLine);
+                        File.AppendAllText(loc11, loc2 + ":" + loc3 + Environment.NewLine);
                     }
                     else
                     {
