@@ -46,8 +46,7 @@ namespace msptool
                 { 29, "starFame - Fame Farmer" },
                 { 30, "Password Changer" },
                 { 31, "Friend Requester" },
-                { 32, "bot gen without lisa" },
-                { 33, "Logout" }
+                { 32, "Logout" }
             },
             ["French"] = new Dictionary<int, string>
             {
@@ -82,8 +81,7 @@ namespace msptool
                 { 29, "starFame - Cultivateur de Célébrité" },
                 { 30, "Password Changer" },
                 { 31, "Friend Requester" },
-                { 32, "bot gen without lisa" },
-                { 33, "Déconnexion" }
+                { 32, "Déconnexion" }
             },
             ["Turkish"] = new Dictionary<int, string>
             {
@@ -118,8 +116,7 @@ namespace msptool
                 { 29, "starFame - Şöhret Çiftçisi" },
                 { 30, "Password Changer" },
                 { 31, "Friend Requester" },
-                { 32, "bot gen without lisa" },
-                { 33, "Çıkış Yap" }
+                { 32, "Çıkış Yap" }
             },
             ["German"] = new Dictionary<int, string>
             {
@@ -154,8 +151,7 @@ namespace msptool
                 { 29, "starFame - Ruhm-Farmer" },
                 { 30, "Password Changer" },
                 { 31, "Friend Requester" },
-                { 32, "bot gen without lisa" },
-                { 33, "Abmelden" }
+                { 32, "Abmelden" }
             },
             ["Swedish"] = new Dictionary<int, string>
             {
@@ -190,8 +186,7 @@ namespace msptool
                 { 29, "starFame - Berömmelseodlare" },
                 { 30, "Password Changer" },
                 { 31, "Friend Requester" },
-                { 32, "bot gen without lisa" },
-                { 33, "Logga ut" }
+                { 32, "Logga ut" }
             },
             ["Dutch"] = new Dictionary<int, string>
             {
@@ -226,8 +221,7 @@ namespace msptool
                 { 29, "starFame - Roem Kweker" },
                 { 30, "Password Changer" },
                 { 31, "Friend Requester" },
-                { 32, "bot gen without lisa" },
-                { 33, "Uitloggen" }
+                { 32, "Uitloggen" }
             },
             ["Finnish"] = new Dictionary<int, string>
             {
@@ -262,8 +256,7 @@ namespace msptool
                 { 29, "starFame - Famen Farmaus" },
                 { 30, "Password Changer" },
                 { 31, "Friend Requester" },
-                { 32, "bot gen without lisa" },
-                { 33, "Kirjaudu ulos" }
+                { 32, "Kirjaudu ulos" }
             },
             ["Norwegian"] = new Dictionary<int, string>
             {
@@ -298,8 +291,7 @@ namespace msptool
                 { 29, "starFame - Berømmelsesbonde" },
                 { 30, "Password Changer" },
                 { 31, "Friend Requester" },
-                { 32, "bot gen without lisa" },
-                { 33, "Logg ut" }
+                { 32, "Logg ut" }
             },
             ["Danish"] = new Dictionary<int, string>
             {
@@ -334,8 +326,7 @@ namespace msptool
                 { 29, "starFame - Berømmelsesbonde" },
                 { 30, "Password Changer" },
                 { 31, "Friend Requester" },
-                { 32, "bot gen without lisa" },
-                { 33, "Log ud" }
+                { 32, "Log ud" }
             },
             ["Polish"] = new Dictionary<int, string>
             {
@@ -370,8 +361,7 @@ namespace msptool
                 { 29, "starFame - Farma Fame'u" },
                 { 30, "Password Changer" },
                 { 31, "Friend Requester" },
-                { 32, "bot gen without lisa" },
-                { 33, "Wyloguj się" }
+                { 32, "Wyloguj się" }
             },
             ["Spanish"] = new Dictionary<int, string>
             {
@@ -406,8 +396,7 @@ namespace msptool
                 { 29, "starFame - Cultivador de Fama" },
                 { 30, "Password Changer" },
                 { 31, "Friend Requester" },
-                { 32, "bot gen without lisa" },
-                { 33, "Cerrar sesión" }
+                { 32, "Cerrar sesión" }
             }
         };
     }
