@@ -1751,30 +1751,10 @@ namespace msptool
                         loc23.Connect();
                         loc23.Send(
                             $"42[\"10\",{{\"messageType\":10,\"messageContent\":{{\"version\":3,\"applicationId\":\"APPLICATION_WEB\",\"country\":\"{server}\",\"username\":\"{loc26}\",\"access_token\":\"{loc25}\"}}}}]");
-                        
-                        dynamic loc57 = AMFConn(server,
-                            "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.LoadActorDetailsExtended",
-                            new object[2] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc27 });
-
-                        dynamic loc58 = AMFConn(server,
-                            "MovieStarPlanet.WebService.Session.AMFSessionServiceForWeb.GetChatPermissionInfo",
-                            new object[1] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) } });
-
-                        dynamic loc59 = AMFConn(server,
-                            "MovieStarPlanet.WebService.Moderation.AMFModeration.LoginEvent",
-                            new object[2] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc2 });
-
-                        dynamic loc60 = AMFConn(server,
-                            "MovieStarPlanet.WebService.Achievement.AMFAchievementWebService.CheckLoginAchievements",
-                            new object[2] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc2 });
-
-                        dynamic loc61 = AMFConn(server,
-                            "MovieStarPlanet.WebService.Spending.AMFSpendingService.GetEmoticonPackages",
-                            new object[2] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc2 });
 
                         dynamic loc62 = AMFConn(server,
                             "MovieStarPlanet.WebService.ActorService.AMFActorServiceForWeb.GetPostLoginBundleStandalone",
-                            new object[2] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc2 });
+                            new object[2] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc27 });
 
                         dynamic loc55 = AMFConn(server,
                             "MovieStarPlanet.WebService.Awarding.AMFAwardingService.claimDailyAward",
@@ -1790,7 +1770,18 @@ namespace msptool
                                 new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, "starwheel", 120, loc27
                             });
 
-                        for (int a = 0; i < 50; i++)
+                        for (int y = 0; i < 13; i++)
+                        {
+                            dynamic loc64 = AMFConn(server,
+                                "MovieStarPlanet.WebService.AMFAwardService.claimDailyAward",
+                                new object[4]
+                                {
+                                    new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, "twoPlayerFame",
+                                    50, loc27
+                                });
+                        }
+
+                        for (int z = 0; i < 25; i++)
                         {
                             dynamic loc56 = AMFConn(server,
                                 "MovieStarPlanet.WebService.AMFSpendingService.BuyClothes",
@@ -1806,6 +1797,24 @@ namespace msptool
                                         },
                                     },
                                     0
+                                });
+                        }
+
+                        dynamic loc67 = AMFConn(server,
+                            "MovieStarPlanet.WebService.Achievement.AMFAchievementWebService.ClaimReward",
+                            new object[3]
+                            {
+                                new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, "LUCKY_YOU", loc27
+                            });
+
+                        for (int d = 0; i < 1; i++)
+                        {
+                            dynamic loc68 = AMFConn(server,
+                                "MovieStarPlanet.WebService.Achievement.AMFAchievementWebService.ClaimReward",
+                                new object[3]
+                                {
+                                    new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, "CRAZY_COLLECTOR",
+                                    loc27
                                 });
 
                             if (loc10)
