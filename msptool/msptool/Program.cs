@@ -1662,19 +1662,28 @@ namespace msptool
                 {
                     string loc1 = CaptchaV3();
                     WebClient loc5 = new WebClient();
-                    string loc6 = loc5.DownloadString("https://" + ((server.ToUpper() == "US") ? "us" : "eu") + $".mspapis.com/profileidentity/v1/profiles/names/suggestions/?&gameId=5ooi&culture={culture}");
+                    string loc6 = loc5.DownloadString("https://" + ((server.ToUpper() == "US") ? "us" : "eu") +
+                                                      $".mspapis.com/profileidentity/v1/profiles/names/suggestions/?&gameId=5ooi&culture={culture}");
                     System.Collections.Generic.List<string> loc7 = JsonConvert.DeserializeObject<List<string>>(loc6);
                     string loc2 = string.Join("", loc7);
                     string loc3 = loc29;
-                    string loc4 = BitConverter.ToString(new HMACSHA256(Encoding.UTF8.GetBytes("7jA7^kAZSHtjxDAa")).ComputeHash(Encoding.UTF8.GetBytes("5ooi" + server + loc3 + loc2 + "false"))).Replace("-", "").ToLower();
+                    string loc4 = BitConverter
+                        .ToString(new HMACSHA256(Encoding.UTF8.GetBytes("7jA7^kAZSHtjxDAa")).ComputeHash(
+                            Encoding.UTF8.GetBytes("5ooi" + server + loc3 + loc2 + "false"))).Replace("-", "")
+                        .ToLower();
                     WebClient loc8 = new WebClient();
                     loc8.Headers[HttpRequestHeader.ContentType] = "application/json";
                     string loc12 = loc8.UploadString(
-                        "https://" + ((server.ToUpper() == "US") ? "us" : "eu") + ".mspapis.com/edgelogins/graphql/graphql",
-                        JsonConvert.SerializeObject(new {
+                        "https://" + ((server.ToUpper() == "US") ? "us" : "eu") +
+                        ".mspapis.com/edgelogins/graphql/graphql",
+                        JsonConvert.SerializeObject(new
+                        {
                             query =
                                 "mutation create ($loginName: String!, $password: String!, $gameId: String!, $isGuest: Boolean!, $countryCode: Region!, $checksum: String!, $recaptchaV3Token: String ){createLoginProfile(input: { name: $loginName, password: $password, gameId: $gameId, region: $countryCode, isGuest: $isGuest }, verify: {checksum: $checksum, recaptchaV3Token: $recaptchaV3Token } ) {success,loginProfile {loginId,loginName,profileId,profileName,isGuest},error}}",
-                            variables = "{\"checksum\": \"" + loc4 + "\", \"loginName\": \"" + loc2 + "\", \"password\": \"" + loc3 + "\", \"gameId\": \"5ooi\", \"isGuest\": false, \"countryCode\": \"" + server.ToUpper() + "\", \"recaptchaV3Token\": \"" + loc1 + "\"}",
+                            variables = "{\"checksum\": \"" + loc4 + "\", \"loginName\": \"" + loc2 +
+                                        "\", \"password\": \"" + loc3 +
+                                        "\", \"gameId\": \"5ooi\", \"isGuest\": false, \"countryCode\": \"" +
+                                        server.ToUpper() + "\", \"recaptchaV3Token\": \"" + loc1 + "\"}",
                             operationName = ""
                         }));
                     JObject loc9 = JObject.Parse(loc12);
@@ -1734,13 +1743,15 @@ namespace msptool
                             });
 
                         var loc20 = new WebClient { Proxy = null };
-                        var loc21 = server == "US" ? "https://presence-us.mspapis.com/getServer" : "https://presence.mspapis.com/getServer";
+                        var loc21 = server == "US"
+                            ? "https://presence-us.mspapis.com/getServer"
+                            : "https://presence.mspapis.com/getServer";
                         var loc22 = loc20.DownloadString(loc21).Replace('-', '.');
                         var loc23 = new WebSocket($"ws://{loc22}:10843/{loc22.Replace('.', '-')}/?transport=websocket");
                         loc23.Connect();
                         loc23.Send(
                             $"42[\"10\",{{\"messageType\":10,\"messageContent\":{{\"version\":3,\"applicationId\":\"APPLICATION_WEB\",\"country\":\"{server}\",\"username\":\"{loc26}\",\"access_token\":\"{loc25}\"}}}}]");
-
+                        
                         dynamic loc57 = AMFConn(server,
                             "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.LoadActorDetailsExtended",
                             new object[2] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc27 });
@@ -1757,47 +1768,69 @@ namespace msptool
                             "MovieStarPlanet.WebService.Achievement.AMFAchievementWebService.CheckLoginAchievements",
                             new object[2] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc2 });
 
-                        dynamic loc61 = AMFConn(server, "MovieStarPlanet.WebService.Spending.AMFSpendingService.GetEmoticonPackages",
+                        dynamic loc61 = AMFConn(server,
+                            "MovieStarPlanet.WebService.Spending.AMFSpendingService.GetEmoticonPackages",
                             new object[2] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc2 });
 
-                        dynamic loc62 = AMFConn(server, "MovieStarPlanet.WebService.ActorService.AMFActorServiceForWeb.GetPostLoginBundleStandalone",
+                        dynamic loc62 = AMFConn(server,
+                            "MovieStarPlanet.WebService.ActorService.AMFActorServiceForWeb.GetPostLoginBundleStandalone",
                             new object[2] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc2 });
 
-                        for (int b = 0; i < 50; i++)
-                        {
-                            dynamic loc55 = AMFConn(server,
-                                "MovieStarPlanet.WebService.Awarding.AMFAwardingService.claimDailyAward",
-                                new object[4] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, "wheel", 120, loc27 });
-
-                            for (int a = 0; i < 50; i++)
+                        dynamic loc55 = AMFConn(server,
+                            "MovieStarPlanet.WebService.Awarding.AMFAwardingService.claimDailyAward",
+                            new object[4]
                             {
-                                dynamic loc56 = AMFConn(server,
-                                    "MovieStarPlanet.WebService.AMFSpendingService.BuyClothes",
-                                    new object[4] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc27, new object[] { new { Color = 0xFC67CC, y = 0, ActorClothesRelId = 0, ActorId = loc27, ClothesId = 30217, IsWearing = 0, x = 0 }, }, 0 });
+                                new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, "wheel", 120, loc27
+                            });
 
-                                if (loc10)
+                        dynamic loc63 = AMFConn(server,
+                            "MovieStarPlanet.WebService.Awarding.AMFAwardingService.claimDailyAward",
+                            new object[4]
+                            {
+                                new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, "starwheel", 120, loc27
+                            });
+
+                        for (int a = 0; i < 50; i++)
+                        {
+                            dynamic loc56 = AMFConn(server,
+                                "MovieStarPlanet.WebService.AMFSpendingService.BuyClothes",
+                                new object[4]
                                 {
-                                    AnsiConsole.Markup(
-                                        $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]{loc2}:{loc3}[/][/]");
-                                    string loc11 = $"bots-{server}.txt";
-                                    File.AppendAllText(loc11, loc2 + ":" + loc3 + Environment.NewLine);
-                                }
-                                else
-                                {
-                                    AnsiConsole.Markup(
-                                        $"\n[#fa1414]FAILED[/] > [#f7b136][underline]{loc2}[/][/]");
-                                }
+                                    new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc27,
+                                    new object[]
+                                    {
+                                        new
+                                        {
+                                            Color = 0xFC67CC, y = 0, ActorClothesRelId = 0, ActorId = loc27,
+                                            ClothesId = 30217, IsWearing = 0, x = 0
+                                        },
+                                    },
+                                    0
+                                });
+
+                            if (loc10)
+                            {
+                                AnsiConsole.Markup(
+                                    $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]{loc2}:{loc3}[/][/]");
+                                string loc11 = $"bots-{server}.txt";
+                                File.AppendAllText(loc11, loc2 + ":" + loc3 + Environment.NewLine);
+                            }
+                            else
+                            {
+                                AnsiConsole.Markup(
+                                    $"\n[#fa1414]FAILED[/] > [#f7b136][underline]{loc2}[/][/]");
                             }
                         }
-
-                        AnsiConsole.MarkupLine(
-                            "\n[#71d5fb][/] > [#f7b136][underline]created all bots :)[/] [[Click any key to return to Home]][/]");
-                        Console.ReadKey();
-                        Console.Clear();
                     }
+
+                    AnsiConsole.MarkupLine(
+                        "\n[#71d5fb][/] > [#f7b136][underline]created all bots :)[/] [[Click any key to return to Home]][/]");
+                    Console.ReadKey();
+                    Console.Clear();
                 }
             }
         }
+
 
         static void itemGlitcher(string server, string ticket, int actorId, string accessToken, string profileId)
         {
