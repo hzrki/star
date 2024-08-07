@@ -980,6 +980,7 @@ namespace msptool
                     .RoundedBorder());
                 Console.Write("\n");
 
+                loc222(server, ticket, "wheel", 120, actorId, 4);
                 loc222(server, ticket, "starwheel", 120, actorId, 4);
                 loc222(server, ticket, "starVipWheel", 200, actorId, 4);
                 loc222(server, ticket, "advertWheelDwl", 240, actorId, 2);
@@ -1688,10 +1689,7 @@ namespace msptool
                     JObject loc9 = JObject.Parse(loc12);
                     bool loc10 = (bool)loc9["data"]["createLoginProfile"]["success"];
                     dynamic loc15 = AMFConn(server, "MovieStarPlanet.WebService.User.AMFUserServiceWeb.Login",
-                        new object[6]
-                        {
-                            loc2, loc3, new object[] { }, null, null, "MSP1-Standalone:XXXXXX"
-                        });
+                        new object[6] { loc2, loc3, new object[] { }, null, null, "MSP1-Standalone:XXXXXX" });
                     if (loc15["loginStatus"]["status"] != "ThirdPartyCreated")
                         Console.WriteLine("\n" + $"not validated with msp1 {loc2}");
                     else
@@ -1718,60 +1716,30 @@ namespace msptool
                                     {
                                         new
                                         {
-                                            ActorClothesRelId = -10,
-                                            ActorId = -1,
-                                            ClothesId = 18671,
-                                            IsWearing = 1,
-                                            y = 0,
-                                            Color = 0,
-                                            x = 0
+                                            ActorClothesRelId = -10, ActorId = -1, ClothesId = 18671, IsWearing = 1,
+                                            y = 0, Color = 0, x = 0
                                         },
                                         new
                                         {
-                                            ActorClothesRelId = -14,
-                                            ActorId = -1,
-                                            ClothesId = 22252,
-                                            IsWearing = 1,
-                                            y = 0,
-                                            Color = "0,0,0",
-                                            x = 0
+                                            ActorClothesRelId = -14, ActorId = -1, ClothesId = 22252, IsWearing = 1,
+                                            y = 0, Color = "0,0,0", x = 0
                                         },
                                         new
                                         {
-                                            ActorClothesRelId = -15,
-                                            ActorId = -1,
-                                            ClothesId = 19121,
-                                            IsWearing = 1,
-                                            y = 0,
-                                            Color = "0x000000,0xffffff,0x000000",
-                                            x = 0
+                                            ActorClothesRelId = -15, ActorId = -1, ClothesId = 19121, IsWearing = 1,
+                                            y = 0, Color = "0x000000,0xffffff,0x000000", x = 0
                                         },
                                         new
                                         {
-                                            ActorClothesRelId = -16,
-                                            ActorId = -1,
-                                            ClothesId = 18931,
-                                            IsWearing = 1,
-                                            y = 0,
-                                            Color = "0xFFFCF7,0xF5F6FF",
-                                            x = 0
+                                            ActorClothesRelId = -16, ActorId = -1, ClothesId = 18931, IsWearing = 1,
+                                            y = 0, Color = "0xFFFCF7,0xF5F6FF", x = 0
                                         }
                                     },
-                                    MouthColors = "skincolor,0xB67676",
-                                    MouthId = 35,
-                                    NoseId = 28,
-                                    InvitedByActorId = -1,
-                                    ChosenActorName = loc2,
-                                    ChosenPassword = loc3,
-                                    SkinIsMale = true,
-                                    EyeColors = "0x0,0x000000",
-                                    EyeId = 6,
-                                    SkinColor = "14195824"
+                                    MouthColors = "skincolor,0xB67676", MouthId = 35, NoseId = 28,
+                                    InvitedByActorId = -1, ChosenActorName = loc2, ChosenPassword = loc3,
+                                    SkinIsMale = true, EyeColors = "0x0,0x000000", EyeId = 6, SkinColor = "14195824"
                                 },
-                                loc17,
-                                loc16,
-                                loc2,
-                                loc3
+                                loc17, loc16, loc2, loc3
                             });
 
                         var loc20 = new WebClient { Proxy = null };
@@ -1784,28 +1752,61 @@ namespace msptool
                         loc23.Send(
                             $"42[\"10\",{{\"messageType\":10,\"messageContent\":{{\"version\":3,\"applicationId\":\"APPLICATION_WEB\",\"country\":\"{server}\",\"username\":\"{loc26}\",\"access_token\":\"{loc25}\"}}}}]");
 
-                        wheelspins(server, loc27, loc28);
-                        lisaHack(server, loc27, loc28);
+                        dynamic loc57 = AMFConn(server,
+                            "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.LoadActorDetailsExtended",
+                            new object[2] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc27 });
 
-                        if (loc10)
+                        dynamic loc58 = AMFConn(server,
+                            "MovieStarPlanet.WebService.Session.AMFSessionServiceForWeb.GetChatPermissionInfo",
+                            new object[1] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) } });
+
+                        dynamic loc59 = AMFConn(server,
+                            "MovieStarPlanet.WebService.Moderation.AMFModeration.LoginEvent",
+                            new object[2] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc2 });
+
+                        dynamic loc60 = AMFConn(server,
+                            "MovieStarPlanet.WebService.Achievement.AMFAchievementWebService.CheckLoginAchievements",
+                            new object[2] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc2 });
+
+                        dynamic loc61 = AMFConn(server, "MovieStarPlanet.WebService.Spending.AMFSpendingService.GetEmoticonPackages",
+                            new object[2] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc2 });
+
+                        dynamic loc62 = AMFConn(server, "MovieStarPlanet.WebService.ActorService.AMFActorServiceForWeb.GetPostLoginBundleStandalone",
+                            new object[2] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc2 });
+
+                        for (int b = 0; i < 50; i++)
                         {
-                            AnsiConsole.Markup(
-                                $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]{loc2}:{loc3}[/][/]");
-                            string loc11 = $"bots-{server}.txt";
-                            File.AppendAllText(loc11, loc2 + ":" + loc3 + Environment.NewLine);
+                            dynamic loc55 = AMFConn(server,
+                                "MovieStarPlanet.WebService.Awarding.AMFAwardingService.claimDailyAward",
+                                new object[4] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, "wheel", 120, loc27 });
+
+                            for (int a = 0; i < 50; i++)
+                            {
+                                dynamic loc56 = AMFConn(server,
+                                    "MovieStarPlanet.WebService.AMFSpendingService.BuyClothes",
+                                    new object[4] { new TicketHeader { anyAttribute = null, Ticket = actor(loc28) }, loc27, new object[] { new { Color = 0xFC67CC, y = 0, ActorClothesRelId = 0, ActorId = loc27, ClothesId = 30217, IsWearing = 0, x = 0 }, }, 0 });
+
+                                if (loc10)
+                                {
+                                    AnsiConsole.Markup(
+                                        $"\n[#06c70c]SUCCESS[/] > [#f7b136][underline]{loc2}:{loc3}[/][/]");
+                                    string loc11 = $"bots-{server}.txt";
+                                    File.AppendAllText(loc11, loc2 + ":" + loc3 + Environment.NewLine);
+                                }
+                                else
+                                {
+                                    AnsiConsole.Markup(
+                                        $"\n[#fa1414]FAILED[/] > [#f7b136][underline]{loc2}[/][/]");
+                                }
+                            }
                         }
-                        else
-                        {
-                            AnsiConsole.Markup(
-                                $"\n[#fa1414]FAILED[/] > [#f7b136][underline]{loc2}[/][/]");
-                        }
+
+                        AnsiConsole.MarkupLine(
+                            "\n[#71d5fb][/] > [#f7b136][underline]created all bots :)[/] [[Click any key to return to Home]][/]");
+                        Console.ReadKey();
+                        Console.Clear();
                     }
                 }
-
-                AnsiConsole.MarkupLine(
-                    "\n[#71d5fb][/] > [#f7b136][underline]created all bots :)[/] [[Click any key to return to Home]][/]");
-                Console.ReadKey();
-                Console.Clear();
             }
         }
 
@@ -2023,8 +2024,6 @@ namespace msptool
                 Console.Clear();
             }
         }
-
-
         static async Task MSP2_Login()
         {
             Console.Clear();
