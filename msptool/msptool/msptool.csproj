@@ -40,9 +40,6 @@
         <Reference Include="Costura, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
           <HintPath>packages\Costura.Fody.5.7.0\lib\netstandard1.0\Costura.dll</HintPath>
         </Reference>
-        <Reference Include="FluorineFx.Client, Version=1.4.9.0, Culture=neutral, PublicKeyToken=ce5b9b7dad4ce88e, processorArchitecture=MSIL">
-          <HintPath>packages\StarService.1.2.1\lib\net481\FluorineFx.Client.dll</HintPath>
-        </Reference>
         <Reference Include="GraphQLParser, Version=8.4.2.0, Culture=neutral, PublicKeyToken=e6238258560628ee, processorArchitecture=MSIL">
           <HintPath>packages\GraphQL-Parser.8.4.2\lib\netstandard2.0\GraphQLParser.dll</HintPath>
         </Reference>
@@ -78,8 +75,8 @@
         <Reference Include="Spectre.Console, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
           <HintPath>packages\Spectre.Console.0.49.1\lib\netstandard2.0\Spectre.Console.dll</HintPath>
         </Reference>
-        <Reference Include="StarService, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-          <HintPath>packages\StarService.1.2.1\lib\net481\StarService.dll</HintPath>
+        <Reference Include="StarService, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>packages\StarService.1.7.0\lib\net481\StarService.dll</HintPath>
         </Reference>
         <Reference Include="System" />
         <Reference Include="System.AppContext, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -140,8 +137,8 @@
           <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
         </Reference>
         <Reference Include="System.Messaging" />
-        <Reference Include="System.Net.Http, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <HintPath>packages\System.Net.Http.4.3.2\lib\net46\System.Net.Http.dll</HintPath>
+        <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <HintPath>packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
         </Reference>
         <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
           <HintPath>packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
