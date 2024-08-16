@@ -213,10 +213,6 @@
       <None Include="icon.ico" />
       <None Include="packages.config" />
     </ItemGroup>
-    <ItemGroup>
-      <Analyzer Include="packages\GraphQL.Analyzers.7.8.0\analyzers\dotnet\cs\GraphQL.Analyzers.CodeFixes.dll" />
-      <Analyzer Include="packages\GraphQL.Analyzers.7.8.0\analyzers\dotnet\cs\GraphQL.Analyzers.dll" />
-    </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <Import Project="packages\Fody.6.6.0\build\Fody.targets" Condition="Exists('packages\Fody.6.6.0\build\Fody.targets')" />
     <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

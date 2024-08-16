@@ -112,3 +112,7 @@ C:\Users\user\Documents\star\msptool\msptool\obj\Release\msptool.csproj.Fody.Cop
 C:\Users\user\Documents\star\msptool\msptool\obj\Release\msptool.csproj.CopyComplete
 C:\Users\user\Documents\star\msptool\msptool\obj\Release\msptool.exe
 C:\Users\user\Documents\star\msptool\msptool\obj\Release\msptool.pdb
+C:\Users\user\Videos\star\msptool\msptool\obj\Release\msptool.csproj.AssemblyReference.cache
+C:\Users\user\Videos\star\msptool\msptool\obj\Release\msptool.csproj.CoreCompileInputs.cache
+C:\Users\user\Videos\star\msptool\msptool\obj\Release\msptool.exe
+C:\Users\user\Videos\star\msptool\msptool\obj\Release\msptool.pdb
