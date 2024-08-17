@@ -32,7 +32,6 @@ C:\Users\0\Documents\star\msptool\msptool\bin\Release\Microsoft.IdentityModel.Ab
 C:\Users\0\Documents\star\msptool\msptool\bin\Release\Microsoft.IdentityModel.JsonWebTokens.xml
 C:\Users\0\Documents\star\msptool\msptool\bin\Release\Microsoft.IdentityModel.Logging.xml
 C:\Users\0\Documents\star\msptool\msptool\bin\Release\Microsoft.IdentityModel.Tokens.xml
-C:\Users\0\Documents\star\msptool\msptool\bin\Release\Newtonsoft.Json.xml
 C:\Users\0\Documents\star\msptool\msptool\bin\Release\Spectre.Console.xml
 C:\Users\0\Documents\star\msptool\msptool\bin\Release\System.Buffers.xml
 C:\Users\0\Documents\star\msptool\msptool\bin\Release\System.Diagnostics.DiagnosticSource.xml
@@ -116,3 +115,7 @@ C:\Users\user\Videos\star\msptool\msptool\obj\Release\msptool.csproj.AssemblyRef
 C:\Users\user\Videos\star\msptool\msptool\obj\Release\msptool.csproj.CoreCompileInputs.cache
 C:\Users\user\Videos\star\msptool\msptool\obj\Release\msptool.exe
 C:\Users\user\Videos\star\msptool\msptool\obj\Release\msptool.pdb
+C:\Users\0\Documents\star\msptool\msptool\bin\Release\protobuf-net.xml
+C:\Users\0\Documents\star\msptool\msptool\bin\Release\protobuf-net.Core.xml
+C:\Users\0\Documents\star\msptool\msptool\bin\Release\System.Collections.Immutable.xml
+C:\Users\0\Documents\star\msptool\msptool\bin\Release\websocket-sharp.xml
