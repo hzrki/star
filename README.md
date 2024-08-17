@@ -35,7 +35,7 @@
   <a href="https://github.com/lcfidev/star">
   </a>
 
-  <h3 align="center">Star's Extension</h3>
+  <h3 align="center">Star's Extension  (Project ended: 17/08/2024)</h3>
 
   <p align="center">
     <br />
