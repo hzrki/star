@@ -36,15 +36,11 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
-        <Reference Include=".NET Framework" />
         <Reference Include="Costura, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
           <HintPath>packages\Costura.Fody.5.7.0\lib\netstandard1.0\Costura.dll</HintPath>
         </Reference>
         <Reference Include="FluorineFx.Client, Version=1.4.9.0, Culture=neutral, PublicKeyToken=ce5b9b7dad4ce88e, processorArchitecture=MSIL">
           <HintPath>packages\StarService.1.7.2\lib\net481\FluorineFx.Client.dll</HintPath>
-        </Reference>
-        <Reference Include="GraphQLParser, Version=8.4.2.0, Culture=neutral, PublicKeyToken=e6238258560628ee, processorArchitecture=MSIL">
-          <HintPath>packages\GraphQL-Parser.8.4.2\lib\netstandard2.0\GraphQLParser.dll</HintPath>
         </Reference>
         <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
           <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
