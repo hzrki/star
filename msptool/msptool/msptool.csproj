@@ -40,6 +40,9 @@
         <Reference Include="Costura, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
           <HintPath>packages\Costura.Fody.5.7.0\lib\netstandard1.0\Costura.dll</HintPath>
         </Reference>
+        <Reference Include="FluorineFx.Client, Version=1.4.9.0, Culture=neutral, PublicKeyToken=ce5b9b7dad4ce88e, processorArchitecture=MSIL">
+          <HintPath>packages\StarService.1.7.2\lib\net481\FluorineFx.Client.dll</HintPath>
+        </Reference>
         <Reference Include="GraphQLParser, Version=8.4.2.0, Culture=neutral, PublicKeyToken=e6238258560628ee, processorArchitecture=MSIL">
           <HintPath>packages\GraphQL-Parser.8.4.2\lib\netstandard2.0\GraphQLParser.dll</HintPath>
         </Reference>
@@ -64,7 +67,7 @@
         </Reference>
         <Reference Include="mscorlib" />
         <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-          <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+          <HintPath>packages\StarService.1.7.2\lib\net481\Newtonsoft.Json.dll</HintPath>
         </Reference>
         <Reference Include="protobuf-net, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
           <HintPath>packages\protobuf-net.3.2.30\lib\net462\protobuf-net.dll</HintPath>
@@ -76,7 +79,7 @@
           <HintPath>packages\Spectre.Console.0.49.1\lib\netstandard2.0\Spectre.Console.dll</HintPath>
         </Reference>
         <Reference Include="StarService, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-          <HintPath>packages\StarService.1.7.0\lib\net481\StarService.dll</HintPath>
+          <HintPath>packages\StarService.1.7.2\lib\net481\StarService.dll</HintPath>
         </Reference>
         <Reference Include="System" />
         <Reference Include="System.AppContext, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
