@@ -34,7 +34,6 @@
 <div align="center">
   <a href="https://github.com/lcfidev/star">
   </a>
-
   <h3 align="center">Star's Extension</h3>
     <h3 align="center">(Project will be replaced soon with a new one / will be maintained still no additional tools to be added)</h3>
 
