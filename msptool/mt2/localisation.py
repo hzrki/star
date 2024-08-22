@@ -27,8 +27,7 @@ Home = [
     (26, "Bot Generator (beta)"),
     (27, "Item Glitcher (gifter)"),
     (28, "Automated Autographer (VIP Only)"),
-    (29, "starFame - Fame Farmer"),
-    (30, "Password Changer"),
-    (31, "Friend Requester"),
-    (32, "Logout")
+    (29, "Password Changer"),
+    (30, "Friend Requester"),
+    (31, "Logout")
 ]
