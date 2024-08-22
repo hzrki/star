@@ -11,7 +11,7 @@ salt_numerics_origin = None
 salt_numerics = None
 salt_numerics_bytes = bytearray()
 
-def get_log_data():
+def getLogData():
     global salt_characters_allowed, salt_characters_allowed_copy, salt_characters_origin, salt_numerics_origin, salt_numerics
     if salt_numerics_origin is None:
         salt_characters_allowed = list(salt_characters_allowed_string)
@@ -37,7 +37,7 @@ def get_log_data():
     return salt_numerics_bytes.decode('utf-8')
 
 
-def swap_salt_indexes(param1, param2):
+def swapSaltIndexes(param1, param2):
     _loc3_ = len(param2)
     _loc4_ = (param1 + 14) % _loc3_
     _loc5_ = _loc4_ - 1 if _loc4_ - 1 >= 0 else _loc3_ - 1
@@ -47,4 +47,4 @@ def swap_salt_indexes(param1, param2):
     param2[_loc5_] = param2[_loc6_]
     param2[_loc6_] = _loc7_
 
-print(get_log_data())
+print(getLogData())
