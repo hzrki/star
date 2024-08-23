@@ -1,6 +1,6 @@
 from rich.console import Console
 from rich.prompt import Prompt
-from AmfCall import AmfCall
+from msptool.mt2.utils.amf import AmfCall
 from msptool.mt2.security.ticketHeader import ticketHeader
 console = Console()
 
