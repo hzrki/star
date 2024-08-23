@@ -2,10 +2,10 @@ from rich.console import Console
 from rich.table import Table
 from rich.prompt import Prompt
 import time
-from msptool.mt2.utils.amf import AmfCall
-from msptool.mt2.utils.localisation import Home
-from msptool.mt2.utils.webserver import WebServer, Loc1
-from msptool.mt2.utils.apis import buy_clothes
+from mt2.utils.amf import AmfCall
+from mt2.utils.localisation import Home
+from mt2.utils.webserver import WebServer, Loc1
+from mt2.utils.apis import buy_clothes
 
 console = Console()
 

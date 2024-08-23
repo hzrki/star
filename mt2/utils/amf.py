@@ -2,8 +2,8 @@ import base64
 from secrets import token_hex
 import requests
 from pyamf import remoting, AMF3
-from msptool.mt2 import tlsclient
-from msptool.mt2.security.checksumCalculator import create_checksum
+from mt2 import tlsclient
+from mt2.security.checksumCalculator import create_checksum
 
 
 def AmfCall(server: str, method: str, params: list) -> tuple[int, any]:
