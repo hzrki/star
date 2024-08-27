@@ -44,7 +44,7 @@ def ijv():
             loc2 = b"kickoff_2012_bootit_mf"
             loc3 = b"acion_2011_tankmodern"
         elif loc1 == "kroseksplotion":
-            loc2 = b"superero_hover"
+            loc2 = b"superhero_hover"
             loc3 = b"kropseksplotion"
         else:
             loc2 = b""
