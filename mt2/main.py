@@ -116,6 +116,10 @@ def homeMenu(server, ticket, name, actorId, accessToken, profileId):
         try:
             options = int(chosenop)
             if 1 <= options <= 32:
+               if options == 2:
+                    buy_boonie(server, ticket, actorId)
+                if options == 3:
+                    buy_animation(server, ticket, actorId)
                 if options == 4:
                     buy_clothes(server, ticket, actorId)
                 elif options == 32:
