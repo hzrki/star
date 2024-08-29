@@ -4,6 +4,32 @@ from mt2.utils.amf import AmfCall
 from mt2.security.ticketHeader import ticketHeader
 console = Console()
 
+def buy_boonie(server, ticket, actorId):
+    boonie_id = Prompt.ask("[#71d5fb]Enter Boonie ID: [/]")
+
+    code, resp = AmfCall(
+        server,
+        "MovieStarPlanet.WebService.Pets.AMFPetService.BuyClickItem",
+        [
+            ticketHeader(anyAttribute=None, ticket=ticket),
+            actorId,
+            boonie_id
+        ],
+    )
+
+def buy_animation(server, ticket, actorId):
+    animation_id = Prompt.ask("[#71d5fb]Enter Animation ID: [/]")
+
+    code, resp = AmfCall(
+        server,
+        "MovieStarPlanet.WebService.Spending.AMFSpendingService.BuyAnimation",
+        [
+            ticketHeader(anyAttribute=None, ticket=ticket),
+            actorId,
+            animation_id
+        ],
+    )
+
 
 def buy_clothes(server, ticket, actorId):
     rare_id = Prompt.ask("[#71d5fb]Enter Clothes ID: [/]")
