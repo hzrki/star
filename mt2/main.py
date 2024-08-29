@@ -115,14 +115,68 @@ def homeMenu(server, ticket, name, actorId, accessToken, profileId):
 
         try:
             options = int(chosenop)
-            if 1 <= options <= 32:
-               if options == 2:
+            if 1 <= options <= 31:
+                if options == 1:
+                    recycle_none_rare_clothes(server, ticket, actorId)
+                if options == 2:
                     buy_boonie(server, ticket, actorId)
                 if options == 3:
                     buy_animation(server, ticket, actorId)
                 if options == 4:
                     buy_clothes(server, ticket, actorId)
-                elif options == 32:
+                if options == 5:
+                    buy_eyes(server, ticket, actorId)
+                if options == 6:
+                    buy_nose(server, ticket, actorId)
+                if options == 7:
+                    buy_lips(server, ticket, actorId)
+                if options == 8:
+                    wear_rareskin(server, ticket, actorId)
+                if options == 9:
+                    add_to_wishlist(server, ticket, actorId)
+                if options == 10:
+                    custom_status(server, ticket, actorId, name)
+                if options == 11:
+                    add_sponsors(server, ticket)
+                if options == 12:
+                    block_defaults(server, ticket, actorId)
+                if options == 13:
+                    recycle_items(server, ticket, actorId)
+                if options == 14:
+                    wheel_spins(server, ticket, actorId)
+                if options == 15:
+                    lisa_hack(server, ticket, actorId)
+                if options == 16:
+                    automated_pixeller(server, ticket, actorId)
+                if options == 17:
+                    msp_query(server, ticket, actorId)
+                if options == 18:
+                    username_checker()
+                if options == 19:
+                    clothes_extractor(server, ticket)
+                if options == 20:
+                    username_to_actorid(server)
+                if options == 21:
+                    username_to_actorid(server)
+                if options == 22:
+                    item_tracker(server)
+                if options == 23:
+                    room_changer(server, ticket, actorId)
+                if options == 24:
+                    animations_extractor(server, ticket, actorId)
+                if options == 25:
+                    icon_changer(server, ticket, actorId)
+                if options == 26:
+                    bot_generator(server, ticket)
+                if options == 27:
+                    item_glitcher(server, ticket, actorId)
+                if options == 28:
+                    automated_autographer(server, ticket, actorId)
+                if options == 29:
+                    password_changer(server, ticket, actorId, name)
+                if options == 30:
+                    friend_requester(server, ticket, actorId)
+                elif options == 31:
                     console.print("Logging out...", style="bold green")
                     break
             else:
