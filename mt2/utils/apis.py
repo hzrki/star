@@ -79,7 +79,7 @@ def buy_eyes(server, ticket, actorId):
 
     code, resp = AmfCall(
         server,
-        "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicServiceMobile.BuyManyBeautyClinicItems",
+        "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
         [
             ticketHeader(anyAttribute=None, ticket=ticket),
             actorId,
@@ -102,7 +102,7 @@ def wear_rareskin(server, ticket, actorId):
 
     code, resp = AmfCall(
         server,
-        "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicServiceMobile.BuyManyBeautyClinicItems",
+        "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
         [
             ticketHeader(anyAttribute=None, ticket=ticket),
             actorId,
