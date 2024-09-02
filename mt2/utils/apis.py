@@ -83,16 +83,12 @@ def buy_eyes(server, ticket, actorId):
         [
             ticketHeader(anyAttribute=None, ticket=ticket),
             actorId,
-            [
-                {
-                "IsOwned": False,
+            [{"IsOwned": False,
                 "InventoryId": 0,
                 "IsWearing": True,
                 "ItemId": eye_id,
                 "Colors": eye_colors,
-                "Type": 1
-                }
-            ]
+                "Type": 1}]
         ]
     )
     if code != 500:
