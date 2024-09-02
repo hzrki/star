@@ -1,5 +1,3 @@
-from idlelib.run import exit_now
-
 from rich.console import Console
 from rich.table import Table
 from rich.prompt import Prompt
