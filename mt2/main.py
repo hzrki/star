@@ -2,10 +2,14 @@ from rich.console import Console
 from rich.table import Table
 from rich.prompt import Prompt
 import time
-from mt2.utils.amf import AmfCall
-from mt2.utils.localisation import Home
-from mt2.utils.webserver import WebServer, Loc1
-from mt2.utils.apis import buy_clothes
+from utils.amf import AmfCall
+from utils.apis import recycle_none_rare_clothes, buy_boonie, buy_animation, buy_clothes, buy_eyes, buy_nose, buy_lips, \
+    wear_rareskin, add_to_wishlist, custom_status, add_sponsors, block_defaults, recycle_items, wheel_spins, lisa_hack, \
+    automated_pixeller, msp_query, username_checker, clothes_extractor, username_to_actorid, actorid_to_username, \
+    item_tracker, room_changer, animations_extractor, icon_changer, bot_generator, item_glitcher, automated_autographer, \
+    password_changer, friend_requester
+from utils.localisation import Home
+from utils.webserver import WebServer, Loc1
 
 console = Console()
 
@@ -157,7 +161,7 @@ def homeMenu(server, ticket, name, actorId, accessToken, profileId):
                 if options == 20:
                     username_to_actorid(server)
                 if options == 21:
-                    username_to_actorid(server)
+                    actorid_to_username(server)
                 if options == 22:
                     item_tracker(server)
                 if options == 23:

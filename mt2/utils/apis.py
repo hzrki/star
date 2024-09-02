@@ -1,7 +1,7 @@
 from rich.console import Console
 from rich.prompt import Prompt
-from mt2.utils.amf import AmfCall
-from mt2.security.ticketHeader import ticketHeader
+from utils.amf import AmfCall
+from security.ticketHeader import ticketHeader
 console = Console()
 
 def recycle_none_rare_clothes(server, ticket, actorId):
