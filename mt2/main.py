@@ -139,21 +139,21 @@ def homeMenu(server, ticket, name, actorId, accessToken, profileId):
                     wheel_spins(server, ticket, actorId)
                 if options == 10:
                     lisa_hack(server, ticket, actorId)
-                if options == 12:
+                if options == 11:
                     msp_query(server, ticket, actorId)
-                if options == 13:
+                if options == 12:
                     clothes_extractor(server, ticket)
-                if options == 14:
+                if options == 13:
                     item_tracker(server)
-                if options == 15:
+                if options == 14:
                     animations_extractor(server, ticket, actorId)
-                if options == 16:
+                if options == 15:
                     bot_generator(server, ticket)
-                if options == 17:
+                if options == 16:
                     item_glitcher(server, ticket, actorId)
-                if options == 18:
+                if options == 17:
                     automated_autographer(server, ticket, actorId)
-                elif options == 19:
+                elif options == 18:
                     console.print("Logging out...", style="bold green")
                     break
             else:

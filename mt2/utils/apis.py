@@ -219,7 +219,84 @@ def lisa_hack(server, ticket, actorId):
     console.print("not implemented on alpha version")
 
 def msp_query(server, ticket, actorId):
-    console.print("not implemented on alpha version")
+    qusername = Prompt.ask("[#71d5fb]Enter username: [/]")
+
+    code, resp = AmfCall(
+        server,
+        "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorIdFromName",
+        [qusername]
+    )
+
+    if resp == -1:
+        console.print("FAILED | The account doesn't exist or has been deleted", style="bold red")
+        return
+
+    if code != 200:
+        console.print("FAILED | Unexpected Error", style="bold red")
+        return
+
+    if isinstance(resp, int):
+        actor_id = resp
+    else:
+        actor_id = resp.get("Content")
+
+    code, resp = AmfCall(
+        server,
+        "MovieStarPlanet.WebService.Profile.AMFProfileService.LoadProfileSummary",
+        [ticketHeader(anyAttribute=None, ticket=ticket), actor_id, actorId]
+    )
+    createdate = resp.get('Created')
+
+    code, resp = AmfCall(
+        server,
+        "MovieStarPlanet.WebService.AMFActorService.LoadMovieStarListRevised",
+        [ticketHeader(anyAttribute=None, ticket=ticket), [actor_id]]
+    )
+
+    if code != 200:
+        console.print("FAILED | Unexpected Error", style="bold red")
+        return
+
+    actor_info = resp[0]
+
+    nebulaProfileId = actor_info['NebulaProfileId']
+    actorId2 = actor_info['ActorId']
+    username = actor_info['Name']
+    level = actor_info['Level']
+    fame = int(actor_info['Fame'])
+    starcoins = actor_info['Money']
+    diamonds = actor_info['Diamonds']
+    skinColor = actor_info['SkinColor']
+    eyeId = actor_info['EyeId']
+    eyeColors = actor_info['EyeColors']
+    noseId = actor_info['NoseId']
+    mouthId = actor_info['MouthId']
+    mouthColors = actor_info['MouthColors']
+    membershiptimeoutdate = actor_info['MembershipTimeoutDate']
+    LastLogin = actor_info['LastLogin']
+
+    md = membershiptimeoutdate.strftime("%Y-%m-%d %H:%M:%S")
+
+    llg = createdate.strftime("%Y-%m-%d %H:%M:%S")
+
+    console.print(f"{username}'s Information", style="bold red")
+    console.print(f"ActorId: {actorId2}", style="bold red")
+    console.print(f"NebulaProfileId: {nebulaProfileId}", style="bold red")
+    console.print(f"Username: {username}", style="bold red")
+    console.print(f"Level: {level}", style="bold red")
+    console.print(f"Fame: {fame}", style="bold red")
+    console.print(f"Starcoins: {starcoins}", style="bold red")
+    console.print(f"Diamonds: {diamonds}", style="bold red")
+    console.print(f"SkinColor: {skinColor}", style="bold red")
+    console.print(f"EyeId: {eyeId}", style="bold red")
+    console.print(f"EyeColors: {eyeColors}", style="bold red")
+    console.print(f"NoseId: {noseId}", style="bold red")
+    console.print(f"MouthId: {mouthId}", style="bold red")
+    console.print(f"MouthColors: {mouthColors}", style="bold red")
+    console.print(f"Created: {llg}", style="bold red")
+    console.print(f"MembershipTimeoutDate: {md}", style="bold red")
+    console.print(f"LastLogin: {LastLogin}", style="bold red")
+
 
 def clothes_extractor(server, ticket):
     console.print("not implemented on alpha version")
