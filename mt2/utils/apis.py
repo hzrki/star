@@ -17,7 +17,7 @@ def buy_boonie(server, ticket, actorId):
             boonie_id
         ],
     )
-    if code != 500:
+    if code == 500:
         console.print("FAILED | BoonieId not found", style="bold red")
     else:
         console.print("SUCCESS | Boonie bought!", style="bold green")
@@ -91,7 +91,7 @@ def buy_eyes(server, ticket, actorId):
                 "Type": 1}]
         ]
     )
-    if code != 500:
+    if code == 500:
         console.print("FAILED | Unexpected Error", style="bold red")
     else:
         console.print("SUCCESS | Changed Eyes", style="bold green")
@@ -114,7 +114,7 @@ def wear_rareskin(server, ticket, actorId):
               "IsWearing": True}]
         ]
     )
-    if code != 500:
+    if code == 500:
         console.print("FAILED | Unexpected Error", style="bold red")
     else:
         console.print("SUCCESS | Changed Skincolor", style="bold green")
@@ -149,7 +149,7 @@ def custom_status(server, ticket, actorId, name):
                          "FigureAnimation": "stand", "MouthAnimation": "none", "TextLineLastFiltered": None,
                          "TextLineWhitelisted": None, "TextLine": status}, name, 0, False],
     )
-    if code != 500:
+    if code == 500:
         console.print("FAILED | Unexpected Error", style="bold red")
     else:
         console.print("SUCCESS | status changed", style="bold green")
@@ -157,7 +157,19 @@ def custom_status(server, ticket, actorId, name):
 
 
 def recycle_items(server, ticket, actorId):
-    console.print("not implemented on alpha version")
+    relid = Prompt.ask("[#71d5fb]Enter itemid: [/]")
+
+    code, resp = AmfCall(
+        server,
+        "MovieStarPlanet.WebService.Profile.AMFProfileService.RecycleItem",
+        [ticketHeader(anyAttribute=None, ticket=ticket), actorId, relid,0]
+    )
+    if code == 500:
+        console.print("FAILED | Unexpected Error", style="bold red")
+    else:
+        console.print("SUCCESS | Recycled item", style="bold green")
+
+
 
 def wheel_spins(server, ticket, actorId):
     console.print("not implemented on alpha version")
