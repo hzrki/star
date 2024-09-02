@@ -1,3 +1,5 @@
+from idlelib.run import exit_now
+
 from rich.console import Console
 from rich.table import Table
 from rich.prompt import Prompt
@@ -77,7 +79,8 @@ def install_update(version):
         repl_exe(iu1)
 
     except requests.RequestException as e:
-        console.print(f"[bold red]Contact Developer if issue continues! [/]", style="bold red")
+        console.print(f"[bold red] Failed | Contact Developer if issue continues! [/]", style="bold red")
+        exit()
 
 
 def repl_exe(latest_e):
