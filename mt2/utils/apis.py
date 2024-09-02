@@ -123,7 +123,6 @@ def add_to_wishlist(server, ticket):
     item_id = Prompt.ask("[#71d5fb]Enter ItemId: [/]")
     colors = Prompt.ask("[#71d5fb]Enter  colors: [/]")
 
-
     code, resp = AmfCall(
         server,
         "MovieStarPlanet.WebService.Gifts.AMFGiftsService+Version2.AddItemToWishlist",
@@ -132,9 +131,30 @@ def add_to_wishlist(server, ticket):
             [item_id],
             [colors]],
     )
+    if code != 0:
+        console.print(f"FAILED | {resp}", style="bold red")
+    else:
+        console.print("SUCCESS | item added to wishlist!", style="bold green")
+
 
 def custom_status(server, ticket, actorId, name):
-    console.print("not implemented on alpha version")
+    status = Prompt.ask("[#71d5fb]Enter status: [/]")
+
+    code, resp = AmfCall(
+        server,
+        "MovieStarPlanet.WebService.AMFActorService.SetMoodWithModerationCall",
+        [ticketHeader(anyAttribute=None, ticket=ticket),
+         {"Likes": 0, "TextLineBlacklisted": None, "WallPostLinks": None, "SpeechLine": False,
+                         "FaceAnimation": "neutral", "WallPostId": 0, "ActorId": actorId, "IsBrag": False,
+                         "FigureAnimation": "stand", "MouthAnimation": "none", "TextLineLastFiltered": None,
+                         "TextLineWhitelisted": None, "TextLine": status}, name, 0, False],
+    )
+    if code != 500:
+        console.print("FAILED | Unexpected Error", style="bold red")
+    else:
+        console.print("SUCCESS | status changed", style="bold green")
+
+
 
 def recycle_items(server, ticket, actorId):
     console.print("not implemented on alpha version")
