@@ -2,11 +2,16 @@ from rich.console import Console
 from rich.table import Table
 from rich.prompt import Prompt
 import time
+import os
+import requests
+import sys
+import shutil
 from utils.amf import AmfCall
-from utils.apis import buy_boonie, buy_animation, buy_clothes, buy_eyes, \
-    wear_rareskin, add_to_wishlist, custom_status, recycle_items, wheel_spins, lisa_hack, \
-     msp_query, clothes_extractor, item_tracker \
-    , bot_generator, item_glitcher, automated_autographer
+from utils.apis import (buy_boonie, buy_animation, buy_clothes, buy_eyes,
+                        wear_rareskin, add_to_wishlist, custom_status,
+                        recycle_items, wheel_spins, lisa_hack, msp_query,
+                        clothes_extractor, item_tracker, bot_generator,
+                        item_glitcher, automated_autographer)
 from utils.localisation import Home
 from utils.webserver import WebServer, Loc1
 
@@ -43,7 +48,48 @@ spt1 = """
                   .=+:                                                             
 """
 
+VERSION_ = "https://raw.githubusercontent.com/lcfidev/star/main/msptool/version.txt"
+RELEASE_ = "https://github.com/lcfidev/star/releases/download/v{version}/mt2.exe"
+CURRENT_VERSION = "2024.09.02.4735"
+
+
+def check_version():
+        resp = requests.get(VERSION_)
+        LATEST_ = resp.text.strip()
+        if LATEST_ != CURRENT_VERSION:
+            console.print(f"[bold yellow]A new version ({LATEST_}) is available! Downloading the update...[/]",
+                          style="bold yellow")
+            install_update(LATEST_)
+
+def install_update(version):
+    ep = RELEASE_.format(version=version)
+    try:
+        resp = requests.get(ep, stream=True)
+        resp.raise_for_status()
+
+        iu1 = "mt2_update.exe"
+
+        with open(iu1, "wb") as f:
+            for aaaa in resp.iter_content(chunk_size=8192):
+                f.write(aaaa)
+
+        console.print(f"[bold green]Update downloaded successfully![/]", style="bold green")
+        repl_exe(iu1)
+
+    except requests.RequestException as e:
+        console.print(f"[bold red]Contact Developer if issue continues! [/]", style="bold red")
+
+
+def repl_exe(latest_e):
+    current_ = sys.argv[0]
+    shutil.move(latest_e, current_)
+    console.print(f"[bold green]m2t updated successfully! Restarting...[/]", style="bold green")
+    os.execl(sys.executable, sys.executable, *sys.argv)
+
+
 def login():
+    check_version()
+
     while True:
         console.clear()
         console.print(spt1, style="bold white")
@@ -64,10 +110,10 @@ def login():
             chosenServer = WebServer(int(pickedServer))
             server = Loc1.loc3(chosenServer)[1]
         except ValueError:
-            console.print("choose an server that exists :)", style="bold red")
+            console.print("choose a server that exists :)", style="bold red")
             continue
         except KeyError:
-            console.print("choose an server that exists :)", style="bold red")
+            console.print("choose a server that exists :)", style="bold red")
             continue
 
         username = Prompt.ask("[#71d5fb]Enter username: [/]")
@@ -102,6 +148,7 @@ def login():
             profileId = resp["loginStatus"]["nebulaLoginStatus"]["profileId"]
             homeMenu(server, ticket, name, actorId, accessToken, profileId)
             break
+
 
 def homeMenu(server, ticket, name, actorId, accessToken, profileId):
     while True:
@@ -161,6 +208,7 @@ def homeMenu(server, ticket, name, actorId, accessToken, profileId):
 
         console.print("Press any key to return to home...", style="bold yellow")
         Prompt.ask("")
+
 
 if __name__ == "__main__":
     login()
