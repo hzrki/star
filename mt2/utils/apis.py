@@ -4,8 +4,6 @@ from utils.amf import AmfCall
 from security.ticketHeader import ticketHeader
 console = Console()
 
-def recycle_none_rare_clothes(server, ticket, actorId):
-    console.print("not implemented on alpha version")
 
 def buy_boonie(server, ticket, actorId):
     boonie_id = Prompt.ask("[#71d5fb]Enter Boonie ID: [/]")
@@ -19,6 +17,10 @@ def buy_boonie(server, ticket, actorId):
             boonie_id
         ],
     )
+    if code != 500:
+        console.print("FAILED | BoonieId not found", style="bold red")
+    else:
+        console.print("SUCCESS | Boonie bought!", style="bold green")
 
 def buy_animation(server, ticket, actorId):
     animation_id = Prompt.ask("[#71d5fb]Enter Animation ID: [/]")
@@ -32,6 +34,14 @@ def buy_animation(server, ticket, actorId):
             animation_id
         ],
     )
+    description = resp.get('Description', '')
+
+    if code != 500:
+        console.print("FAILED | AnimationId was not found", style="bold red")
+    elif description:
+        console.print(f"FAILED | {description}", style="bold red")
+    else:
+        console.print("SUCCESS | Animation bought!", style="bold green")
 
 
 def buy_clothes(server, ticket, actorId):
@@ -56,7 +66,7 @@ def buy_clothes(server, ticket, actorId):
     )
     description = resp.get('Description', '')
 
-    if code == 500:
+    if code != 500:
         console.print("FAILED | Not allowed to spawn item", style="bold red")
     elif description:
         console.print(f"FAILED | {description}", style="bold red")
@@ -81,12 +91,6 @@ def add_to_wishlist(server, ticket, actorId):
 def custom_status(server, ticket, actorId, name):
     console.print("not implemented on alpha version")
 
-def add_sponsors(server, ticket):
-    console.print("not implemented on alpha version")
-
-def block_defaults(server, ticket, actorId):
-    console.print("not implemented on alpha version")
-
 def recycle_items(server, ticket, actorId):
     console.print("not implemented on alpha version")
 
@@ -108,12 +112,6 @@ def username_checker():
 def clothes_extractor(server, ticket):
     console.print("not implemented on alpha version")
 
-def actorid_to_username(server):
-    console.print("not implemented on alpha version")
-
-def username_to_actorid(server):
-    console.print("not implemented on alpha version")
-
 def item_tracker(server):
     console.print("not implemented on alpha version")
 
@@ -133,10 +131,4 @@ def item_glitcher(server, ticket, actorId):
     console.print("not implemented on alpha version")
 
 def automated_autographer(server, ticket, actorId):
-    console.print("not implemented on alpha version")
-
-def password_changer(server, ticket, actorId, name):
-    console.print("not implemented on alpha version")
-
-def friend_requester(server, ticket, actorId):
     console.print("not implemented on alpha version")
