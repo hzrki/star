@@ -12,9 +12,8 @@ Home = [
     (11, "Query"),
     (12, "Clothes Extractor"),
     (13, "Item Tracker"),
-    (14, "Animation Extractor"),
-    (15, "Bot Generator (beta)"),
-    (16, "Item Glitcher (gifter)"),
-    (17, "Automated Autographer (VIP Only)"),
-    (18, "Logout")
+    (14, "Bot Generator (beta)"),
+    (15, "Item Glitcher (gifter)"),
+    (16, "Automated Autographer (VIP Only)"),
+    (17, "Logout")
 ]

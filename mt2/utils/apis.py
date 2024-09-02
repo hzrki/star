@@ -304,9 +304,6 @@ def clothes_extractor(server, ticket):
 def item_tracker(server):
     console.print("not implemented on alpha version")
 
-def animations_extractor(server, ticket, actorId):
-    console.print("not implemented on alpha version")
-
 def bot_generator(server, culture):
     console.print("not implemented on alpha version")
 
