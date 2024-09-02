@@ -9,13 +9,12 @@ Home = [
     (8, "Recycler Anything (Diamond items, clothes etc)"),
     (9, "Wheel Spins"),
     (10, "Lisa Hack"),
-    (11, "Automated Pixeller"),
-    (12, "Query"),
-    (13, "Clothes Extractor"),
-    (14, "Item Tracker"),
-    (15, "Animation Extractor"),
-    (16, "Bot Generator (beta)"),
-    (17, "Item Glitcher (gifter)"),
-    (18, "Automated Autographer (VIP Only)"),
-    (19, "Logout")
+    (11, "Query"),
+    (12, "Clothes Extractor"),
+    (13, "Item Tracker"),
+    (14, "Animation Extractor"),
+    (15, "Bot Generator (beta)"),
+    (16, "Item Glitcher (gifter)"),
+    (17, "Automated Autographer (VIP Only)"),
+    (18, "Logout")
 ]

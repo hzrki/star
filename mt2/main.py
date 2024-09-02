@@ -5,7 +5,7 @@ import time
 from utils.amf import AmfCall
 from utils.apis import buy_boonie, buy_animation, buy_clothes, buy_eyes, \
     wear_rareskin, add_to_wishlist, custom_status, recycle_items, wheel_spins, lisa_hack, \
-    automated_pixeller, msp_query, clothes_extractor, item_tracker, animations_extractor \
+     msp_query, clothes_extractor, item_tracker, animations_extractor \
     , bot_generator, item_glitcher, automated_autographer
 from utils.localisation import Home
 from utils.webserver import WebServer, Loc1
@@ -139,8 +139,6 @@ def homeMenu(server, ticket, name, actorId, accessToken, profileId):
                     wheel_spins(server, ticket, actorId)
                 if options == 10:
                     lisa_hack(server, ticket, actorId)
-                if options == 11:
-                    automated_pixeller(server, ticket, actorId)
                 if options == 12:
                     msp_query(server, ticket, actorId)
                 if options == 13:

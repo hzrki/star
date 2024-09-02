@@ -170,14 +170,10 @@ def recycle_items(server, ticket, actorId):
         console.print("SUCCESS | Recycled item", style="bold green")
 
 
-
 def wheel_spins(server, ticket, actorId):
     console.print("not implemented on alpha version")
 
 def lisa_hack(server, ticket, actorId):
-    console.print("not implemented on alpha version")
-
-def automated_pixeller(server, ticket, actorId):
     console.print("not implemented on alpha version")
 
 def msp_query(server, ticket, actorId):
