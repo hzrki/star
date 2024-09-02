@@ -171,7 +171,49 @@ def recycle_items(server, ticket, actorId):
 
 
 def wheel_spins(server, ticket, actorId):
-    console.print("not implemented on alpha version")
+    total_amount = 0
+
+    for _ in range(4):
+        code, resp = AmfCall(server,
+                             "MovieStarPlanet.WebService.Awarding.AMFAwardingService.claimDailyAward",
+                             [ticketHeader(anyAttribute=None, ticket=ticket),"starwheel",120, actorId]
+                                    )
+        if code == 200:
+            amount = resp.get('Content', {}).get('amount', {})
+            if isinstance(amount, int):
+                total_amount += amount
+
+    for _ in range(4):
+        code, resp = AmfCall(server,
+                                    "MovieStarPlanet.WebService.Awarding.AMFAwardingService.claimDailyAward",
+                                    [ticketHeader(anyAttribute=None, ticket=ticket), "starVipWheel", 200, actorId]
+                                    )
+        if code == 200:
+            amount = resp.get('Content', {}).get('amount', {})
+            if isinstance(amount, int):
+                total_amount += amount
+
+    for _ in range(2):
+        code, resp = AmfCall(server,
+                                    "MovieStarPlanet.WebService.Awarding.AMFAwardingService.claimDailyAward",
+                                    [ticketHeader(anyAttribute=None, ticket=ticket), "advertWheelDwl", 240, actorId]
+                                    )
+        if code == 200:
+            amount = resp.get('Content', {}).get('amount', {})
+            if isinstance(amount, int):
+                total_amount += amount
+
+    for _ in range(2):
+        code, resp = AmfCall(server,
+                                    "MovieStarPlanet.WebService.Awarding.AMFAwardingService.claimDailyAward",
+                                    [ticketHeader(anyAttribute=None, ticket=ticket), "advertWheelVipDwl", 400, actorId]
+                                    )
+        if code == 200:
+            amount = resp.get('Content', {}).get('amount', {})
+            if isinstance(amount, int):
+                total_amount += amount
+
+                console.print(f"SUCCESS | {total_amount} starcoins have been added to your account", style="bold green")
 
 def lisa_hack(server, ticket, actorId):
     console.print("not implemented on alpha version")
