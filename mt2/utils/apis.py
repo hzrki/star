@@ -74,7 +74,34 @@ def buy_clothes(server, ticket, actorId):
         console.print("SUCCESS | Clothing item bought!", style="bold green")
 
 def buy_eyes(server, ticket, actorId):
-    console.print("not implemented on alpha version")
+    eye_id = Prompt.ask("[#71d5fb]Enter Eye ID: [/]")
+    eye_colors = Prompt.ask("[#71d5fb]Enter Eye ID: [/]")
+
+    code, resp = AmfCall(
+        server,
+        "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicServiceMobile.BuyManyBeautyClinicItems",
+        [
+            ticketHeader(anyAttribute=None, ticket=ticket),
+            actorId,
+            [
+                {
+                "IsOwned": False,
+                "InventoryId": 0,
+                "IsWearing": True,
+                "ItemId": eye_id,
+                "Colors": eye_colors,
+                "Type": 1
+                }
+            ]
+        ]
+    )
+    if code != 500:
+        console.print("FAILED | Unexpected Error", style="bold red")
+    else:
+        console.print("SUCCESS | Changed Eyes", style="bold green")
+
+
+
 
 def buy_nose(server, ticket, actorId):
     console.print("not implemented on alpha version")
