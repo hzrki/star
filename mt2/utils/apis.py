@@ -119,8 +119,19 @@ def wear_rareskin(server, ticket, actorId):
     else:
         console.print("SUCCESS | Changed Skincolor", style="bold green")
 
-def add_to_wishlist(server, ticket, actorId):
-    console.print("not implemented on alpha version")
+def add_to_wishlist(server, ticket):
+    item_id = Prompt.ask("[#71d5fb]Enter ItemId: [/]")
+    colors = Prompt.ask("[#71d5fb]Enter  colors: [/]")
+
+
+    code, resp = AmfCall(
+        server,
+        "MovieStarPlanet.WebService.Gifts.AMFGiftsService+Version2.AddItemToWishlist",
+        [
+            ticketHeader(anyAttribute=None, ticket=ticket),
+            [item_id],
+            [colors]],
+    )
 
 def custom_status(server, ticket, actorId, name):
     console.print("not implemented on alpha version")

@@ -130,7 +130,7 @@ def homeMenu(server, ticket, name, actorId, accessToken, profileId):
                 if options == 5:
                     wear_rareskin(server, ticket, actorId)
                 if options == 6:
-                    add_to_wishlist(server, ticket, actorId)
+                    add_to_wishlist(server, ticket)
                 if options == 7:
                     custom_status(server, ticket, actorId, name)
                 if options == 8:
