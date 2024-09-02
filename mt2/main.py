@@ -3,10 +3,10 @@ from rich.table import Table
 from rich.prompt import Prompt
 import time
 from utils.amf import AmfCall
-from utils.apis import buy_boonie, buy_animation, buy_clothes, buy_eyes, buy_nose, buy_lips, \
+from utils.apis import buy_boonie, buy_animation, buy_clothes, buy_eyes, \
     wear_rareskin, add_to_wishlist, custom_status, recycle_items, wheel_spins, lisa_hack, \
-    automated_pixeller, msp_query, username_checker, clothes_extractor, \
-    item_tracker, room_changer, animations_extractor, icon_changer, bot_generator, item_glitcher, automated_autographer
+    automated_pixeller, msp_query, clothes_extractor, item_tracker, animations_extractor \
+    , bot_generator, item_glitcher, automated_autographer
 from utils.localisation import Home
 from utils.webserver import WebServer, Loc1
 
@@ -128,44 +128,34 @@ def homeMenu(server, ticket, name, actorId, accessToken, profileId):
                 if options == 4:
                     buy_eyes(server, ticket, actorId)
                 if options == 5:
-                    buy_nose(server, ticket, actorId)
-                if options == 6:
-                    buy_lips(server, ticket, actorId)
-                if options == 7:
                     wear_rareskin(server, ticket, actorId)
-                if options == 8:
+                if options == 6:
                     add_to_wishlist(server, ticket, actorId)
-                if options == 9:
+                if options == 7:
                     custom_status(server, ticket, actorId, name)
-                if options == 10:
+                if options == 8:
                     recycle_items(server, ticket, actorId)
-                if options == 11:
+                if options == 9:
                     wheel_spins(server, ticket, actorId)
-                if options == 12:
+                if options == 10:
                     lisa_hack(server, ticket, actorId)
-                if options == 13:
+                if options == 11:
                     automated_pixeller(server, ticket, actorId)
-                if options == 14:
+                if options == 12:
                     msp_query(server, ticket, actorId)
-                if options == 15:
-                    username_checker()
-                if options == 16:
+                if options == 13:
                     clothes_extractor(server, ticket)
-                if options == 17:
+                if options == 14:
                     item_tracker(server)
-                if options == 18:
-                    room_changer(server, ticket, actorId)
-                if options == 19:
+                if options == 15:
                     animations_extractor(server, ticket, actorId)
-                if options == 20:
-                    icon_changer(server, ticket, actorId)
-                if options == 21:
+                if options == 16:
                     bot_generator(server, ticket)
-                if options == 22:
+                if options == 17:
                     item_glitcher(server, ticket, actorId)
-                if options == 23:
+                if options == 18:
                     automated_autographer(server, ticket, actorId)
-                elif options == 24:
+                elif options == 19:
                     console.print("Logging out...", style="bold green")
                     break
             else:

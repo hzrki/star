@@ -97,14 +97,6 @@ def buy_eyes(server, ticket, actorId):
         console.print("SUCCESS | Changed Eyes", style="bold green")
 
 
-
-
-def buy_nose(server, ticket, actorId):
-    console.print("not implemented on alpha version")
-
-def buy_lips(server, ticket, actorId):
-    console.print("not implemented on alpha version")
-
 def wear_rareskin(server, ticket, actorId):
     console.print("not implemented on alpha version")
 
@@ -129,22 +121,13 @@ def automated_pixeller(server, ticket, actorId):
 def msp_query(server, ticket, actorId):
     console.print("not implemented on alpha version")
 
-def username_checker():
-    console.print("not implemented on alpha version")
-
 def clothes_extractor(server, ticket):
     console.print("not implemented on alpha version")
 
 def item_tracker(server):
     console.print("not implemented on alpha version")
 
-def room_changer(server, ticket, actorId):
-    console.print("not implemented on alpha version")
-
 def animations_extractor(server, ticket, actorId):
-    console.print("not implemented on alpha version")
-
-def icon_changer(server, ticket, actorId):
     console.print("not implemented on alpha version")
 
 def bot_generator(server, culture):
