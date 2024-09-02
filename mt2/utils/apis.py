@@ -98,7 +98,26 @@ def buy_eyes(server, ticket, actorId):
 
 
 def wear_rareskin(server, ticket, actorId):
-    console.print("not implemented on alpha version")
+    skin_color = Prompt.ask("[#71d5fb]Enter skincolor: [/]")
+
+    code, resp = AmfCall(
+        server,
+        "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicServiceMobile.BuyManyBeautyClinicItems",
+        [
+            ticketHeader(anyAttribute=None, ticket=ticket),
+            actorId,
+            [{"IsOwned": False,
+              "InventoryId": 0,
+              "Type": 5,
+              "ItemId": -1,
+              "Colors": skin_color,
+              "IsWearing": True}]
+        ]
+    )
+    if code != 500:
+        console.print("FAILED | Unexpected Error", style="bold red")
+    else:
+        console.print("SUCCESS | Changed Skincolor", style="bold green")
 
 def add_to_wishlist(server, ticket, actorId):
     console.print("not implemented on alpha version")
