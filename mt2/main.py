@@ -94,7 +94,7 @@ def login():
     while True:
         console.clear()
         console.print(spt1, style="bold white")
-        console.print("[#71d5fb]Star Project by rhy & 6c0[/]", style="bold")
+        console.print("[#71d5fb]Star Project by ham & 6c0[/]", style="bold")
 
         serverMenu = Table(title="Select Server")
         serverMenu.add_column("Options", style="bold cyan")
