@@ -268,7 +268,7 @@ namespace msptool
 
                             AnsiConsole.Write(
                                 new Rule(
-                                        "[slowblink][#71d5fb]lcfi & 6c0[/][/]")
+                                        "[slowblink][#71d5fb]rhy & 6c0[/][/]")
                                     .RightJustified().RoundedBorder());
                             var loc13 = AnsiConsole.Prompt(
                                 new TextPrompt<string>("\n[[[#71d5fb]+[/]]] Pick an option: ")
