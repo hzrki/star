@@ -215,8 +215,6 @@ def wheel_spins(server, ticket, actorId):
 
                 console.print(f"SUCCESS | {total_amount} starcoins have been added to your account", style="bold green")
 
-def lisa_hack(server, ticket, actorId):
-    console.print("not implemented on alpha version")
 
 def msp_query(server, ticket, actorId):
     qusername = Prompt.ask("[#71d5fb]Enter username: [/]")
@@ -298,17 +296,3 @@ def msp_query(server, ticket, actorId):
     console.print(f"LastLogin: {LastLogin}", style="bold red")
 
 
-def clothes_extractor(server, ticket):
-    console.print("not implemented on alpha version")
-
-def item_tracker(server):
-    console.print("not implemented on alpha version")
-
-def bot_generator(server, culture):
-    console.print("not implemented on alpha version")
-
-def item_glitcher(server, ticket, actorId):
-    console.print("not implemented on alpha version")
-
-def automated_autographer(server, ticket, actorId):
-    console.print("not implemented on alpha version")

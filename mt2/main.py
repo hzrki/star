@@ -9,9 +9,7 @@ import shutil
 from utils.amf import AmfCall
 from utils.apis import (buy_boonie, buy_animation, buy_clothes, buy_eyes,
                         wear_rareskin, add_to_wishlist, custom_status,
-                        recycle_items, wheel_spins, lisa_hack, msp_query,
-                        clothes_extractor, item_tracker, bot_generator,
-                        item_glitcher, automated_autographer)
+                        recycle_items, wheel_spins, msp_query)
 from utils.localisation import Home
 from utils.webserver import WebServer, Loc1
 
@@ -50,7 +48,7 @@ spt1 = """
 
 VERSION_ = "https://raw.githubusercontent.com/r-h-y/star/main/msptool/version.txt"
 RELEASE_ = "https://github.com/r-h-y/star/releases/download/v{version}/mt2.exe"
-CURRENT_VERSION = "2024.09.02.4735"
+CURRENT_VERSION = "2024.09.05.7462"
 
 
 def check_version():
@@ -186,20 +184,8 @@ def homeMenu(server, ticket, name, actorId, accessToken, profileId):
                 if options == 9:
                     wheel_spins(server, ticket, actorId)
                 if options == 10:
-                    lisa_hack(server, ticket, actorId)
-                if options == 11:
                     msp_query(server, ticket, actorId)
-                if options == 12:
-                    clothes_extractor(server, ticket)
-                if options == 13:
-                    item_tracker(server)
-                if options == 14:
-                    bot_generator(server, ticket)
-                if options == 15:
-                    item_glitcher(server, ticket, actorId)
-                if options == 16:
-                    automated_autographer(server, ticket, actorId)
-                elif options == 17:
+                elif options == 11:
                     console.print("Logging out...", style="bold green")
                     break
             else:
