@@ -79,7 +79,7 @@ namespace msptool
 
             AnsiConsole.Clear();
             AnsiConsole.WriteLine(spt1);
-            AnsiConsole.MarkupLine("[#71d5fb]Star Project by rhy & 6c0[/]");
+            AnsiConsole.MarkupLine("[#71d5fb]Star Project by ham & 6c0[/]");
             AnsiConsole.WriteLine();
 
             AnsiConsole.Status()
@@ -268,7 +268,7 @@ namespace msptool
 
                             AnsiConsole.Write(
                                 new Rule(
-                                        "[slowblink][#71d5fb]rhy & 6c0[/][/]")
+                                        "[slowblink][#71d5fb]ham & 6c0[/][/]")
                                     .RightJustified().RoundedBorder());
                             var loc13 = AnsiConsole.Prompt(
                                 new TextPrompt<string>("\n[[[#71d5fb]+[/]]] Pick an option: ")
@@ -2165,7 +2165,7 @@ namespace msptool
                     AnsiConsole.Markup("[#71d5fb]4[/]  > Logout\n\n");
                     AnsiConsole.Write(
                         new Rule(
-                                "[slowblink][#71d5fb]rhy & 6c0[/][/]")
+                                "[slowblink][#71d5fb]ham & 6c0[/][/]")
                             .RightJustified().RoundedBorder());
                     var options = AnsiConsole.Prompt(
                         new TextPrompt<string>("\n[[[#71d5fb]+[/]]] Pick an option: ")
