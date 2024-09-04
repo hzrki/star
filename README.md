@@ -27,7 +27,7 @@
 <div align="center">
   <a href="https://github.com/lcfidev/star">
   </a>
-  <h3 align="center">Hasu's Extension</h3>
+  <h3 align="center">Lotus's Extension</h3>
   <p align="center">
     <br />
     <a href="https://github.com/lcfidev/star/tree/main/msptool"><strong>Explore the docs »</strong></a>
