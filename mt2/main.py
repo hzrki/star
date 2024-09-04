@@ -3,7 +3,7 @@ from rich.table import Table
 from rich.prompt import Prompt
 import time
 import os
-import requests
+from curl_cffi import requests
 import sys
 import shutil
 from amf import AmfCall
