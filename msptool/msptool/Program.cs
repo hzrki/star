@@ -36,7 +36,7 @@ namespace msptool
         private static readonly string vloc1 = "1.7";
 
         private static readonly string vloc3 =
-            "https://raw.githubusercontent.com/lcfidev/star/main/msptool/version.txt";
+            "https://raw.githubusercontent.com/r-h-y/star/main/msptool/version.txt";
 
         static async Task Main(string[] args)
         {
@@ -79,7 +79,7 @@ namespace msptool
 
             AnsiConsole.Clear();
             AnsiConsole.WriteLine(spt1);
-            AnsiConsole.MarkupLine("[#71d5fb]Star Project by lcfi & 6c0[/]");
+            AnsiConsole.MarkupLine("[#71d5fb]Star Project by rhy & 6c0[/]");
             AnsiConsole.WriteLine();
 
             AnsiConsole.Status()
@@ -116,7 +116,7 @@ namespace msptool
                             return;
                         case "2":
                             Console.WriteLine(
-                                "\n\x1b[95mUPDATE\u001b[39m > \x1b[93mGo on https://github.com/lcfidev/star [Click any key to close]");
+                                "\n\x1b[95mUPDATE\u001b[39m > \x1b[93mGo on https://github.com/r-h-y/star [Click any key to close]");
                             Console.ReadKey();
                             return;
                         default:
@@ -2165,7 +2165,7 @@ namespace msptool
                     AnsiConsole.Markup("[#71d5fb]4[/]  > Logout\n\n");
                     AnsiConsole.Write(
                         new Rule(
-                                "[slowblink][#71d5fb]lcfi & 6c0[/][/]")
+                                "[slowblink][#71d5fb]rhy & 6c0[/][/]")
                             .RightJustified().RoundedBorder());
                     var options = AnsiConsole.Prompt(
                         new TextPrompt<string>("\n[[[#71d5fb]+[/]]] Pick an option: ")
