@@ -1,7 +1,7 @@
 from rich.console import Console
 from rich.prompt import Prompt
-from utils.amf import AmfCall
-from security.ticketHeader import ticketHeader
+from amf import AmfCall
+from checksum import ticketHeader
 console = Console()
 
 

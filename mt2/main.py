@@ -6,12 +6,11 @@ import os
 import requests
 import sys
 import shutil
-from utils.amf import AmfCall
-from utils.apis import (buy_boonie, buy_animation, buy_clothes, buy_eyes,
-                        wear_rareskin, add_to_wishlist, custom_status,
-                        recycle_items, wheel_spins, msp_query)
-from utils.localisation import Home
-from utils.webserver import WebServer, Loc1
+from amf import AmfCall
+from apis import (buy_boonie, buy_animation, buy_clothes, buy_eyes,
+                  wear_rareskin, add_to_wishlist, custom_status,
+                  recycle_items, wheel_spins, msp_query)
+from utils import WebServer, Loc1, Home
 
 console = Console()
 

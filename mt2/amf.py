@@ -2,7 +2,7 @@ import base64
 from secrets import token_hex
 from pyamf import remoting, AMF3
 from curl_cffi import requests
-from security.checksumCalculator import create_checksum
+from checksum import create_checksum
 
 
 def AmfCall(server: str, method: str, params: list) -> tuple[int, any]:
