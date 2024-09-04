@@ -1,6 +1,6 @@
 import base64
 from secrets import token_hex
-from pyamf import remoting, AMF3
+from pyamf import remoting, AMF3, amf0
 from curl_cffi import requests
 from checksum import create_checksum
 
