@@ -48,8 +48,8 @@ spt1 = """
                   .=+:                                                             
 """
 
-VERSION_ = "https://raw.githubusercontent.com/lcfidev/star/main/msptool/version.txt"
-RELEASE_ = "https://github.com/lcfidev/star/releases/download/v{version}/mt2.exe"
+VERSION_ = "https://raw.githubusercontent.com/r-h-y/star/main/msptool/version.txt"
+RELEASE_ = "https://github.com/r-h-y/star/releases/download/v{version}/mt2.exe"
 CURRENT_VERSION = "2024.09.02.4735"
 
 
