@@ -36,7 +36,7 @@ def buy_animation(server, ticket, actorId):
     )
     description = resp.get('Description', '')
 
-    if code != 500:
+    if code == 500:
         console.print("FAILED | AnimationId was not found", style="bold red")
     elif description:
         console.print(f"FAILED | {description}", style="bold red")
@@ -66,7 +66,7 @@ def buy_clothes(server, ticket, actorId):
     )
     description = resp.get('Description', '')
 
-    if code != 500:
+    if code == 500:
         console.print("FAILED | Not allowed to spawn item", style="bold red")
     elif description:
         console.print(f"FAILED | {description}", style="bold red")
