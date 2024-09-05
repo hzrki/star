@@ -28,8 +28,6 @@
   <a href="https://github.com/r-h-y/star">
   </a>
   <h3 align="center">Lotus's Extension</h3>
-    <h3 align="center">This project has closed and is archived now</h3>
-        <h3 align="center">Thankyou everyone who used it as it has been successful looking at git stats</h3>
   <p align="center">
     <br />
     <a href="https://github.com/r-h-y/star/tree/main/msptool"><strong>Explore the docs »</strong></a>
