@@ -131,10 +131,10 @@ def add_to_wishlist(server, ticket):
             [item_id],
             [colors]],
     )
-    if code != 0:
-        console.print(f"FAILED | {resp}", style="bold red")
-    else:
+    if code == 0:
         console.print("SUCCESS | item added to wishlist!", style="bold green")
+    else:
+        console.print(f"FAILED | {resp}", style="bold red")
 
 
 def custom_status(server, ticket, actorId, name):
