@@ -4,19 +4,8 @@ from pyamf import remoting, AMF3, amf0
 from curl_cffi import requests
 from checksum import create_checksum
 
-# Define your proxy settings
-proxies = {
-    "http": "http://192.168.0.90:8888",
-    "https": "http://192.168.0.90:8888"
-}
 
 def AmfCall(server: str, method: str, params: list) -> tuple[int, any]:
-    if server.lower() == 'UK':
-        server = 'GB'
-    if server.lower() == 'SV':
-        server = 'SE'
-    if server.lower() == 'USA':
-        server = 'US'
 
     req = remoting.Request(target=method, body=params)
     event = remoting.Envelope(AMF3)
@@ -37,7 +26,7 @@ def AmfCall(server: str, method: str, params: list) -> tuple[int, any]:
         'Referer': 'app:/MSPMobile.swf',
     }
 
-    post_resp = requests.post(full_endpoint, headers=headerspost, data=encoded_req, verify=False, proxies=proxies)
+    post_resp = requests.post(full_endpoint, headers=headerspost, data=encoded_req, verify=False)
     post_resp_content = post_resp.content if post_resp.status_code == 200 else None
 
     if post_resp.status_code != 200:
@@ -58,5 +47,5 @@ def getws(server):
         "Connection": "Keep-Alive",
     }
 
-    resp = requests.get(wsu, headers=headers, verify=False, proxies=proxies)
+    resp = requests.get(wsu, headers=headers, verify=False)
     return resp.text
