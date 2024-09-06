@@ -17,7 +17,7 @@
 [license-shield]: https://img.shields.io/github/license/r-h-y/star.svg?style=flat-square
 
 [contributors-url]: https://github.com/r-h-y/star/graphs/contributors
-[forks-url]: https://github.com/lcfidev/star/network/members
+[forks-url]: https://github.com/r-h-y/star/network/members
 [stars-url]: https://github.com/r-h-y/star/stargazers
 [issues-url]: https://github.com/r-h-y/star/issues
 [license-url]: https://github.com/r-h-y/star/blob/main/LICENSE.txt
