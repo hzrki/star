@@ -3,10 +3,14 @@
 block_cipher = None
 
 a = Analysis(
-    ['main.py', 'amf.py', 'apis.py', 'checksum.py', 'utils.py'],
+    ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[('icon.ico', '.')],
+    datas=[
+        ('assets/icon.ico', 'assets'),
+        ('assets', 'assets'),
+        ('utils', 'utils')
+    ],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -24,18 +28,18 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='main',
+    name='mt2',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=True,
+    console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='icon.ico',
+    icon='assets/icon.ico',
 )
