@@ -27,7 +27,7 @@
 <div align="center">
   <a href="https://github.com/r-h-y/star">
   </a>
-  <h3 align="center">Lotus's Extension</h3>
+  <h3 align="center">Hasu's Extension</h3>
   <p align="center">
     <br />
     <a href="https://github.com/r-h-y/star/tree/main/msptool"><strong>Explore the docs »</strong></a>
@@ -59,7 +59,7 @@
 
 ## About The Project
 
-This repository contains a collection of tools for interacting with  a popular online social game. The tools are implemented in C# / .PY and allow users to automate various tasks within the game.
+This repository contains a collection of tools for interacting with  a popular online social game. The tools are implemented in .PY and allow users to automate various tasks within the game.
 
 
 ## Getting Started
@@ -79,7 +79,7 @@ Just check the Requirements and install em and ur good to go, aint hard.
 3. Install Requirements
    * Ide automatically downloads them
      
-5. Build in Visual Studio / Jetbrains Rider or Visual Studio Mac
+5. Build in Pycharm or any python ide
 
 
 ## License
