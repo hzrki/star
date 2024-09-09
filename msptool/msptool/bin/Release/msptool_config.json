@@ -1,0 +1,13 @@
+{
+  "TName": "msptool",
+  "Version": "2024.4.1.0000",
+  "ProxySettings": {
+    "Host": null,
+    "Port": 0,
+    "Username": null,
+    "Password": null
+  },
+  "AccountsCentre": {
+    "Accounts": []
+  }
+}
