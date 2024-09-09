@@ -1,0 +1,41 @@
+name: msptool 
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1
+
+      - name: Restore NuGet packages
+        run: nuget restore msptool.sln
+
+      - name: Update NuGet packages
+        run: nuget update msptool.sln
+
+      - name: Build the executable
+        run: msbuild msptool.sln /p:Configuration=Release
+
+      - name: Check for vulnerabilities
+        run: nuget list msptool.sln --vulnerable
+
+      - name: Upload msptool.exe as an artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: msptool
+          path: msptool\bin\Release\msptool.exe
