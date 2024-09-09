@@ -1,0 +1,43 @@
+name: msptool 
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    env:
+      Solution_Directory: msptool/msptool                                     
+      Solution_Name: msptool/msptool/msptool.sln                             
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Restore dependencies
+      run: msbuild ${{ env.Solution_Name }} /t:Restore /p:Configuration=${{ matrix.configuration }}
+
+    - name: Build application
+      run: msbuild ${{ env.Solution_Name }} /p:Configuration=${{ matrix.configuration }}
+
+    - name: Publish application
+      run: msbuild ${{ env.Solution_Name }} /p:Configuration=${{ matrix.configuration }} /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Build Artifacts
+        path: ${{ env.Solution_Directory }}/**/bin/${{ matrix.configuration }}/**  
