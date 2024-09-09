@@ -1,4 +1,4 @@
-name: msptool 
+name: msptool
 
 on:
   push:
@@ -16,7 +16,10 @@ jobs:
 
     env:
       Solution_Directory: msptool/msptool                                     
-      Solution_Name: msptool/msptool/msptool.sln                             
+      Solution_Name: msptool/msptool/msptool.sln                               
+      Version_File: msptool/version.txt                                       
+      Program_File: msptool/msptool/Program.cs                                
+      Version_Pattern: '([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)'               
 
     steps:
     - name: Checkout source code
@@ -33,11 +36,47 @@ jobs:
     - name: Build application
       run: msbuild ${{ env.Solution_Name }} /p:Configuration=${{ matrix.configuration }}
 
-    - name: Publish application
-      run: msbuild ${{ env.Solution_Name }} /p:Configuration=${{ matrix.configuration }} /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
+    - name: Check for security updates
+      uses: actions/dependency-review-action@v2
+      id: depcheck
+      with:
+        directory: msptool
+
+    - name: Update version number
+      run: |
+        version=$(cat ${{ env.Version_File }})
+        
+        IFS='.' read -r -a version_parts <<< "$version"
+        major=${version_parts[0]}
+        minor=${version_parts[1]}
+        patch=${version_parts[2]}
+        build=${version_parts[3]}
+        
+        build=$((build + 1))
+        
+        new_version="$major.$minor.$patch.$build"
+        
+        echo "$new_version" > ${{ env.Version_File }}
+        
+        sed -i "s/private static readonly string vloc1 = \".*\";/private static readonly string vloc1 = \"$new_version\";/" ${{ env.Program_File }}
+
+    - name: Commit version updates
+      run: |
+        git config --local user.name "github-actions"
+        git config --local user.email "actions@github.com"
+        git add ${{ env.Version_File }} ${{ env.Program_File }}
+        git commit -m "Update version to $new_version"
+        git push
+
+    - name: Create GitHub release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ${{ env.Solution_Directory }}/**/bin/${{ matrix.configuration }}/**  
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
         name: Build Artifacts
-        path: ${{ env.Solution_Directory }}/**/bin/${{ matrix.configuration }}/**  
+        path: ${{ env.Solution_Directory }}/**/bin/${{ matrix.configuration }}/**
