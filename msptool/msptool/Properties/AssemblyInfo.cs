@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("msptool")]
 [assembly: AssemblyDescription("A Multi Tool for MovieStarPlanet & MovieStarPlanet2")]
 [assembly: AssemblyConfiguration("Release")]
-[assembly: AssemblyCompany("Star NE by lcfi")]
+[assembly: AssemblyCompany("Star NE by ham")]
 [assembly: AssemblyProduct("msptool")]
 [assembly: AssemblyCopyright("Copyright © ham & 6c0 2024")]
 [assembly: AssemblyTrademark("StarNE")]
