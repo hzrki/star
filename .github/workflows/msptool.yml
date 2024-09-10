@@ -68,13 +68,15 @@ jobs:
         git add ${{ env.Version_File }} ${{ env.Program_File }}
         git commit -m "Update version to $new_version"
         git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create GitHub release
       uses: softprops/action-gh-release@v1
       with:
         files: ${{ env.Solution_Directory }}/**/bin/${{ matrix.configuration }}/**  
       env:
-        GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}  
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
