@@ -38,11 +38,10 @@ jobs:
 
     - name: Check for security updates
       uses: actions/dependency-review-action@v2
-      id: depcheck
       with:
-        directory: msptool
-      env:
-        GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}  
+        fail-on-severity: low
+        fail-on-scopes: runtime
+        repo-token: ${{ secrets.PAT_TOKEN }} 
 
     - name: Update version number
       run: |
