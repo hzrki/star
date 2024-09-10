@@ -20,6 +20,7 @@ jobs:
       Version_File: msptool/version.txt                                       
       Program_File: msptool/msptool/Program.cs                                
       Version_Pattern: '([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)'               
+      GitTag_File: msptool/.git-tag
 
     steps:
     - name: Checkout source code
@@ -46,6 +47,7 @@ jobs:
 
     - name: Update version number
       shell: pwsh
+      id: update_version
       run: |
         $version = Get-Content $env:Version_File
         $version_parts = $version -split '\.'
@@ -61,12 +63,17 @@ jobs:
 
         (Get-Content $env:Program_File) -replace 'private static readonly string vloc1 = ".*";', "private static readonly string vloc1 = `"$new_version`";" | Set-Content -Path $env:Program_File
 
+        $tag = "v$new_version"
+        Set-Content -Path $env:GitTag_File -Value $tag
+        echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
+        echo "TAG=$tag" >> $GITHUB_ENV
+
     - name: Commit version updates
       run: |
         git config --local user.name "github-actions"
         git config --local user.email "actions@github.com"
-        git add ${{ env.Version_File }} ${{ env.Program_File }}
-        git commit -m "Update version to $new_version"
+        git add ${{ env.Version_File }} ${{ env.Program_File }} ${{ env.GitTag_File }}
+        git commit -m "Update version to ${{ env.NEW_VERSION }}"
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -74,7 +81,10 @@ jobs:
     - name: Create GitHub release
       uses: softprops/action-gh-release@v1
       with:
-        files: ${{ env.Solution_Directory }}/**/bin/${{ matrix.configuration }}/**  
+        files: ${{ env.Solution_Directory }}/**/bin/${{ matrix.configuration }}/**
+        tag_name: ${{ env.TAG }}
+        release_title: "MspTool v${{ env.NEW_VERSION }}"
+        release_notes: "This release includes general updates and improvements."
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
