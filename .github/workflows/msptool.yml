@@ -73,7 +73,7 @@ jobs:
       with:
         files: ${{ env.Solution_Directory }}/**/bin/${{ matrix.configuration }}/**  
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
