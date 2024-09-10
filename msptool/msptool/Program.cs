@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -32,7 +32,7 @@ namespace msptool
 {
     internal class Program
     {
-        private static readonly string vloc1 = "2024.4.1.1";
+        private static readonly string vloc1 = "2024.4.1.2";
 
         private static readonly string vloc3 =
             "https://raw.githubusercontent.com/r-h-y/star/main/msptool/version.txt";
