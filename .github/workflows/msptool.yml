@@ -51,20 +51,18 @@ jobs:
         $version = Get-Content $env:Version_File
         $version_parts = $version -split '\.'
 
-        # Extract version components
         $major = $version_parts[0]
         $minor = $version_parts[1]
         $patch = $version_parts[2]
         $build = [int]$version_parts[3] + 1
 
-        # Create new version string
         $new_version = "$major.$minor.$patch.$build"
 
-        # Update version file
         Set-Content -Path $env:Version_File -Value $new_version
 
-        # Update Program.cs with new version
         (Get-Content $env:Program_File) -replace 'private static readonly string vloc1 = ".*";', "private static readonly string vloc1 = `"$new_version`";" | Set-Content -Path $env:Program_File
+
+        echo "New version is: $new_version"
 
     - name: Commit version updates
       run: |
@@ -78,8 +76,13 @@ jobs:
 
     - name: Create Git tag
       run: |
-        git tag "v$new_version"
-        git push origin "v$new_version"
+        git fetch --tags
+        if git rev-parse "v$new_version" >/dev/null 2>&1; then
+          echo "Tag v$new_version already exists."
+        else
+          git tag "v$new_version"
+          git push origin "v$new_version"
+        fi
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -87,7 +90,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: ${{ env.Solution_Directory }}/**/bin/${{ matrix.configuration }}/**  
-        name: "MspTool v$new_version"        
+        name: "MspTool v$new_version"         
         body: "This release includes the following updates:\n\n- Incremented build version.\n- Updated Program.cs with the new version string.\n- Other minor improvements and fixes." # Description of the release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
