@@ -45,38 +45,57 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Update version number
+      id: update_version
       shell: pwsh
       run: |
         # Read the current version
         $version = Get-Content $env:Version_File
         $version_parts = $version -split '\.'
+
+        # Extract version components
         $major = $version_parts[0]
         $minor = $version_parts[1]
         $patch = $version_parts[2]
         $build = [int]$version_parts[3] + 1
+
         $new_version = "$major.$minor.$patch.$build"
+
         Set-Content -Path $env:Version_File -Value $new_version
+
         (Get-Content $env:Program_File) -replace 'private static readonly string vloc1 = ".*";', "private static readonly string vloc1 = `"$new_version`";" | Set-Content -Path $env:Program_File
-        echo "New version is: $new_version"
+
+        echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
 
     - name: Commit version updates
       run: |
         git config --local user.name "github-actions"
         git config --local user.email "actions@github.com"
         git add ${{ env.Version_File }} ${{ env.Program_File }}
-        git commit -m "Update version to $new_version"
+        git commit -m "Update version to ${{ env.NEW_VERSION }}"
+
+        # Fetch latest changes and merge them
         git pull --rebase origin main
+
+        # Push the changes
         git push origin main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create Git tag
+      shell: pwsh
       run: |
-        if (git tag -l "v$new_version") {
-          echo "Tag v$new_version already exists."
+        # Print current tags for debugging
+        git tag -l
+
+        # Print the new version for debugging
+        Write-Output "Creating tag v${{ env.NEW_VERSION }}"
+
+        # Create and push new tag if it doesn't already exist
+        if (git tag -l "v${{ env.NEW_VERSION }}") {
+          Write-Output "Tag v${{ env.NEW_VERSION }} already exists."
         } else {
-          git tag "v$new_version"
-          git push origin "v$new_version"
+          git tag "v${{ env.NEW_VERSION }}"
+          git push origin "v${{ env.NEW_VERSION }}"
         }
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -85,8 +104,8 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: ${{ env.Solution_Directory }}/**/bin/${{ matrix.configuration }}/**  
-        name: "MspTool v$new_version"        
-        body: "This release includes the following updates:\n\n- Incremented build version.\n- Updated Program.cs with the new version string.\n- Other minor improvements and fixes." # Description of the release
+        name: "MspTool v${{ env.NEW_VERSION }}" 
+        body: "This release includes the following updates:\n\n- Incremented build version.\n- Updated Program.cs with the new version string.\n- Other minor improvements and fixes."  # Description of the release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
