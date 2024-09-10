@@ -50,6 +50,8 @@ jobs:
         # Read the current version
         $version = Get-Content $env:Version_File
         $version_parts = $version -split '\.'
+
+        # Extract version components
         $major = $version_parts[0]
         $minor = $version_parts[1]
         $patch = $version_parts[2]
@@ -58,13 +60,18 @@ jobs:
         Set-Content -Path $env:Version_File -Value $new_version
         (Get-Content $env:Program_File) -replace 'private static readonly string vloc1 = ".*";', "private static readonly string vloc1 = `"$new_version`";" | Set-Content -Path $env:Program_File
 
+
+
     - name: Commit version updates
       run: |
         git config --local user.name "github-actions"
         git config --local user.email "actions@github.com"
         git add ${{ env.Version_File }} ${{ env.Program_File }}
         git commit -m "Update version to $new_version"
-        git push
+
+        git pull --rebase origin main
+
+        git push origin main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
