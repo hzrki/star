@@ -8,7 +8,7 @@ import sys
 
 VERSION_ = "https://raw.githubusercontent.com/r-h-y/star/main/msptool/version.txt"
 RELEASE_ = "https://github.com/r-h-y/star/releases/download/v{version}/mt2.exe"
-CURRENT_VERSION = "2024.09.06.1240"
+CURRENT_VERSION = "2024.4.1.1"
 
 
 def check_version(status_label):
