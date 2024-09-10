@@ -37,11 +37,12 @@ jobs:
       run: msbuild ${{ env.Solution_Name }} /p:Configuration=${{ matrix.configuration }}
 
     - name: Check for security updates
+      if: github.event_name == 'pull_request'
       uses: actions/dependency-review-action@v2
       with:
         fail-on-severity: low
         fail-on-scopes: runtime
-        repo-token: ${{ secrets.PAT_TOKEN }} 
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Update version number
       run: |
@@ -74,7 +75,7 @@ jobs:
       with:
         files: ${{ env.Solution_Directory }}/**/bin/${{ matrix.configuration }}/**  
       env:
-        GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}  
+        GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }} 
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
