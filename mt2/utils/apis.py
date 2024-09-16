@@ -3,6 +3,8 @@ from rich.prompt import Prompt
 from utils.amf import AmfCall
 from utils.checksum import ticketHeader
 console = Console()
+import time
+
 
 
 def buy_boonie(server, ticket, actorId):
@@ -283,3 +285,54 @@ def msp_query(server, ticket, actorId):
                         f"LastLogin: {LastLogin}")
 
     console.print("Account Information", info_message)
+
+
+def lisa_sc(server, ticket, actorId):
+    total_amount_sc = 0
+    total_amount_fame = 0
+    wheel_spins(server, ticket, actorId)
+
+    for i in range(100):
+        if i % 2 == 0:
+            code, resp = AmfCall(
+                server,
+                "MovieStarPlanet.WebService.AMFAwardService.claimDailyAward",
+                [ticketHeader(anyAttribute=None, ticket=ticket), "twoPlayerMoney", 50, actorId],
+            )
+
+            if code == 500:
+                console.print("[FAILED] :(", style="bold red")
+                continue
+
+            if resp.get("amount") == 50:
+                total_amount_sc += 50
+                console.print("[SUCCESS] 50 SC added :)", style="bold green")
+            elif resp.get("amount") == -1:
+                break
+
+        else:
+            code, resp = AmfCall(
+                server,
+                "MovieStarPlanet.WebService.AMFAwardService.claimDailyAward",
+                [ticketHeader(anyAttribute=None, ticket=ticket), "twoPlayerFame", 50, actorId],
+            )
+
+            if code == 500:
+                console.print("[FAILED] :(", style="bold red")
+                continue
+
+            if resp.get("amount") == 50:
+                total_amount_fame += 50
+                console.print("[SUCCESS] 50 Fame added :)", style="bold green")
+            elif resp.get("amount") == -1:
+                break
+
+        time.sleep(1)
+
+        code, resp = AmfCall(
+                server,
+                "MovieStarPlanet.WebService.Achievement.AMFAchievementWebService.ClaimReward",
+                [ticketHeader(anyAttribute=None, ticket=ticket),"LUCKY_YOU", actorId],
+            )
+
+    return total_amount_sc, total_amount_fame

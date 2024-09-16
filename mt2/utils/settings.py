@@ -50,7 +50,8 @@ Home = [
     (8, "Recycler Anything (Diamond items, clothes etc)"),
     (9, "Wheel Spins"),
     (10, "Query"),
-    (11, "Logout")
+    (11, "lisa sc"),
+    (12, "Logout")
 ]
 
 
