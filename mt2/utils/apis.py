@@ -5,21 +5,22 @@ from utils.checksum import ticketHeader
 console = Console()
 
 
-def buy_boonie(server, actorId, ticket):
-    boonie_id = Prompt.ask("[#71d5fb]Boonie ID: [/]")
+def buy_boonie(server, ticket, actorId):
+    boonie_id = Prompt.ask("[#71d5fb]Enter Boonie ID: [/]")
+
     code, resp = AmfCall(
-            server,
-            "MovieStarPlanet.WebService.Pets.AMFPetService.BuyClickItem",
-            [
-                ticketHeader(anyAttribute=None, ticket=ticket),
-                actorId,
-                int(boonie_id)
-            ],
-        )
-    if code == 500:
-        console.print("FAILED | BoonieId not found")
+        server,
+        "MovieStarPlanet.WebService.Pets.AMFPetService.BuyClickItem",
+        [
+            ticketHeader(anyAttribute=None, ticket=ticket),
+            actorId,
+            int(boonie_id)
+        ],
+    )
+    if code != 200:
+        console.print("FAILED | BoonieId not found", style="bold red")
     else:
-        console.print("SUCCESS | Boonie bought!")
+        console.print("SUCCESS | Boonie bought!", style="bold green")
 
 def buy_animation(server, ticket, actorId):
     animation_id = Prompt.ask("[#71d5fb]Animation ID: [/]")
