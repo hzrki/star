@@ -1,4 +1,4 @@
-from rich import Console
+from rich.console import Console
 from rich.prompt import Prompt
 from utils.amf import AmfCall
 from utils.checksum import ticketHeader
@@ -69,8 +69,8 @@ def buy_clothes(server, ticket, actorId):
         console.print("SUCCESS | Clothing item bought!")
 
 def buy_eyes(server, ticket, actorId):
-    eye_id = console.print("Eye ID: ")
-    eye_colors  = console.print("Eye Colors: ")
+    eye_id = Prompt.ask("[#71d5fb]Eye ID: [/]")
+    eye_colors = Prompt.ask("[#71d5fb]Eye Colors: [/]")
     code, resp = AmfCall(
             server,
             "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
@@ -90,10 +90,9 @@ def buy_eyes(server, ticket, actorId):
     else:
         console.print("SUCCESS | Changed Eyes")
 
-def wear_rareskin(server, ticket, actorId, dialog):
-    skin_color, ok = QtWidgets.QInputDialog.getText(dialog, "Wear Rare Skin", "Enter skin color:")
-    if ok:
-        code, resp = AmfCall(
+def wear_rareskin(server, ticket, actorId):
+    skin_color = Prompt.ask("[#71d5fb]skincolor: [/]")
+    code, resp = AmfCall(
             server,
             "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
             [
@@ -107,16 +106,15 @@ def wear_rareskin(server, ticket, actorId, dialog):
                   "IsWearing": True}]
             ]
         )
-        if code == 500:
-            QtWidgets.QMessageBox.critical(dialog, "Error", "FAILED | Unexpected Error")
-        else:
-            QtWidgets.QMessageBox.information(dialog, "Success", "SUCCESS | Changed Skincolor")
+    if code == 500:
+        console.print("FAILED | Unexpected Error")
+    else:
+        console.print("SUCCESS | Changed Skincolor")
 
-def add_to_wishlist(server, ticket, dialog):
-    item_id, ok1 = QtWidgets.QInputDialog.getText(dialog, "Add to Wishlist", "Enter Item ID:")
-    colors, ok2 = QtWidgets.QInputDialog.getText(dialog, "Add to Wishlist", "Enter Colors:")
-    if ok1 and ok2:
-        code, resp = AmfCall(
+def add_to_wishlist(server, ticket):
+    item_id = Prompt.ask("[#71d5fb]Item ID: [/]")
+    colors = Prompt.ask("[#71d5fb]Colors: [/]")
+    code, resp = AmfCall(
             server,
             "MovieStarPlanet.WebService.Gifts.AMFGiftsService+Version2.AddItemToWishlist",
             [
@@ -125,17 +123,16 @@ def add_to_wishlist(server, ticket, dialog):
                 [colors]],
         )
 
-        if resp == 0:
-            QtWidgets.QMessageBox.information(dialog, "Success", "SUCCESS | Item added to wishlist!")
-        elif resp == -1:
-            QtWidgets.QMessageBox.critical(dialog, "Error", "FAILED | Not allowed to add item to wishlist!")
-        elif resp == 12:
-            QtWidgets.QMessageBox.critical(dialog, "Error", "FAILED | Wishlist is full!")
+    if resp == 0:
+        console.print("SUCCESS | Item added to wishlist!")
+    elif resp == -1:
+        console.print("FAILED | Not allowed to add item to wishlist!")
+    elif resp == 12:
+        console.print("FAILED | Wishlist is full!")
 
-def custom_status(server, ticket, actorId, name, dialog):
-    status, ok = QtWidgets.QInputDialog.getText(dialog, "Custom Status", "Enter status:")
-    if ok:
-        code, resp = AmfCall(
+def custom_status(server, ticket, actorId, name):
+    status = Prompt.ask("[#71d5fb]status: [/]")
+    code, resp = AmfCall(
             server,
             "MovieStarPlanet.WebService.AMFActorService.SetMoodWithModerationCall",
             [ticketHeader(anyAttribute=None, ticket=ticket),
@@ -144,25 +141,24 @@ def custom_status(server, ticket, actorId, name, dialog):
                  "FigureAnimation": "stand", "MouthAnimation": "none", "TextLineLastFiltered": None,
                  "TextLineWhitelisted": None, "TextLine": status}, name, 0, False],
         )
-        if code == 500:
-            QtWidgets.QMessageBox.critical(dialog, "Error", "FAILED | Unexpected Error")
-        else:
-            QtWidgets.QMessageBox.information(dialog, "Success", "SUCCESS | Status changed")
+    if code == 500:
+        console.print("FAILED | Unexpected Error")
+    else:
+        console.print("SUCCESS | Status changed")
 
-def recycle_items(server, ticket, actorId, dialog):
-    relid, ok = QtWidgets.QInputDialog.getText(dialog, "Recycle Items", "Enter item ID:")
-    if ok:
-        code, resp = AmfCall(
+def recycle_items(server, ticket, actorId):
+    relid = Prompt.ask("[#71d5fb]item ID: [/]")
+    code, resp = AmfCall(
             server,
             "MovieStarPlanet.WebService.Profile.AMFProfileService.RecycleItem",
             [ticketHeader(anyAttribute=None, ticket=ticket), actorId, int(relid),0]
         )
-        if code == 500:
-            QtWidgets.QMessageBox.critical(dialog, "Error", "FAILED | Unexpected Error")
-        else:
-            QtWidgets.QMessageBox.information(dialog, "Success", "SUCCESS | Recycled item")
+    if code == 500:
+        console.print("FAILED | Unexpected Error")
+    else:
+        console.print("SUCCESS | Recycled item")
 
-def wheel_spins(server, ticket, actorId, dialog):
+def wheel_spins(server, ticket, actorId):
     total_amount = 0
 
     for _ in range(4):
@@ -205,70 +201,69 @@ def wheel_spins(server, ticket, actorId, dialog):
             if isinstance(amount, int):
                 total_amount += amount
 
-    QtWidgets.QMessageBox.information(dialog, "Success", f"{total_amount} starcoins have been added to your account")
+    console.print(f"SUCCESS | {total_amount} starcoins have been added to your account")
 
-def msp_query(server, ticket, actorId, dialog):
-    qusername, ok = QtWidgets.QInputDialog.getText(dialog, "Query", "Enter username:")
-    if ok:
-        code, resp = AmfCall(
+def msp_query(server, ticket, actorId):
+    qusername = Prompt.ask("[#71d5fb]username: [/]")
+    code, resp = AmfCall(
             server,
             "MovieStarPlanet.WebService.UserSession.AMFUserSessionService.GetActorIdFromName",
             [qusername]
         )
 
-        if resp == -1:
-            QtWidgets.QMessageBox.critical(dialog, "Error", "FAILED | The account doesn't exist or has been deleted")
-            return
+    if resp == -1:
+        console.print("FAILED | The account doesn't exist or has been deleted")
+        return
 
-        if code != 200:
-            QtWidgets.QMessageBox.critical(dialog, "Error", "FAILED | Unexpected Error")
-            return
+    if code != 200:
+        console.print("FAILED | Unexpected Error")
+        return
 
-        if isinstance(resp, int):
-            actor_id = resp
-        else:
-            actor_id = resp.get("Content")
+    if isinstance(resp, int):
+        actor_id = resp
+    else:
+        actor_id = resp.get("Content")
 
-        code, resp = AmfCall(
+    code, resp = AmfCall(
             server,
             "MovieStarPlanet.WebService.Profile.AMFProfileService.LoadProfileSummary",
             [ticketHeader(anyAttribute=None, ticket=ticket), actor_id, actorId]
         )
-        createdate = resp.get('Created')
+    createdate = resp.get('Created')
 
-        code, resp = AmfCall(
+    code, resp = AmfCall(
             server,
             "MovieStarPlanet.WebService.AMFActorService.LoadMovieStarListRevised",
             [ticketHeader(anyAttribute=None, ticket=ticket), [actor_id]]
         )
 
-        if code != 200:
-            QtWidgets.QMessageBox.critical(dialog, "Error", "FAILED | Unexpected Error")
-            return
+    if code != 200:
+        console.print("FAILED | Unexpected Error")
+        return
 
-        actor_info = resp[0]
+    actor_info = resp[0]
 
-        nebulaProfileId = actor_info['NebulaProfileId']
-        actorId2 = actor_info['ActorId']
-        username = actor_info['Name']
-        level = actor_info['Level']
-        fame = int(actor_info['Fame'])
-        starcoins = actor_info['Money']
-        diamonds = actor_info['Diamonds']
-        skinColor = actor_info['SkinColor']
-        eyeId = actor_info['EyeId']
-        eyeColors = actor_info['EyeColors']
-        noseId = actor_info['NoseId']
-        mouthId = actor_info['MouthId']
-        mouthColors = actor_info['MouthColors']
-        membershiptimeoutdate = actor_info['MembershipTimeoutDate']
-        LastLogin = actor_info['LastLogin']
+    nebulaProfileId = actor_info['NebulaProfileId']
+    actorId2 = actor_info['ActorId']
+    username = actor_info['Name']
+    level = actor_info['Level']
+    fame = int(actor_info['Fame'])
+    starcoins = actor_info['Money']
+    diamonds = actor_info['Diamonds']
+    skinColor = actor_info['SkinColor']
+    eyeId = actor_info['EyeId']
+    eyeColors = actor_info['EyeColors']
+    noseId = actor_info['NoseId']
+    mouthId = actor_info['MouthId']
+    mouthColors = actor_info['MouthColors']
+    membershiptimeoutdate = actor_info['MembershipTimeoutDate']
+    LastLogin = actor_info['LastLogin']
 
-        md = membershiptimeoutdate.strftime("%Y-%m-%d %H:%M:%S")
+    md = membershiptimeoutdate.strftime("%Y-%m-%d %H:%M:%S")
 
-        llg = createdate.strftime("%Y-%m-%d %H:%M:%S")
+    llg = createdate.strftime("%Y-%m-%d %H:%M:%S")
 
-        info_message = (f"{username}'s Information\n"
+    info_message = (f"{username}'s Information\n"
                         f"ActorId: {actorId2}\n"
                         f"NebulaProfileId: {nebulaProfileId}\n"
                         f"Username: {username}\n"
@@ -286,4 +281,4 @@ def msp_query(server, ticket, actorId, dialog):
                         f"MembershipTimeoutDate: {md}\n"
                         f"LastLogin: {LastLogin}")
 
-        QtWidgets.QMessageBox.information(dialog, "Account Information", info_message)
+    console.print("Account Information", info_message)
