@@ -287,7 +287,7 @@ def msp_query(server, ticket, actorId):
     console.print("Account Information", info_message)
 
 
-def lisa_sc(server, ticket, actorId):
+def lisa(server, ticket, actorId):
     total_amount_sc = 0
     total_amount_fame = 0
     wheel_spins(server, ticket, actorId)

@@ -7,7 +7,7 @@ import sys
 
 VERSION_ = "https://raw.githubusercontent.com/r-h-y/star/main/msptool/version.txt"
 RELEASE_ = "https://github.com/r-h-y/star/releases/download/v{version}/mt2.exe"
-CURRENT_VERSION = "2024.4.1.3"
+CURRENT_VERSION = "2024.4.1.4"
 
 
 def check_version(status_label):
@@ -50,7 +50,7 @@ Home = [
     (8, "Recycler Anything (Diamond items, clothes etc)"),
     (9, "Wheel Spins"),
     (10, "Query"),
-    (11, "lisa sc"),
+    (11, "lisa's (sc & fame gen)"),
     (12, "Logout")
 ]
 
