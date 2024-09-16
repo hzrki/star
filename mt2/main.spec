@@ -7,8 +7,7 @@ a = Analysis(
     pathex=[],
     binaries=[],
     datas=[
-        ('assets/icon.ico', 'assets'),
-        ('assets', 'assets'),
+        ('utils/icon.ico', 'assets'),
         ('utils', 'utils')
     ],
     hiddenimports=[],
@@ -41,5 +40,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='assets/icon.ico',
+    icon='utils/icon.ico',
 )
