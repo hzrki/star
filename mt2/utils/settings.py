@@ -1,6 +1,5 @@
 from enum import Enum
 from typing import Tuple, Dict
-from PyQt5 import QtWidgets, QtGui, QtCore
 from curl_cffi import requests
 import shutil
 import os
@@ -54,19 +53,6 @@ Home = [
     (11, "Logout")
 ]
 
-
-def load_avatar(avatar_url, label):
-    def load_image():
-        try:
-            image_data = requests.get(avatar_url).content
-            image = QtGui.QPixmap()
-            image.loadFromData(image_data)
-
-            label.setPixmap(image.scaled(300, 400, QtCore.Qt.KeepAspectRatio))
-        except requests.RequestException as e:
-            label.setText(f" Contact Developer if issue continues! ")
-
-    QtCore.QTimer.singleShot(0, load_image)
 
 class WebServer(Enum):
     UnitedKingdom = 1
