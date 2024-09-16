@@ -1,179 +1,195 @@
-import sys
+from rich.console import Console
+from rich.table import Table
+from rich.prompt import Prompt
+import time
 import os
-import zipfile
-from io import BytesIO
 from curl_cffi import requests
-from PyQt5 import QtWidgets, QtGui, QtCore
+import sys
+import shutil
 from utils.amf import AmfCall
-from utils.apis import buy_boonie, buy_animation, buy_clothes, buy_eyes, wear_rareskin, add_to_wishlist, custom_status, \
-    recycle_items, wheel_spins, msp_query
-from utils.settings import WebServer, Loc1, load_avatar, check_version
+from utils.apis import (buy_boonie, buy_animation, buy_clothes, buy_eyes,
+                        wear_rareskin, add_to_wishlist, custom_status,
+                        recycle_items, wheel_spins, msp_query)
+from utils.settings import WebServer, Loc1, Home, CURRENT_VERSION, VERSION_, RELEASE_
+
+console = Console()
+
+spt1 = """
+                                                   .=+**+-.                        
+                                                  =*######*-                       
+                                                 :###*--*###.                      
+                                           :--===*##*-  =###*===--.                
+                                         :*#########+   .+#########+:              
+                                        :*###======-.    .-=====+###*.             
+                                      .:=###*-.                :=###*.             
+                                 :-+**########*+:.          .-+####*:              
+                             .-+*################*         .*####+:                
+                           :+####################=          =###+                  
+                         -*#####################+.  .-**-.  .*###-                 
+                       :*#######################=:-+#####*+-.+###=                 
+                     .=###################*+=########*++*#######*.                 
+                    -*###################+:  .=+*#*+-.  .-+*#*+-.                  
+                  .=####################-                                          
+                 .+###################*:                                           
+                .+###################*:                                            
+               .*###################*:                                             
+              .+###################*-                                              
+              =####################=                                               
+             .*#*+-=##############*.                                               
+              ::. .+##############=                                                
+                  :*######*=#####*.                                                
+                  :######*: =####=                                                 
+                  -#####+.  .+###-                                                 
+                  -####=     .+**.                                                 
+                  :*#*:        ::                                                  
+                  .=+:                                                             
+"""
+
+def check_version():
+        resp = requests.get(VERSION_)
+        LATEST_ = resp.text.strip()
+        if LATEST_ != CURRENT_VERSION:
+            console.print(f"[bold yellow]A new version ({LATEST_}) is available! Downloading the update...[/]",
+                          style="bold yellow")
+            install_update(LATEST_)
+
+def install_update(version):
+    ep = RELEASE_.format(version=version)
+    try:
+        resp = requests.get(ep, stream=True)
+        resp.raise_for_status()
+
+        iu1 = "mt2_update.exe"
+
+        with open(iu1, "wb") as f:
+            for aaaa in resp.iter_content(chunk_size=8192):
+                f.write(aaaa)
+
+        console.print(f"[bold green]Update downloaded successfully![/]", style="bold green")
+        repl_exe(iu1)
+
+    except requests.RequestException as e:
+        console.print(f"[bold red] Failed | Contact Developer if issue continues! [/]", style="bold red")
+        exit()
 
 
-def assets_exists():
-    loc1 = './assets'
-    if not os.path.exists(loc1):
-        print("DEV | Assets folder not found. Downloading...")
-        loc2 = "https://github.com/r-h-y/star/archive/refs/heads/main.zip"
-        resp = requests.get(loc2)
-        if resp.status_code == 200:
-            with zipfile.ZipFile(BytesIO(resp.content)) as z:
-                loc3 = 'temp_assets'
-                z.extractall(loc3)
-                os.rename(os.path.join(loc3, 'star-main/mt2/assets'), loc1)
-                print("Assets downloaded and extracted successfully.")
-                for root, dirs, files in os.walk(loc3, topdown=False):
-                    for name in files:
-                        os.remove(os.path.join(root, name))
-                    for name in dirs:
-                        os.rmdir(os.path.join(root, name))
-                os.rmdir(loc3)
-        else:
-            print("DEV |Unexpected error")
-    else:
-        print("DEV |Assets folder already exists.")
+def repl_exe(latest_e):
+    current_ = sys.argv[0]
+    shutil.move(latest_e, current_)
+    console.print(f"[bold green]m2t updated successfully! Restarting...[/]", style="bold green")
+    os.execl(sys.executable, sys.executable, *sys.argv)
 
 
-def perform_login(server, username, password, status_label, window, layout):
-    status_label.setText("Logging in...")
-    code, resp = AmfCall(server, "MovieStarPlanet.WebService.User.AMFUserServiceWeb.Login",
-                         [username, password, [], None, None, "MSP1-Standalone:XXXXXX"])
+def login():
+    check_version()
 
-    logged_in = resp.get('loginStatus', {}).get('status')
-    locked_status = resp.get('loginStatus', {}).get('statusDetails')
+    while True:
+        console.clear()
+        console.print(spt1, style="bold white")
+        console.print("[#71d5fb]Star Project by ham & 6c0[/]", style="bold")
 
-    if logged_in == "InvalidCredentials":
-        status_label.setText("Invalid username or password")
-    elif locked_status == "LockPermanent":
-        status_label.setText("Your account is permanently locked")
-    elif logged_in == "Success":
-        status_label.setText(f"Success! Logged in as {username}")
-        actorId = resp['loginStatus']['actor']['ActorId']
-        name = resp["loginStatus"]["actor"]["Name"]
-        ticket = resp['loginStatus']['ticket']
-        accessToken = resp["loginStatus"]["nebulaLoginStatus"]["accessToken"]
-        profileId = resp["loginStatus"]["nebulaLoginStatus"]["profileId"]
+        serverMenu = Table(title="Select Server")
+        serverMenu.add_column("Options", style="bold cyan")
+        serverMenu.add_column("Server", style="bold cyan")
 
-        homeMenu(window, layout, server, ticket, name, actorId, accessToken, profileId)
-    else:
-        status_label.setText("Login failed. Please try again.")
+        for ws in WebServer:
+            serverMenu.add_row(str(ws.value), Loc1.loc3(ws)[0])
 
+        console.print(serverMenu)
 
-def homeMenu(window, layt_, server, ticket, name, actorId, accessToken, profileId):
-    for i in reversed(range(layt_.count())):
-        home_widget = layt_.itemAt(i).widget()
-        if home_widget is not None:
-            home_widget.deleteLater()
+        pickedServer = Prompt.ask("[#71d5fb]Enter server number: [/]")
 
-    home_ui = QtWidgets.QHBoxLayout()
-    layt_.addLayout(home_ui)
+        try:
+            chosenServer = WebServer(int(pickedServer))
+            server = Loc1.loc3(chosenServer)[1]
+        except ValueError:
+            console.print("choose a server that exists :)", style="bold red")
+            continue
+        except KeyError:
+            console.print("choose a server that exists :)", style="bold red")
+            continue
 
-    avatar_layout = QtWidgets.QVBoxLayout()
-    home_ui.addLayout(avatar_layout)
+        username = Prompt.ask("[#71d5fb]Enter username: [/]")
+        password = Prompt.ask("[#71d5fb]Enter password: [/]")
 
-    avatar_label = QtWidgets.QLabel(window)
-    avatar_url = f"https://snapshots.mspcdns.com/v1/MSP/{server}/snapshot/fullSizeMoviestar/{actorId}.jpg"
+        with console.status("[#71d5fb]Loading...[/]", spinner="star") as status:
+            time.sleep(15)
 
-    load_avatar(avatar_url, avatar_label)
-    avatar_layout.addWidget(avatar_label)
+        code, resp = AmfCall(server,
+                             "MovieStarPlanet.WebService.User.AMFUserServiceWeb.Login",
+                             [username, password, [], None, None, "MSP1-Standalone:XXXXXX"])
 
-    name_label = QtWidgets.QLabel(name, window)
-    name_label.setAlignment(QtCore.Qt.AlignCenter)
-    name_label.setStyleSheet("color: white;")
-    avatar_layout.addWidget(name_label)
+        logged_in = resp.get('loginStatus', {}).get('status')
+        locked_status = resp.get('loginStatus', {}).get('statusDetails')
 
-    btn_layout = QtWidgets.QGridLayout()
-    home_ui.addLayout(btn_layout)
+        if logged_in == "InvalidCredentials":
+            console.print(f"Failed | Invalid username or password [Click any key to return to login]", style="bold red")
+            Prompt.ask("Press Enter to try again...")
 
-    options = [
-        ("Buy Boonie", "./assets/boonie_icon.png", lambda: buy_boonie(server, ticket, actorId, window)),
-        ("Buy Animation", "./assets/animation_icon.png", lambda: buy_animation(server, ticket, actorId, window)),
-        ("Buy Clothes", "./assets/clothes_icon.png", lambda: buy_clothes(server, ticket, actorId, window)),
-        ("Buy Eyes", "./assets/eyes_icon.png", lambda: buy_eyes(server, ticket, actorId, window)),
-        ("Wear Rare Skin", "./assets/skin_icon.png", lambda: wear_rareskin(server, ticket, actorId, window)),
-        ("Add to Wishlist", "./assets/wishlist_icon.png", lambda: add_to_wishlist(server, ticket, window)),
-        ("Custom Status", "./assets/status_icon.png", lambda: custom_status(server, ticket, actorId, name, window)),
-        ("Recycle Items", "./assets/recycle_icon.png", lambda: recycle_items(server, ticket, actorId, window)),
-        ("Wheel Spins", "./assets/wheel_icon.png", lambda: wheel_spins(server, ticket, actorId, window)),
-        ("Query MSP", "./assets/query_icon.png", lambda: msp_query(server, ticket, actorId, window))
-    ]
+        elif locked_status == "LockPermanent":
+            console.print(f"Failed | Your account is permanently locked [Click any key to return to login]",
+                          style="bold red")
+            Prompt.ask("Press Enter to try again...")
 
-    for index, (option, icon_path, callback) in enumerate(options):
-        btn = QtWidgets.QPushButton(window)
-        btn.setIcon(QtGui.QIcon(icon_path))
-        btn.setIconSize(QtCore.QSize(80, 80))
-        btn.clicked.connect(callback)
+        elif logged_in == "Success":
+            console.print(f"Success | Logged in {username}! Press any key to continue...", style="bold green")
 
-        row = index // 2
-        col = index % 2
-        btn_layout.addWidget(btn, row, col)
-
-    logout_btn = QtWidgets.QPushButton("Logout", window)
-    logout_btn.clicked.connect(lambda: _init_(window, layt_))
-    layt_.addWidget(logout_btn)
+            actorId = resp['loginStatus']['actor']['ActorId']
+            name = resp["loginStatus"]["actor"]["Name"]
+            ticket = resp['loginStatus']['ticket']
+            accessToken = resp["loginStatus"]["nebulaLoginStatus"]["accessToken"]
+            profileId = resp["loginStatus"]["nebulaLoginStatus"]["profileId"]
+            homeMenu(server, ticket, name, actorId, accessToken, profileId)
+            break
 
 
-def login(window, layt_, status_label, srv_dd, usr_, pw_):
-    check_version(status_label)
-    username = usr_.text()
-    password = pw_.text()
-    selected_server = WebServer(srv_dd.currentIndex() + 1)
-    server = Loc1.loc3(selected_server)[1]
+def homeMenu(server, ticket, name, actorId, accessToken, profileId):
+    while True:
+        console.clear()
+        displayHome = Table(title="Menu Options")
+        displayHome.add_column("Options", style="bold cyan")
+        displayHome.add_column("Extensions", style="bold cyan")
 
-    status_label.setText("Logging in...")
-    QtCore.QTimer.singleShot(1500, lambda: perform_login(server, username, password, status_label, window, layt_))
+        for option, Extensions in Home:
+            displayHome.add_row(str(option), Extensions)
+        console.print(displayHome)
 
+        chosenop = Prompt.ask("[#71d5fb]Select an extension [/]")
 
-def _init_(window, layt_):
-    for i in reversed(range(layt_.count())):
-        home_widget = layt_.itemAt(i).widget()
-        if home_widget is not None:
-            home_widget.deleteLater()
+        try:
+            options = int(chosenop)
+            if 1 <= options <= 11:
+                if options == 1:
+                    buy_boonie(server, ticket, actorId)
+                if options == 2:
+                    buy_animation(server, ticket, actorId)
+                if options == 3:
+                    buy_clothes(server, ticket, actorId)
+                if options == 4:
+                    buy_eyes(server, ticket, actorId)
+                if options == 5:
+                    wear_rareskin(server, ticket, actorId)
+                if options == 6:
+                    add_to_wishlist(server, ticket)
+                if options == 7:
+                    custom_status(server, ticket, actorId, name)
+                if options == 8:
+                    recycle_items(server, ticket, actorId)
+                if options == 9:
+                    wheel_spins(server, ticket, actorId)
+                if options == 10:
+                    msp_query(server, ticket, actorId)
+                elif options == 11:
+                    console.print("Logging out...", style="bold green")
+                    break
+            else:
+                console.print("Please type an existing extension : )", style="bold red")
+        except ValueError:
+            console.print("Please type an existing extension : )", style="bold red")
 
-    loc1 = QtGui.QPalette()
-    loc2 = QtGui.QPixmap("./assets/mt2_bg.png")
-    loc1.setBrush(QtGui.QPalette.Background, QtGui.QBrush(loc2))
-    central_widget.setPalette(loc1)
-    central_widget.setAutoFillBackground(True)
-
-    title_lbl = QtWidgets.QLabel("MT2", window)
-    title_lbl.setFont(QtGui.QFont("Arial", 16))
-    title_lbl.setAlignment(QtCore.Qt.AlignCenter)
-    title_lbl.setStyleSheet("color: white;")
-    layt_.addWidget(title_lbl)
-
-    usr_ = QtWidgets.QLineEdit(window)
-    usr_.setPlaceholderText("Enter username")
-    layt_.addWidget(usr_)
-
-    pw_ = QtWidgets.QLineEdit(window)
-    pw_.setPlaceholderText("Enter password")
-    pw_.setEchoMode(QtWidgets.QLineEdit.Password)
-    layt_.addWidget(pw_)
-
-    srv_dd = QtWidgets.QComboBox(window)
-    srv_dd.addItems([Loc1.loc3(ws)[0] for ws in WebServer])
-    layt_.addWidget(srv_dd)
-
-    login_btn = QtWidgets.QPushButton("Login", window)
-    login_btn.clicked.connect(
-        lambda: login(window, layt_, status_label, srv_dd, usr_, pw_))
-    layt_.addWidget(login_btn)
-
-    status_label = QtWidgets.QLabel("", window)
-    status_label.setStyleSheet("color: white;")
-    layt_.addWidget(status_label)
+        console.print("Press any key to return to home...", style="bold yellow")
+        Prompt.ask("")
 
 
 if __name__ == "__main__":
-    assets_exists()
-    app = QtWidgets.QApplication(sys.argv)
-    window = QtWidgets.QMainWindow()
-    window.setWindowTitle("MT2")
-    window.setFixedSize(400, 500)
-    central_widget = QtWidgets.QWidget(window)
-    window.setCentralWidget(central_widget)
-    layt_ = QtWidgets.QVBoxLayout(central_widget)
-    _init_(window, layt_)
-    window.show()
-    sys.exit(app.exec_())
+    login()

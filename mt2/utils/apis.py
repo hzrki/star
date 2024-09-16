@@ -1,11 +1,13 @@
-from PyQt5 import QtWidgets, QtCore
+from rich import Console
+from rich.prompt import Prompt
 from utils.amf import AmfCall
 from utils.checksum import ticketHeader
+console = Console()
 
-def buy_boonie(server, ticket, actorId, dialog):
-    boonie_id, ok = QtWidgets.QInputDialog.getText(dialog, "Buy Boonie", "Enter Boonie ID:")
-    if ok:
-        code, resp = AmfCall(
+
+def buy_boonie(server, actorId, ticket):
+    boonie_id = Prompt.ask("[#71d5fb]Boonie ID: [/]")
+    code, resp = AmfCall(
             server,
             "MovieStarPlanet.WebService.Pets.AMFPetService.BuyClickItem",
             [
@@ -14,15 +16,14 @@ def buy_boonie(server, ticket, actorId, dialog):
                 int(boonie_id)
             ],
         )
-        if code == 500:
-            QtWidgets.QMessageBox.critical(dialog, "Error", "FAILED | BoonieId not found")
-        else:
-            QtWidgets.QMessageBox.information(dialog, "Success", "SUCCESS | Boonie bought!")
+    if code == 500:
+        console.print("FAILED | BoonieId not found")
+    else:
+        console.print("SUCCESS | Boonie bought!")
 
-def buy_animation(server, ticket, actorId, dialog):
-    animation_id, ok = QtWidgets.QInputDialog.getText(dialog, "Buy Animation", "Enter Animation ID:")
-    if ok:
-        code, resp = AmfCall(
+def buy_animation(server, ticket, actorId):
+    animation_id = Prompt.ask("[#71d5fb]Animation ID: [/]")
+    code, resp = AmfCall(
             server,
             "MovieStarPlanet.WebService.Spending.AMFSpendingService.BuyAnimation",
             [
@@ -31,20 +32,18 @@ def buy_animation(server, ticket, actorId, dialog):
                 int(animation_id)
             ],
         )
-        description = resp.get('Description', '')
+    description = resp.get('Description', '')
+    if code == 500:
+        console.print("FAILED | AnimationId was not found")
+    elif description:
+        console.print(f"FAILED | {description}")
+    else:
+        console.print("SUCCESS | Animation bought!")
 
-        if code == 500:
-            QtWidgets.QMessageBox.critical(dialog, "Error", "FAILED | AnimationId was not found")
-        elif description:
-            QtWidgets.QMessageBox.critical(dialog, "Error", f"FAILED | {description}")
-        else:
-            QtWidgets.QMessageBox.information(dialog, "Success", "SUCCESS | Animation bought!")
-
-def buy_clothes(server, ticket, actorId, dialog):
-    rare_id, ok1 = QtWidgets.QInputDialog.getText(dialog, "Buy Clothes", "Enter Clothes ID:")
-    color, ok2 = QtWidgets.QInputDialog.getText(dialog, "Buy Clothes", "Enter Color:")
-    if ok1 and ok2:
-        code, resp = AmfCall(
+def buy_clothes(server, ticket, actorId):
+    rare_id = Prompt.ask("[#71d5fb]Clothes ID: [/]")
+    color = Prompt.ask("[#71d5fb]Colors: [/]")
+    code, resp = AmfCall(
             server,
             "MovieStarPlanet.WebService.AMFSpendingService.BuyClothes",
             [
@@ -60,20 +59,19 @@ def buy_clothes(server, ticket, actorId, dialog):
                 0
             ],
         )
-        description = resp.get('Description', '')
+    description = resp.get('Description', '')
 
-        if code != 200:
-            QtWidgets.QMessageBox.critical(dialog, "Error", "FAILED | Not allowed to spawn item")
-        elif description:
-            QtWidgets.QMessageBox.critical(dialog, "Error", f"FAILED | {description}")
-        else:
-            QtWidgets.QMessageBox.information(dialog, "Success", "SUCCESS | Clothing item bought!")
+    if code != 200:
+        console.print("FAILED | Not allowed to spawn item")
+    elif description:
+        console.print(f"FAILED | {description}")
+    else:
+        console.print("SUCCESS | Clothing item bought!")
 
-def buy_eyes(server, ticket, actorId, dialog):
-    eye_id, ok1 = QtWidgets.QInputDialog.getText(dialog, "Buy Eyes", "Enter Eye ID:")
-    eye_colors, ok2 = QtWidgets.QInputDialog.getText(dialog, "Buy Eyes", "Enter Eye Colors:")
-    if ok1 and ok2:
-        code, resp = AmfCall(
+def buy_eyes(server, ticket, actorId):
+    eye_id = console.print("Eye ID: ")
+    eye_colors  = console.print("Eye Colors: ")
+    code, resp = AmfCall(
             server,
             "MovieStarPlanet.WebService.BeautyClinic.AMFBeautyClinicService.BuyManyBeautyClinicItems",
             [
@@ -87,10 +85,10 @@ def buy_eyes(server, ticket, actorId, dialog):
                     "Type": 1}]
             ]
         )
-        if code == 500:
-            QtWidgets.QMessageBox.critical(dialog, "Error", "FAILED | Unexpected Error")
-        else:
-            QtWidgets.QMessageBox.information(dialog, "Success", "SUCCESS | Changed Eyes")
+    if code == 500:
+        console.print("FAILED | Unexpected Error")
+    else:
+        console.print("SUCCESS | Changed Eyes")
 
 def wear_rareskin(server, ticket, actorId, dialog):
     skin_color, ok = QtWidgets.QInputDialog.getText(dialog, "Wear Rare Skin", "Enter skin color:")
