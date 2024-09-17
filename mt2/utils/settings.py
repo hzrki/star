@@ -75,22 +75,22 @@ class WebServer(Enum):
 
 class Loc1:
     loc2: Dict[WebServer, Tuple[str, str]] = {
-        WebServer.UnitedKingdom: ("United Kingdom", "GB"),
-        WebServer.UnitedStates: ("United States", "US"),
-        WebServer.Türkiye: ("Türkiye", "TR"),
-        WebServer.Sweden: ("Sweden", "SE"),
-        WebServer.France: ("France", "FR"),
-        WebServer.Deutschland: ("Deutschland", "DE"),
-        WebServer.Netherlands: ("Netherlands", "NL"),
-        WebServer.Finland: ("Finland", "FI"),
-        WebServer.Norway: ("Norway", "NO"),
-        WebServer.Denmark: ("Denmark", "DK"),
-        WebServer.Canada: ("Canada", "CA"),
-        WebServer.Australia: ("Australia", "AU"),
-        WebServer.Poland: ("Poland", "PL"),
-        WebServer.NewZealand: ("New Zealand", "NZ"),
-        WebServer.Ireland: ("Ireland", "IE"),
-        WebServer.Spain: ("Spain", "ES")
+        WebServer.UnitedKingdom: ("United Kingdom", "gb"),
+        WebServer.UnitedStates: ("United States", "us"),
+        WebServer.Türkiye: ("Türkiye", "tr"),
+        WebServer.Sweden: ("Sweden", "se"),
+        WebServer.France: ("France", "fr"),
+        WebServer.Deutschland: ("Deutschland", "de"),
+        WebServer.Netherlands: ("Netherlands", "nl"),
+        WebServer.Finland: ("Finland", "fi"),
+        WebServer.Norway: ("Norway", "no"),
+        WebServer.Denmark: ("Denmark", "dk"),
+        WebServer.Canada: ("Canada", "ca"),
+        WebServer.Australia: ("Australia", "au"),
+        WebServer.Poland: ("Poland", "pl"),
+        WebServer.NewZealand: ("New Zealand", "nz"),
+        WebServer.Ireland: ("Ireland", "ie"),
+        WebServer.Spain: ("Spain", "es")
     }
 
     @staticmethod
