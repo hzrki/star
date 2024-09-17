@@ -22,7 +22,7 @@ spt1 = """
                                          :*#########+   .+#########+:              
                                         :*###======-.    .-=====+###*.             
                                       .:=###*-.                :=###*.             
-                                 :-+**########*+:.          .-+####*:              
+                                 :-+**########*+:.          .-+####*:             
                              .-+*################*         .*####+:                
                            :+####################=          =###+                  
                          -*#####################+.  .-**-.  .*###-                 
@@ -36,22 +36,22 @@ spt1 = """
               .+###################*-                                              
               =####################=                                               
              .*#*+-=##############*.                                               
-              ::. .+##############=                                                
-                  :*######*=#####*.                                                
-                  :######*: =####=                                                 
-                  -#####+.  .+###-                                                 
-                  -####=     .+**.                                                 
+              ::. .+##############=                                                 
+                  :*######*=#####*.                                                 
+                  :######*: =####=                                                  
+                  -#####+.  .+###-                                                  
+                  -####=     .+**.                                                  
                   :*#*:        ::                                                  
                   .=+:                                                             
 """
 
 def check_version():
-        resp = requests.get(VERSION_)
-        LATEST_ = resp.text.strip()
-        if LATEST_ != CURRENT_VERSION:
-            console.print(f"[bold yellow]A new version ({LATEST_}) is available! Downloading the update...[/]",
-                          style="bold yellow")
-            install_update(LATEST_)
+    resp = requests.get(VERSION_)
+    LATEST_ = resp.text.strip()
+    if LATEST_ != CURRENT_VERSION:
+        console.print(f"[bold yellow]A new version ({LATEST_}) is available! Downloading the update...[/]",
+                      style="bold yellow")
+        install_update(LATEST_)
 
 def install_update(version):
     ep = RELEASE_.format(version=version)
@@ -72,13 +72,11 @@ def install_update(version):
         console.print(f"[bold red] Failed | Contact Developer if issue continues! [/]", style="bold red")
         exit()
 
-
 def repl_exe(latest_e):
     current_ = sys.argv[0]
     shutil.move(latest_e, current_)
     console.print(f"[bold green]m2t updated successfully! Restarting...[/]", style="bold green")
     os.execl(sys.executable, sys.executable, *sys.argv)
-
 
 def login():
     check_version()
@@ -87,6 +85,19 @@ def login():
         console.clear()
         console.print(spt1, style="bold white")
         console.print("[#71d5fb]Star Project by ham & 6c0[/]", style="bold")
+
+        username = Prompt.ask("[#71d5fb]Enter username: [/]")
+
+        console.clear()
+        console.print(spt1, style="bold white")
+        console.print("[#71d5fb]Star Project by ham & 6c0[/]", style="bold")
+
+        password = Prompt.ask("[#71d5fb]Enter password: [/]")
+
+        console.clear()
+        console.print(spt1, style="bold white")
+        console.print("[#71d5fb]Star Project by ham & 6c0[/]", style="bold")
+
 
         serverMenu = Table(title="Select Server")
         serverMenu.add_column("Options", style="bold cyan")
@@ -109,9 +120,6 @@ def login():
             console.print("choose a server that exists :)", style="bold red")
             continue
 
-        username = Prompt.ask("[#71d5fb]Enter username: [/]")
-        password = Prompt.ask("[#71d5fb]Enter password: [/]")
-
         with console.status("[#71d5fb]Loading...[/]", spinner="star") as status:
             time.sleep(15)
 
@@ -132,20 +140,27 @@ def login():
             Prompt.ask("Press Enter to try again...")
 
         elif logged_in == "Success":
-            console.print(f"Success | Logged in {username}! Press any key to continue...", style="bold green")
-
             actorId = resp['loginStatus']['actor']['ActorId']
             name = resp["loginStatus"]["actor"]["Name"]
             ticket = resp['loginStatus']['ticket']
             accessToken = resp["loginStatus"]["nebulaLoginStatus"]["accessToken"]
             profileId = resp["loginStatus"]["nebulaLoginStatus"]["profileId"]
-            homeMenu(server, ticket, name, actorId, accessToken, profileId)
+
+            level = resp["loginStatus"]["actor"]["Level"]
+            starcoins = resp["loginStatus"]["actor"]["Money"]
+            diamonds = resp["loginStatus"]["actor"]["Diamonds"]
+
+
+            homeMenu(server, ticket, name, actorId, accessToken, profileId, level, starcoins, diamonds)
             break
 
-
-def homeMenu(server, ticket, name, actorId, accessToken, profileId):
+def homeMenu(server, ticket, name, actorId, accessToken, profileId, level, starcoins, diamonds):
     while True:
         console.clear()
+        console.print(spt1, style="bold white")
+        console.print(f"[#71d5fb]msptool {CURRENT_VERSION}[/]", style="bold")
+        console.print(f"[#71d5fb]Basic Info | Username: {name} | level: {level} | SC: {starcoins} | Diamonds: {diamonds}", style="bold green")
+
         displayHome = Table(title="Menu Options")
         displayHome.add_column("Options", style="bold cyan")
         displayHome.add_column("Extensions", style="bold cyan")
@@ -183,7 +198,7 @@ def homeMenu(server, ticket, name, actorId, accessToken, profileId):
                     lisa(server, ticket, actorId)
                 elif options == 12:
                     console.print("Logging out...", style="bold green")
-                    break
+                    return
             else:
                 console.print("Please type an existing extension : )", style="bold red")
         except ValueError:
@@ -192,6 +207,6 @@ def homeMenu(server, ticket, name, actorId, accessToken, profileId):
         console.print("Press any key to return to home...", style="bold yellow")
         Prompt.ask("")
 
-
 if __name__ == "__main__":
-    login()
+    while True:
+        login()
