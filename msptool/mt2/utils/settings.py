@@ -7,7 +7,7 @@ import sys
 
 VERSION_ = "https://raw.githubusercontent.com/r-h-y/star/main/msptool/version.txt"
 RELEASE_ = "https://github.com/r-h-y/star/releases/download/v{version}/mt2.exe"
-CURRENT_VERSION = "2.1"
+CURRENT_VERSION = "2.1.1"
 
 
 def check_version(status_label):
@@ -51,7 +51,9 @@ Home = [
     (9, "Wheel Spins"),
     (10, "Query"),
     (11, "lisa's (sc & fame gen)"),
-    (12, "Logout")
+    (12, "Soft-Banned Animations"),
+    (13, "ChatBan Unlocker"),
+    (14, "Logout")
 ]
 
 

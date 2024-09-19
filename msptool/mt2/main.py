@@ -9,7 +9,7 @@ import shutil
 from utils.amf import AmfCall
 from utils.apis import (buy_boonie, buy_animation, buy_clothes, buy_eyes,
                         wear_rareskin, add_to_wishlist, custom_status,
-                        recycle_items, wheel_spins, msp_query, lisa)
+                        recycle_items, wheel_spins, msp_query, lisa, chatban_unlocker, banned_animations)
 from utils.settings import WebServer, Loc1, Home, CURRENT_VERSION, VERSION_, RELEASE_
 
 console = Console()
@@ -173,7 +173,7 @@ def homeMenu(server, ticket, name, actorId, accessToken, profileId, level, starc
 
         try:
             options = int(chosenop)
-            if 1 <= options <= 12:
+            if 1 <= options <= 14:
                 if options == 1:
                     buy_boonie(server, ticket, actorId)
                 if options == 2:
@@ -196,7 +196,11 @@ def homeMenu(server, ticket, name, actorId, accessToken, profileId, level, starc
                     msp_query(server, ticket, actorId)
                 if options == 11:
                     lisa(server, ticket, actorId)
-                elif options == 12:
+                if options == 12:
+                    banned_animations()
+                if options == 13:
+                    chatban_unlocker()
+                elif options == 14:
                     console.print("Logging out...", style="bold green")
                     return
             else:

@@ -4,8 +4,7 @@ from utils.amf import AmfCall
 from utils.checksum import ticketHeader
 console = Console()
 import time
-
-
+import pymem
 
 def buy_boonie(server, ticket, actorId):
     with console.status("[#71d5fb]Loading BoonieIds...[/]", spinner="star") as status:
@@ -373,3 +372,75 @@ def lisa(server, ticket, actorId):
             )
 
     return total_amount_sc, total_amount_fame
+
+def chatban_unlocker():
+    try:
+        pm = pymem.Pymem("ml.exe")
+        loc1 = b'\x75\x6E\x70\x65\x72\x6D\x69\x74\x74\x65\x64'
+        loc2 = b'\x70\x65\x72\x6D\x69\x74\x74\x65\x64'
+
+        for loc3 in pymem.pattern.pattern_scan_all(pm.process_handle, loc1, return_multiple=True):
+            pm.write_bytes(loc3, loc2, len(loc2))
+
+        console.print("Chatban has been unlocked", style="bold green")
+
+    except Exception as e:
+        console.print("ERROR!", style="bold red")
+
+def banned_animations():
+        banimations = {
+            1: "Rifle Hunter",
+            2: "Blood on the Floor",
+            3: "Chainsaw",
+            4: "Bazooka",
+            5: "Double Fuck",
+            6: "Meat Cleaver",
+            7: "Gun Pose",
+            8: "Gun From Purse",
+            9: "Throw Grenade",
+            10: "Faar hugget hovedet",
+            11: "Kravler",
+            12: "tank modern",
+            13: "kroseksplotion"
+        }
+
+        console.print("Select an animation by number:")
+        for num, animation in banimations.items():
+            console.print(f"[bold cyan]{num}: {animation}[/]")
+
+        try:
+            choice = int(Prompt.ask("Enter animation to soft: "))
+            loc1 = banimations.get(choice)
+
+            if not loc1:
+                console.print("Please type an existing animation : )", style="bold red")
+                return
+            animation_map = {
+                "Rifle Hunter": (b"Layingonside", b"Rifle Hunter"),
+                "Blood on the Floor": (b"cloud_2018_smallharp_mf", b"blood_on_the_dancefloor"),
+                "Chainsaw": (b"callme00", b"chainsaw"),
+                "Bazooka": (b"teacher", b"bazooka"),
+                "Double Fuck": (b"zombiewalk", b"double_fuck"),
+                "Meat Cleaver": (b"fashinweek_2012_fallover2_mf", b"halloween_2011_meatcleaver_mf"),
+                "Gun Pose": (b"rock_on", b"gunpose"),
+                "Gun From Purse": (b"magic carpet", b"gunfrompurse"),
+                "Throw Grenade": (b"knockonscren", b"throw grende"),
+                "Faar hugget hovedet": (b"jetse_2012_trolley_mf", b"faar_hugget_hovedet_af"),
+                "Kravler": (b"teacher", b"kravler"),
+                "tank modern": (b"kickoff_2012_bootit_mf", b"acion_2011_tankmodern"),
+                "kroseksplotion": (b"superhero_hover", b"kropseksplotion")
+            }
+
+            loc2, loc3 = animation_map.get(loc1, (b"", b""))
+
+            pm = pymem.Pymem("ml.exe")
+
+            if loc2 and loc3:
+                for loc4 in pymem.pattern.pattern_scan_all(pm.process_handle, loc2, return_multiple=True):
+                    pm.write_bytes(loc4, loc3, len(loc3))
+                console.print(f"[bold green]{loc3.decode()} has been added to your animations[/]", style="bold green")
+            else:
+                console.print("ERROR!", style="bold red")
+
+        except ValueError:
+            console.print("Please type an existing animation : )", style="bold red")
