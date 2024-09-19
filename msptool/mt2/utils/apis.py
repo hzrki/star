@@ -8,6 +8,21 @@ import time
 
 
 def buy_boonie(server, ticket, actorId):
+    with console.status("[#71d5fb]Loading BoonieIds...[/]", spinner="star") as status:
+        time.sleep(5)
+
+    code, resp = AmfCall(
+        server,
+        "MovieStarPlanet.WebService.Pets.AMFPetService.GetClickItems",
+        [ticketHeader(anyAttribute=None, ticket=ticket)],
+    )
+    for boonies in range(len(resp)):
+        ia = resp[boonies]
+        boonie_ids = ia.get("ClickItemId")
+        boonie_names = ia.get("Name")
+        price = ia.get("Price")
+        console.print(f"[#71d5fb]BoonieId: {boonie_ids} | Name: {boonie_names} | Price: {price}")
+
     boonie_id = Prompt.ask("[#71d5fb]Enter Boonie ID: [/]")
 
     code, resp = AmfCall(
@@ -19,6 +34,28 @@ def buy_boonie(server, ticket, actorId):
             int(boonie_id)
         ],
     )
+
+    code, resp = AmfCall(
+        server,
+        "MovieStarPlanet.WebService.Pets.AMFPetService.GetClickItemsForActor",
+        [
+            ticketHeader(anyAttribute=None, ticket=ticket),
+            actorId,
+        ],
+    )
+    actorBoonieRelid = resp[-1]["ActorClickItemRelId"]
+
+    for _ in range(5):
+        code, resp = AmfCall(
+        server,
+        "MovieStarPlanet.WebService.Pets.AMFPetService.FeedPet",
+        [
+            ticketHeader(anyAttribute=None, ticket=ticket),
+            int(actorBoonieRelid),
+            2
+        ],
+    )
+
     if code != 200:
         console.print("FAILED | BoonieId not found", style="bold red")
     else:

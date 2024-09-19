@@ -84,19 +84,19 @@ def login():
     while True:
         console.clear()
         console.print(spt1, style="bold white")
-        console.print("[#71d5fb]Star Project by ham & 6c0[/]", style="bold")
+        console.print("[#71d5fb]MspTool by ham & 6c0[/]", style="bold")
 
         username = Prompt.ask("[#71d5fb]Enter username: [/]")
 
         console.clear()
         console.print(spt1, style="bold white")
-        console.print("[#71d5fb]Star Project by ham & 6c0[/]", style="bold")
+        console.print("[#71d5fb]MspTool by ham & 6c0[/]", style="bold")
 
         password = Prompt.ask("[#71d5fb]Enter password: [/]")
 
         console.clear()
         console.print(spt1, style="bold white")
-        console.print("[#71d5fb]Star Project by ham & 6c0[/]", style="bold")
+        console.print("[#71d5fb]MspTool by ham & 6c0[/]", style="bold")
 
 
         serverMenu = Table(title="Select Server")
