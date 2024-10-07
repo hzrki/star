@@ -5,8 +5,8 @@ import shutil
 import os
 import sys
 
-VERSION_ = "https://raw.githubusercontent.com/r-h-y/star/main/msptool/version.txt"
-RELEASE_ = "https://github.com/r-h-y/star/releases/download/v{version}/mt2.exe"
+VERSION_ = "https://raw.githubusercontent.com/hzrki/star/main/msptool/version.txt"
+RELEASE_ = "https://github.com/hzrki/star/releases/download/v{version}/mt2.exe"
 CURRENT_VERSION = "2.1.1"
 
 
