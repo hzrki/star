@@ -1,1 +1,1 @@
-0.0 (MspTool/Mt2 is no more & has been discontinued)
+0 (We regret to inform you that MSPTool/MT2 has reached its end of life and has been officially discontinued. Effective immediately, the tool will no longer be available or supported)
